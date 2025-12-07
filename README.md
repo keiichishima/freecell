@@ -1,6 +1,6 @@
-# Freecell
+This repository is unmaintained. [See Thomas Okken's fork for more recent updates](https://git.sr.ht/~thomasokken/freecell).
 
-[Freecell for Mac OS X—download here](https://github.com/alisdair/freecell/releases).
+# Freecell
 
 ![Screenshot of Freecell](http://i.imgur.com/C0eGcRj.png)
 
