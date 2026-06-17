@@ -35,7 +35,7 @@
 #import "HistoryController.h"
 #import "CardView.h"
 
-@interface GameController : NSObject
+@interface GameController : NSObject <NSMenuItemValidation>
 {
     IBOutlet GameView       *view;
     IBOutlet NSWindow       *window;

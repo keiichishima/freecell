@@ -405,11 +405,9 @@ makeMove:
 
 - (void) doubleClickedTableLocation: (TableLocation *) source
 {
-    Card *card;
     unsigned i;
 
     [self G_setMove: [TableMove moveFromSource: source]];
-    card = [table firstCardAtLocation: source];
 
     for (i = 0; i < NUMBER_OF_FREE_CELLS; i++)
     {
