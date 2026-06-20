@@ -27,7 +27,7 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#import <AppKit/NSStringDrawing.h>
+#import <AppKit/AppKit.h>
 #import "CardView.h"
 
 @implementation CardView
