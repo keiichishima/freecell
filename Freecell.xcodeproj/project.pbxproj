@@ -78,12 +78,13 @@
 		823589022FE3BA46007160ED /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		823589032FE3BA46007160ED /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		823589042FE3BA46007160ED /* fi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fi; path = fi.lproj/Help; sourceTree = "<group>"; };
-		823589082FE3ECCA007160ED /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		823589092FE3ECE1007160ED /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		8235890A2FE3ECEC007160ED /* fi */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fi; path = fi.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		8235890B2FE3ECF7007160ED /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		8235890C2FE3ECFF007160ED /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		8235890D2FE4D5C3007160ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		82C2282D2FE6571600C5F4F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		82C2282E2FE6573000C5F4F2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		82C2282F2FE6573800C5F4F2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		82C228302FE6574200C5F4F2 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		82C228312FE6574900C5F4F2 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		82C228322FE6575200C5F4F2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		F241643C07C7A06B002C0965 /* bonded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bonded.png; path = Cards/bonded.png; sourceTree = "<group>"; };
 		F24508A204BB163A00664F50 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GameController.h; sourceTree = "<group>"; };
 		F24508A304BB163A00664F50 /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
@@ -384,12 +385,13 @@
 		823589052FE3EC89007160ED /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				823589082FE3ECCA007160ED /* fr */,
-				823589092FE3ECE1007160ED /* es */,
-				8235890A2FE3ECEC007160ED /* fi */,
-				8235890B2FE3ECF7007160ED /* ja */,
-				8235890C2FE3ECFF007160ED /* nl */,
 				8235890D2FE4D5C3007160ED /* Base */,
+				82C2282D2FE6571600C5F4F2 /* en */,
+				82C2282E2FE6573000C5F4F2 /* nl */,
+				82C2282F2FE6573800C5F4F2 /* ja */,
+				82C228302FE6574200C5F4F2 /* fi */,
+				82C228312FE6574900C5F4F2 /* es */,
+				82C228322FE6575200C5F4F2 /* fr */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
