@@ -17,7 +17,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="78" y="186" width="650" height="596"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1410"/>
             <value key="minSize" type="size" width="130.191" height="100"/>
             <value key="maxSize" type="size" width="1500" height="1000"/>
             <view key="contentView" id="2">
@@ -235,7 +235,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="211" y="282" width="259" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1410"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="206">
                 <rect key="frame" x="0.0" y="0.0" width="259" height="107"/>
@@ -305,7 +305,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="136" y="245" width="498" height="396"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1410"/>
             <value key="minSize" type="size" width="498" height="350"/>
             <view key="contentView" id="232">
                 <rect key="frame" x="0.0" y="0.0" width="498" height="396"/>
@@ -319,7 +319,7 @@ Gw
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" multipleSelection="NO" autosaveColumns="NO" headerView="458" id="234">
-                                    <rect key="frame" x="0.0" y="0.0" width="450" height="199"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="451" height="199"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -370,7 +370,7 @@ Gw
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </tableColumn>
-                                        <tableColumn identifier="duration" editable="NO" width="71.5" minWidth="30.533000946044922" maxWidth="1000" id="250">
+                                        <tableColumn identifier="duration" editable="NO" width="72" minWidth="30.533000946044922" maxWidth="1000" id="250">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Duration">
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -381,7 +381,7 @@ Gw
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </tableColumn>
-                                        <tableColumn identifier="date" editable="NO" width="132.5" minWidth="63.275001525878906" maxWidth="1000" id="273">
+                                        <tableColumn identifier="date" editable="NO" width="133" minWidth="63.275001525878906" maxWidth="1000" id="273">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Last Played">
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -408,7 +408,7 @@ Gw
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="458">
-                            <rect key="frame" x="0.0" y="0.0" width="450" height="28"/>
+                            <rect key="frame" x="0.0" y="0.0" width="451" height="28"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
@@ -510,7 +510,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="193" y="287" width="281" height="156"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1410"/>
             <value key="minSize" type="size" width="281" height="156"/>
             <value key="maxSize" type="size" width="281" height="156"/>
             <view key="contentView" id="354">
