@@ -39,6 +39,7 @@
     NSImage         *placeholder;
     NSImage         *selectedPlaceholder;
     NSSize          cardSize;
+    NSMutableDictionary *svgCache;
 }
 
 + cardView;
@@ -46,6 +47,9 @@
 - (void) drawBlanks;
 - (void) drawCards;
 - (void) drawSelectedCards;
+- (NSImage *) svgImageForCard: (Card *) card;
+- (NSString *) svgFilenameForCard: (Card *) card;
+- (void) setCardSize: (NSSize) newSize;
 
 - (NSImage *) imageForCard: (Card *) card selected: (BOOL) isSelected;
 - (NSSize) size;
