@@ -32,21 +32,12 @@
 
 @interface CardView : NSObject
 {
-    NSDictionary    *cards;
-    NSDictionary    *selectedCards;
-    NSImage         *blank;
-    NSImage         *selectedBlank;
-    NSImage         *placeholder;
-    NSImage         *selectedPlaceholder;
     NSSize          cardSize;
     NSMutableDictionary *svgCache;
 }
 
 + cardView;
 - init;
-- (void) drawBlanks;
-- (void) drawCards;
-- (void) drawSelectedCards;
 - (NSImage *) svgImageForCard: (Card *) card;
 - (NSString *) svgFilenameForCard: (Card *) card;
 - (void) setCardSize: (NSSize) newSize;
