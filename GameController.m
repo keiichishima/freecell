@@ -169,10 +169,12 @@
     [game setHint];
     if ([game hint])
     {
-        [view display];
-        sleep(1);
-        [game setHint: nil];
-        [view display];
+        [view setNeedsDisplay: YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC),
+                       dispatch_get_main_queue(), ^{
+            [game setHint: nil];
+            [view setNeedsDisplay: YES];
+        });
     }
 }
 
@@ -208,7 +210,7 @@
     {
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText: NSLocalizedString(@"newGameTitle", @"New game sheet title")];
-        [alert setInformativeText: NSLocalizedString(@"newGameText", "New game sheet text")];
+        [alert setInformativeText: NSLocalizedString(@"newGameText", @"New game sheet text")];
         [alert addButtonWithTitle: NSLocalizedString(@"newGameButton", @"New game button")];
         [alert addButtonWithTitle: NSLocalizedString(@"cancelButton", @"Cancel button")];
         [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
