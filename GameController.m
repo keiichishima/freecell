@@ -76,13 +76,15 @@
         return YES;
     }
 
-    NSBeginAlertSheet(NSLocalizedString(@"closeTitle", @"windowShouldClose sheet title"),
-                      NSLocalizedString(@"closeButton", @"Close button"),
-                      NSLocalizedString(@"cancelButton", @"Cancel button"),
-                      nil, window, self,
-                      @selector(windowCloseSheetDidEnd:returnCode:contextInfo:),
-                      NULL, NULL,
-                      NSLocalizedString(@"closeText", @"windowShouldClose sheet text"));
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setMessageText: NSLocalizedString(@"closeTitle", @"windowShouldClose sheet title")];
+    [alert setInformativeText: NSLocalizedString(@"closeText", @"windowShouldClose sheet text")];
+    [alert addButtonWithTitle: NSLocalizedString(@"closeButton", @"Close button")];
+    [alert addButtonWithTitle: NSLocalizedString(@"cancelButton", @"Cancel button")];
+    [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSAlertFirstButtonReturn)
+            [window close];
+    }];
 
     return NO;
 }
@@ -92,13 +94,15 @@
     if ([game inProgress] == NO)
         return NSTerminateNow;
 
-    NSBeginAlertSheet(NSLocalizedString(@"closeTitle", @"windowShouldClose sheet title"),
-                      NSLocalizedString(@"closeButton", @"Close button"),
-                      NSLocalizedString(@"cancelButton", @"Cancel button"),
-                      nil, window, self,
-                      @selector(applicationTerminateSheetDidEnd:returnCode:contextInfo:),
-                      NULL, NULL,
-                      NSLocalizedString(@"closeText", @"windowShouldClose sheet text"));
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setMessageText: NSLocalizedString(@"closeTitle", @"windowShouldClose sheet title")];
+    [alert setInformativeText: NSLocalizedString(@"closeText", @"windowShouldClose sheet text")];
+    [alert addButtonWithTitle: NSLocalizedString(@"closeButton", @"Close button")];
+    [alert addButtonWithTitle: NSLocalizedString(@"cancelButton", @"Cancel button")];
+    [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
+        [window close];
+        [NSApp replyToApplicationShouldTerminate: (returnCode == NSAlertFirstButtonReturn)];
+    }];
 
     return NSTerminateLater;
 }
@@ -201,13 +205,20 @@
     }
 
     if ([game inProgress] == YES)
-        NSBeginAlertSheet(NSLocalizedString(@"newGameTitle", @"New game sheet title"),
-                          NSLocalizedString(@"newGameButton", @"New game button"),
-                          NSLocalizedString(@"cancelButton", @"Cancel button"),
-                          nil, window, self,
-                          @selector(startGameSheetDidEnd:returnCode:contextInfo:),
-                          NULL, NULL,
-                          NSLocalizedString(@"newGameText", "New game sheet text"));
+    {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText: NSLocalizedString(@"newGameTitle", @"New game sheet title")];
+        [alert setInformativeText: NSLocalizedString(@"newGameText", "New game sheet text")];
+        [alert addButtonWithTitle: NSLocalizedString(@"newGameButton", @"New game button")];
+        [alert addButtonWithTitle: NSLocalizedString(@"cancelButton", @"Cancel button")];
+        [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
+            if (returnCode == NSAlertFirstButtonReturn)
+            {
+                [self setGame: nil];
+                [self GC_startGame];
+            }
+        }];
+    }
     else
     {
         NSNumber *gameNumber = [NSNumber numberWithDouble: [gameNumberField doubleValue]];
@@ -230,51 +241,7 @@
     }
 }
 
-// Sheet handlers
-//
 
-- (void) startGameSheetDidEnd: (NSWindow *) sheet returnCode: (int) returnCode
-                  contextInfo: (void *) contextInfo
-{
-    if (returnCode == NSAlertDefaultReturn)
-    {
-        [self setGame: nil];
-        [self GC_startGame];
-    }
-}
-
-- (void) windowCloseSheetDidEnd: (NSWindow *) sheet returnCode: (int) returnCode
-                        contextInfo: (void *) contextInfo
-{
-    if (returnCode == NSAlertDefaultReturn)
-        [window close];
-}
-
-- (void) applicationTerminateSheetDidEnd: (NSWindow *) sheet returnCode: (int) returnCode
-                             contextInfo: (void *) contextInfo
-{
-    if (returnCode == NSAlertDefaultReturn)
-        [window close];
-    [NSApp replyToApplicationShouldTerminate: (returnCode == NSAlertDefaultReturn)];
-}
-
-- (void) gameWonSheetDidEnd: (NSWindow *) sheet returnCode: (int) returnCode
-                contextInfo: (void *) contextInfo
-{
-    if (returnCode == NSAlertAlternateReturn)
-        [history openWindow: self];
-    if (returnCode == NSAlertOtherReturn)
-        [self newGame: self];
-}
-
-- (void) gameLostSheetDidEnd: (NSWindow *) sheet returnCode: (int) returnCode
-                 contextInfo: (void *) contextInfo
-{
-    if (returnCode == NSAlertAlternateReturn)
-        [self retryGame: self];
-    if (returnCode == NSAlertOtherReturn)
-        [self newGame: self];
-}
 
 // Timer stuff
 //
@@ -358,9 +325,7 @@
 - (void) gameOver
 {
     NSString *title, *defaultButton, *alternateButton, *message;
-    SEL selector;
     Result *result = [game result];
-    NSUInteger moves = [game moves];
 
     [timer fire];
     
@@ -373,7 +338,6 @@
         defaultButton = NSLocalizedString(@"wonDefaultButton", @"Won sheet default button");
         alternateButton = NSLocalizedString(@"showHistoryButton", @"Show history button");
         message = NSLocalizedString(@"wonText", @"Won sheet text");
-        selector = @selector(gameWonSheetDidEnd:returnCode:contextInfo:);
     }
     else if ([result isEqual: [Result resultWithLoss]])
     {
@@ -381,7 +345,6 @@
         defaultButton = NSLocalizedString(@"lostDefaultButton", @"Lost sheet default button");
         alternateButton = NSLocalizedString(@"retryGameButton", @"Retry game button");
         message = NSLocalizedString(@"lostText", @"Lost sheet text");
-        selector = @selector(gameLostSheetDidEnd:returnCode:contextInfo:);
     }
     else
     {
@@ -389,9 +352,31 @@
     }
     [self recordGame];
 
-    NSBeginAlertSheet(title, defaultButton, alternateButton,
-                      NSLocalizedString(@"newGameButton", @"New game button"),
-                      window, self, selector, NULL, NULL, message, moves);
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setMessageText: title];
+    [alert setInformativeText: message];
+    [alert addButtonWithTitle: defaultButton];
+    [alert addButtonWithTitle: alternateButton];
+    [alert addButtonWithTitle: NSLocalizedString(@"newGameButton", @"New game button")];
+    
+    if ([result isEqual: [Result resultWithWin]])
+    {
+        [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
+            if (returnCode == NSAlertFirstButtonReturn)
+                [history openWindow: self];
+            if (returnCode == NSAlertThirdButtonReturn)
+                [self newGame: self];
+        }];
+    }
+    else if ([result isEqual: [Result resultWithLoss]])
+    {
+        [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
+            if (returnCode == NSAlertFirstButtonReturn)
+                [self retryGame: self];
+            if (returnCode == NSAlertThirdButtonReturn)
+                [self newGame: self];
+        }];
+    }
 }
 
 @end
