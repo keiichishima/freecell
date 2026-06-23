@@ -38,6 +38,13 @@ retryGameButton = "もう一度挑戦";
 /* Lost sheet text */
 lostText = "もう動かせるカードがありません。%u手であなたの負けです。";
 
+/* Clear history sheet title */
+clearTitle = "履歴を削除";
+/* Clear history button */
+clearButton = "履歴をすべて削除";
+/* Clear history sheet text */
+clearText = "ゲーム履歴を削除してもよろしいですか?";
+
 
 /*
  * Miscellaneous

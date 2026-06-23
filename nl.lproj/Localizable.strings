@@ -38,6 +38,13 @@ retryGameButton = "Speel het spel opnieuw";
 /* Lost sheet text */
 lostText = "Er zijn geen geldige zetten meer mogelijk. U heeft verloren na %u zetten!";
 
+/* Clear history sheet title */
+clearTitle = "Geschiedenis verwijderen";
+/* Clear history button */
+clearButton = "Volledige geschiedenis verwijderen";
+/* Clear history sheet text */
+clearText = "Weet u zeker dat u uw spelgeschiedenis wilt verwijderen?";
+
 
 /*
  * Miscellaneous

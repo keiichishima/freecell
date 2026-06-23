@@ -38,6 +38,13 @@ retryGameButton = "Intentar Nuevamente";
 /* Lost sheet text */
 lostText = "No hay movidas válidas. Perdiste con %u movidas!";
 
+/* Clear history sheet title */
+clearTitle = "Eliminar historial";
+/* Clear history button */
+clearButton = "Eliminar todo el historial";
+/* Clear history sheet text */
+clearText = "¿Seguro que quieres eliminar tu historial de partidas?";
+
 
 /*
  * Miscellaneous

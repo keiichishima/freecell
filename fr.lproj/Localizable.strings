@@ -38,6 +38,13 @@ retryGameButton = "Réessayer";
 /* Lost sheet text */
 lostText = "Il n'y a plus de déplacement valide. Vous avez perdu après %u déplacements!";
 
+/* Clear history sheet title */
+clearTitle = "Supprimer l'historique";
+/* Clear history button */
+clearButton = "Supprimer tout l'historique";
+/* Clear history sheet text */
+clearText = "Voulez-vous vraiment supprimer votre historique de parties ?";
+
 
 /*
  * Miscellaneous

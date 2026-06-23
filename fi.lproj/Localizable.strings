@@ -38,6 +38,13 @@ retryGameButton = "Pelaa uudelleen";
 /* Lost sheet text */
 lostText = "Mahdollisia siirtoja ei ole enää jäljellä. Hävisit %u siirron jälkeen!";
 
+/* Clear history sheet title */
+clearTitle = "Poista historia";
+/* Clear history button */
+clearButton = "Poista koko historia";
+/* Clear history sheet text */
+clearText = "Haluatko varmasti poistaa pelihistoriasi?";
+
 
 /*
  * Miscellaneous
