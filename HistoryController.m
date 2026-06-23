@@ -169,16 +169,13 @@
     [alert addButtonWithTitle: NSLocalizedString(@"clearButton", @"Clear history button")];
     [alert setMessageText: NSLocalizedString(@"clearTitle", @"Clear history sheet title")];
     [alert setInformativeText: NSLocalizedString(@"clearText", @"Clear history sheet text")];
-    [alert setAlertStyle: NSWarningAlertStyle];
-    [alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(clearSheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
-}
-
-- (void) clearSheetDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-    if (returnCode == NSAlertSecondButtonReturn) {
-        [history clear];
-        [self HC_updateWindow];
-    }
+    [alert setAlertStyle: NSAlertStyleWarning];
+    [alert beginSheetModalForWindow: window completionHandler: ^(NSModalResponse returnCode) {
+        if (returnCode == NSAlertSecondButtonReturn) {
+            [history clear];
+            [self HC_updateWindow];
+        }
+    }];
 }
 
 - (IBAction) openWindow: (id) sender
