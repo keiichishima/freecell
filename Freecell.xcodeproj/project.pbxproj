@@ -82,7 +82,6 @@
 		F29D0D45158CE03A0050A6FA /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = F2F17F5C04E07FD4003ED142 /* Credits.html */; };
 		F29D0D46158CE03A0050A6FA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F2BD40BD04E06C960098C7F4 /* Localizable.strings */; };
 		F29D0D47158CE03A0050A6FA /* Help in Resources */ = {isa = PBXBuildFile; fileRef = F2C630BD04E07BDA00926905 /* Help */; };
-		F29D0D48158CE03A0050A6FA /* bonded.png in Resources */ = {isa = PBXBuildFile; fileRef = F241643C07C7A06B002C0965 /* bonded.png */; };
 		F29D0D4A158CE03A0050A6FA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		F29D0D4B158CE03A0050A6FA /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2CD26A504B477F30003D579 /* GameView.m */; };
 		F29D0D4C158CE03A0050A6FA /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = F2CBECB104B4D1890052BE5F /* Game.m */; };
@@ -193,7 +192,6 @@
 		82C228EC2FE6D91000C5F4F2 /* queen_of_hearts.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = queen_of_hearts.svg; path = Cards/queen_of_hearts.svg; sourceTree = "<group>"; };
 		82C228ED2FE6D91000C5F4F2 /* queen_of_spades.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = queen_of_spades.svg; path = Cards/queen_of_spades.svg; sourceTree = "<group>"; };
 		82C228EE2FE6D91000C5F4F2 /* red_joker.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = red_joker.svg; path = Cards/red_joker.svg; sourceTree = "<group>"; };
-		F241643C07C7A06B002C0965 /* bonded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bonded.png; path = Cards/bonded.png; sourceTree = "<group>"; };
 		F24508A204BB163A00664F50 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GameController.h; sourceTree = "<group>"; };
 		F24508A304BB163A00664F50 /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
 		F265026604BF76F50099FD16 /* TableMove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableMove.h; sourceTree = "<group>"; };
@@ -344,7 +342,6 @@
 		F263A24604DB34FB00922A1B /* Cards */ = {
 			isa = PBXGroup;
 			children = (
-				F241643C07C7A06B002C0965 /* bonded.png */,
 				82C228B92FE6D91000C5F4F2 /* 2_of_clubs.svg */,
 				82C228BA2FE6D91000C5F4F2 /* 2_of_diamonds.svg */,
 				82C228BB2FE6D91000C5F4F2 /* 2_of_hearts.svg */,
@@ -490,7 +487,6 @@
 				F29D0D45158CE03A0050A6FA /* Credits.html in Resources */,
 				F29D0D46158CE03A0050A6FA /* Localizable.strings in Resources */,
 				F29D0D47158CE03A0050A6FA /* Help in Resources */,
-				F29D0D48158CE03A0050A6FA /* bonded.png in Resources */,
 				823589072FE3EC89007160ED /* MainMenu.xib in Resources */,
 				82C228FC2FE6D91000C5F4F2 /* black_joker.svg in Resources */,
 				82C228FD2FE6D91000C5F4F2 /* red_joker.svg in Resources */,
