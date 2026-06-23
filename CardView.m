@@ -93,14 +93,15 @@
 - (NSImage *) imageForCard: (Card *) card selected: (BOOL) isSelected
 {
     return [NSImage imageWithSize:cardSize flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
-         // 1. draw background
+        // 1. draw background with rounded corners
         [[NSColor whiteColor] set];
-        [NSBezierPath fillRect:dstRect];
+        NSBezierPath *cardPath = [NSBezierPath bezierPathWithRoundedRect:dstRect xRadius:8 yRadius:8];
+        [cardPath fill];
         
         // 2. draw card image
         if (card != nil) {
             NSImage *svgImage = [self svgImageForCard:card];
-            [svgImage drawInRect:dstRect
+            [svgImage drawInRect:NSMakeRect(1, 1, dstRect.size.width - 2, dstRect.size.height - 2)
                         fromRect:NSZeroRect
                        operation:NSCompositingOperationSourceOver
                         fraction:1.0];
@@ -109,12 +110,14 @@
         // 3. draw overlay image when selected
         if (isSelected) {
             [[NSColor colorWithDeviceRed:0.5 green:0.5 blue:0.5 alpha:0.3] set];
-            [NSBezierPath fillRect:dstRect];
+            NSBezierPath *overlayPath = [NSBezierPath bezierPathWithRoundedRect:dstRect xRadius:8 yRadius:8];
+            [overlayPath fill];
         }
         
-        // 4. draw surrounding lines
+        // 4. draw surrounding lines with rounded corners
         [[NSColor blackColor] set];
-        [NSBezierPath strokeRect:NSMakeRect(0.5, 0.5, dstRect.size.width - 1, dstRect.size.height - 1)];
+        NSBezierPath *borderPath = [NSBezierPath bezierPathWithRoundedRect:NSMakeRect(0.5, 0.5, dstRect.size.width - 1, dstRect.size.height - 1) xRadius:8 yRadius:8];
+        [borderPath stroke];
         
         return YES;
     }];
