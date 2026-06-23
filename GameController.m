@@ -364,7 +364,7 @@
     if ([result isEqual: [Result resultWithWin]])
     {
         [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
-            if (returnCode == NSAlertFirstButtonReturn)
+            if (returnCode == NSAlertSecondButtonReturn)
                 [history openWindow: self];
             if (returnCode == NSAlertThirdButtonReturn)
                 [self newGame: self];
@@ -373,7 +373,7 @@
     else if ([result isEqual: [Result resultWithLoss]])
     {
         [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
-            if (returnCode == NSAlertFirstButtonReturn)
+            if (returnCode == NSAlertSecondButtonReturn)
                 [self retryGame: self];
             if (returnCode == NSAlertThirdButtonReturn)
                 [self newGame: self];
