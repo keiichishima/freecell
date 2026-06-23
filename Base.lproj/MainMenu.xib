@@ -302,6 +302,7 @@ Gw
                     </textField>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="139" y="597"/>
         </window>
         <window title="Freecell History" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="history" animationBehavior="default" id="231" userLabel="HistoryWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
@@ -318,7 +319,7 @@ Gw
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="4Is-sJ-N22">
                             <rect key="frame" x="1" y="1" width="439" height="227"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" multipleSelection="NO" autosaveColumns="NO" headerView="458" id="234">
                                     <rect key="frame" x="0.0" y="0.0" width="451" height="199"/>
@@ -409,13 +410,13 @@ Gw
                             <rect key="frame" x="440" y="29" width="17" height="199"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <tableHeaderView key="headerView" id="458">
+                        <tableHeaderView key="headerView" wantsLayer="YES" id="458">
                             <rect key="frame" x="0.0" y="0.0" width="451" height="28"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="237">
-                        <rect key="frame" x="199" y="359" width="49" height="17"/>
+                        <rect key="frame" x="176" y="359" width="72" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Played:" id="433">
                             <font key="font" metaFont="system"/>
@@ -424,7 +425,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="247">
-                        <rect key="frame" x="199" y="334" width="49" height="17"/>
+                        <rect key="frame" x="176" y="334" width="72" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Won:" id="434">
                             <font key="font" metaFont="system"/>
@@ -433,7 +434,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="248">
-                        <rect key="frame" x="199" y="309" width="49" height="17"/>
+                        <rect key="frame" x="176" y="309" width="72" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Lost:" id="435">
                             <font key="font" metaFont="system"/>
@@ -495,6 +496,7 @@ DQ
                     </button>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="-573" y="177"/>
         </window>
         <customObject id="286" userLabel="HistoryController" customClass="HistoryController">
             <connections>
@@ -574,6 +576,7 @@ Gw
                     </textField>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="-408" y="576"/>
         </window>
         <customObject id="359" userLabel="PreferencesController" customClass="PreferencesController">
             <connections>
