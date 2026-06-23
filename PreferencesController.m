@@ -52,7 +52,6 @@
         NSColor *colour = [NSUnarchiver unarchiveObjectWithData: data];
         [backgroundColour setColor: colour];
     }
-    [defaults synchronize];
 }
 
 - (IBAction) openWindow: (id) sender
@@ -64,14 +63,12 @@
 {
     NSNumber *state = [NSNumber numberWithBool: [autoStack state] == NSOnState];
     [defaults setObject: state forKey: @"gameAutoStack"];
-    [defaults synchronize];
 }
 
 - (IBAction) superMoveClicked: (id) sender
 {
     NSNumber *state = [NSNumber numberWithBool: [superMove state] == NSOnState];
     [defaults setObject: state forKey: @"gameSuperMove"];
-    [defaults synchronize];
 }
 
 
@@ -79,7 +76,6 @@
 {
     NSColor *colour = [backgroundColour color];
     [defaults setObject: [NSArchiver archivedDataWithRootObject: colour] forKey: @"backgroundColour"];
-    [defaults synchronize];
     [gameView setBackgroundColour: colour];
 }
 

@@ -99,7 +99,6 @@
 
     [defaults setObject: sortColumn forKey: @"historySortColumn"];
     [defaults setObject: [NSNumber numberWithBool: sortDescending] forKey: @"historySortDescending"];
-    [defaults synchronize];
 }
 
 // Private methods

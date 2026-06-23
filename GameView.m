@@ -57,7 +57,6 @@
         data = [defaults dataForKey: @"backgroundColour"];
         if (data)
             colour = [NSUnarchiver unarchiveObjectWithData: data];
-        [defaults synchronize];
 
         // And set the coloour
         [self setBackgroundColour: colour];
