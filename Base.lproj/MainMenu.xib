@@ -18,7 +18,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="78" y="186" width="650" height="596"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1410"/>
             <value key="minSize" type="size" width="130.191" height="100"/>
             <value key="maxSize" type="size" width="1500" height="1000"/>
             <view key="contentView" id="2">
@@ -220,7 +220,7 @@
                     </menu>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-4" y="531"/>
+            <point key="canvasLocation" x="-186" y="750"/>
         </menu>
         <customObject id="198" userLabel="GameController" customClass="GameController">
             <connections>
@@ -237,7 +237,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="211" y="282" width="259" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1410"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="206">
                 <rect key="frame" x="0.0" y="0.0" width="259" height="107"/>
@@ -308,7 +308,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="136" y="245" width="498" height="396"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1410"/>
             <value key="minSize" type="size" width="498" height="350"/>
             <view key="contentView" id="232">
                 <rect key="frame" x="0.0" y="0.0" width="498" height="396"/>
@@ -416,7 +416,7 @@ Gw
                         </tableHeaderView>
                     </scrollView>
                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="237">
-                        <rect key="frame" x="176" y="359" width="72" height="17"/>
+                        <rect key="frame" x="18" y="359" width="230" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Played:" id="433">
                             <font key="font" metaFont="system"/>
@@ -425,7 +425,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="247">
-                        <rect key="frame" x="176" y="334" width="72" height="17"/>
+                        <rect key="frame" x="18" y="334" width="230" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Won:" id="434">
                             <font key="font" metaFont="system"/>
@@ -434,7 +434,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="248">
-                        <rect key="frame" x="176" y="309" width="72" height="17"/>
+                        <rect key="frame" x="18" y="309" width="230" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Lost:" id="435">
                             <font key="font" metaFont="system"/>
@@ -513,16 +513,15 @@ DQ
         <window title="Freecell Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="preferences" animationBehavior="default" id="353" userLabel="PreferencesWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="193" y="287" width="281" height="156"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
-            <value key="minSize" type="size" width="281" height="156"/>
-            <value key="maxSize" type="size" width="281" height="156"/>
+            <rect key="contentRect" x="193" y="287" width="366" height="156"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1410"/>
+            <value key="minSize" type="size" width="366" height="156"/>
             <view key="contentView" id="354">
-                <rect key="frame" x="0.0" y="0.0" width="281" height="156"/>
+                <rect key="frame" x="0.0" y="0.0" width="366" height="156"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="355">
-                        <rect key="frame" x="18" y="120" width="245" height="18"/>
+                        <rect key="frame" x="18" y="120" width="328" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Automatically move cards to stacks" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="441">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -533,7 +532,7 @@ DQ
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="356">
-                        <rect key="frame" x="18" y="98" width="245" height="18"/>
+                        <rect key="frame" x="18" y="98" width="328" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Allow multiple-card moves" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="442">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -543,8 +542,25 @@ DQ
                             <action selector="superMoveClicked:" target="359" id="361"/>
                         </connections>
                     </button>
+                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="392">
+                        <rect key="frame" x="293" y="61" width="53" height="30"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <action selector="backgroundColourChosen:" target="359" id="395"/>
+                        </connections>
+                    </colorWell>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="393">
+                        <rect key="frame" x="17" y="67" width="270" height="17"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Game background colour:" id="444">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="367">
-                        <rect key="frame" x="192" y="12" width="75" height="32"/>
+                        <rect key="frame" x="271" y="20" width="75" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="443">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -557,26 +573,9 @@ Gw
                             <action selector="performClose:" target="353" id="368"/>
                         </connections>
                     </button>
-                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="392">
-                        <rect key="frame" x="203" y="60" width="53" height="30"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <connections>
-                            <action selector="backgroundColourChosen:" target="359" id="395"/>
-                        </connections>
-                    </colorWell>
-                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="393">
-                        <rect key="frame" x="17" y="67" width="168" height="17"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Game background colour:" id="444">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="-408" y="576"/>
+            <point key="canvasLocation" x="-451" y="576"/>
         </window>
         <customObject id="359" userLabel="PreferencesController" customClass="PreferencesController">
             <connections>
