@@ -11,7 +11,7 @@
 	<key>CFBundleHelpBookName</key>
 	<string>org.wasters.Freecell.help</string>
 	<key>CFBundleHelpBookFolder</key>
-	<string>Freecell.help/Contents/Resources</string>
+	<string>Freecell.help</string>
 	<key>CFBundleIconFile</key>
 	<string>Freecell.icns</string>
 	<key>CFBundleIdentifier</key>

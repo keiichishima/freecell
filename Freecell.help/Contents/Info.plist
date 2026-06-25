@@ -2,14 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleHelpBookName</key>
+	<string>org.wasters.Freecell.help</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.wasters.Freecell.help</string>
 	<key>CFBundleName</key>
-	<string>Freecell Help</string>
+	<string>Freecell</string>
 	<key>HPDBookTitle</key>
 	<string>Freecell Help</string>
 	<key>HPDBookIndexPath</key>
-	<string>index.html</string>
+	<string>Freecell.helpindex</string>
+	<key>HPDBookCSIndexPath</key>
+	<string>Freecell.cshelpindex</string>
 	<key>HPDBookType</key>
 	<string>3</string>
 </dict>
