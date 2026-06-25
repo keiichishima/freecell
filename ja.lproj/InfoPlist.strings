@@ -5,3 +5,4 @@ CFBundleGetInfoString = "フリーセル Copyright 2003–2019 Alisdair McDiarmi
 NSHumanReadableCopyright = "Copyright 2003–2019 Alisdair McDiarmid.";
 CFBundleHelpBookName = "Freecell Help";
 CFBundleHelpBookFolder = "Freecell.help";
+HPDBookAccessPath = "ja.lproj/Freecell.html";
