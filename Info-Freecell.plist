@@ -8,8 +8,10 @@
 	<string>Freecell</string>
 	<key>CFBundleGetInfoString</key>
 	<string>2.3.1</string>
+	<key>CFBundleHelpBookName</key>
+	<string>org.wasters.Freecell.help</string>
 	<key>CFBundleHelpBookFolder</key>
-	<string>Help</string>
+	<string>Freecell.help/Contents/Resources</string>
 	<key>CFBundleIconFile</key>
 	<string>Freecell.icns</string>
 	<key>CFBundleIdentifier</key>
