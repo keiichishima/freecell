@@ -773,8 +773,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Info-Freecell.plist";
-				INFOPLIST_KEY_CFBundleHelpBookFolder = Help;
-				INFOPLIST_KEY_CFBundleHelpBookName = "Freecell Help";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
@@ -811,8 +809,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Info-Freecell.plist";
-				INFOPLIST_KEY_CFBundleHelpBookFolder = Help;
-				INFOPLIST_KEY_CFBundleHelpBookName = "Freecell Help";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
@@ -848,8 +844,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Info-Freecell.plist";
-				INFOPLIST_KEY_CFBundleHelpBookFolder = Help;
-				INFOPLIST_KEY_CFBundleHelpBookName = "Freecell Help";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
