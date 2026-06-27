@@ -64,6 +64,9 @@
 		82C2293B2FE6D91000C5F4F2 /* 6_of_clubs.svg in Resources */ = {isa = PBXBuildFile; fileRef = 82C228C92FE6D91000C5F4F2 /* 6_of_clubs.svg */; };
 		82C2293C2FE6D91000C5F4F2 /* 6_of_diamonds.svg in Resources */ = {isa = PBXBuildFile; fileRef = 82C228CA2FE6D91000C5F4F2 /* 6_of_diamonds.svg */; };
 		82C2293D2FE6D91000C5F4F2 /* jack_of_clubs.svg in Resources */ = {isa = PBXBuildFile; fileRef = 82C228E22FE6D91000C5F4F2 /* jack_of_clubs.svg */; };
+		82E5E7052FEF584000246FA7 /* HelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E5E7042FEF584000246FA7 /* HelpController.m */; };
+		82E5E7062FEF584000246FA7 /* HelpController.h in Headers */ = {isa = PBXBuildFile; fileRef = 82E5E7032FEF584000246FA7 /* HelpController.h */; };
+		82E5E7082FEF641000246FA7 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E5E7072FEF641000246FA7 /* WebKit.framework */; };
 		F29D0D33158CE03A0050A6FA /* Freecell_Prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = 32CA4F630368D1EE00C91783 /* Freecell_Prefix.h */; };
 		F29D0D34158CE03A0050A6FA /* GameView.h in Headers */ = {isa = PBXBuildFile; fileRef = F2CD26A404B477F30003D579 /* GameView.h */; };
 		F29D0D35158CE03A0050A6FA /* Table.h in Headers */ = {isa = PBXBuildFile; fileRef = F2B3C1C304B48990008FB189 /* Table.h */; };
@@ -187,6 +190,9 @@
 		82C228EC2FE6D91000C5F4F2 /* queen_of_hearts.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = queen_of_hearts.svg; path = Cards/queen_of_hearts.svg; sourceTree = "<group>"; };
 		82C228ED2FE6D91000C5F4F2 /* queen_of_spades.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = queen_of_spades.svg; path = Cards/queen_of_spades.svg; sourceTree = "<group>"; };
 		82C228EE2FE6D91000C5F4F2 /* red_joker.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = red_joker.svg; path = Cards/red_joker.svg; sourceTree = "<group>"; };
+		82E5E7032FEF584000246FA7 /* HelpController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpController.h; sourceTree = "<group>"; };
+		82E5E7042FEF584000246FA7 /* HelpController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpController.m; sourceTree = "<group>"; };
+		82E5E7072FEF641000246FA7 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		F24508A204BB163A00664F50 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GameController.h; sourceTree = "<group>"; };
 		F24508A304BB163A00664F50 /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
 		F265026604BF76F50099FD16 /* TableMove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableMove.h; sourceTree = "<group>"; };
@@ -223,6 +229,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82E5E7082FEF641000246FA7 /* WebKit.framework in Frameworks */,
 				F29D0D59158CE03A0050A6FA /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,6 +266,8 @@
 				F2B09ACA04DB2C7C00203F18 /* PreferencesController.m */,
 				F2B6AE4D07F5933000F80727 /* vccRand.c */,
 				F2B6AE4E07F5933000F80727 /* vccRand.h */,
+				82E5E7032FEF584000246FA7 /* HelpController.h */,
+				82E5E7042FEF584000246FA7 /* HelpController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -328,6 +337,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				82E5E7072FEF641000246FA7 /* WebKit.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -408,6 +418,7 @@
 				F29D0D36158CE03A0050A6FA /* Game.h in Headers */,
 				F29D0D37158CE03A0050A6FA /* CardView.h in Headers */,
 				F29D0D38158CE03A0050A6FA /* GameController.h in Headers */,
+				82E5E7062FEF584000246FA7 /* HelpController.h in Headers */,
 				F29D0D39158CE03A0050A6FA /* TableMove.h in Headers */,
 				F29D0D3A158CE03A0050A6FA /* TableLocation.h in Headers */,
 				F29D0D3B158CE03A0050A6FA /* History.h in Headers */,
@@ -548,6 +559,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F29D0D4A158CE03A0050A6FA /* main.m in Sources */,
+				82E5E7052FEF584000246FA7 /* HelpController.m in Sources */,
 				F29D0D4B158CE03A0050A6FA /* GameView.m in Sources */,
 				F29D0D4C158CE03A0050A6FA /* Game.m in Sources */,
 				F29D0D4D158CE03A0050A6FA /* Card.m in Sources */,
@@ -778,7 +790,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 2.3.1;
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wasters.Freecell;
 				PRODUCT_NAME = Freecell;
 				SECTORDER_FLAGS = "";
@@ -814,7 +825,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 2.3.1;
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wasters.Freecell;
 				PRODUCT_NAME = Freecell;
 				SECTORDER_FLAGS = "";
@@ -849,7 +859,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 2.3.1;
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wasters.Freecell;
 				PRODUCT_NAME = Freecell;
 				SECTORDER_FLAGS = "";

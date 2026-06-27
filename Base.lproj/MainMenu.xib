@@ -18,7 +18,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="78" y="186" width="650" height="596"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1410"/>
             <value key="minSize" type="size" width="130.191" height="100"/>
             <value key="maxSize" type="size" width="1500" height="1000"/>
             <view key="contentView" id="2">
@@ -213,7 +213,7 @@
                         <items>
                             <menuItem title="Freecell Help" keyEquivalent="?" id="111">
                                 <connections>
-                                    <action selector="showHelp:" target="-1" id="122"/>
+                                    <action selector="openWindow:" target="6O8-2A-HO4" id="Ps0-kj-O0p"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -237,7 +237,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="211" y="282" width="259" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1410"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="206">
                 <rect key="frame" x="0.0" y="0.0" width="259" height="107"/>
@@ -308,7 +308,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="136" y="245" width="498" height="396"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1410"/>
             <value key="minSize" type="size" width="498" height="350"/>
             <view key="contentView" id="232">
                 <rect key="frame" x="0.0" y="0.0" width="498" height="396"/>
@@ -514,7 +514,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="193" y="287" width="366" height="156"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1410"/>
             <value key="minSize" type="size" width="366" height="156"/>
             <view key="contentView" id="354">
                 <rect key="frame" x="0.0" y="0.0" width="366" height="156"/>
@@ -584,6 +584,22 @@ Gw
                 <outlet property="gameView" destination="197" id="389"/>
                 <outlet property="superMove" destination="356" id="364"/>
                 <outlet property="window" destination="353" id="366"/>
+            </connections>
+        </customObject>
+        <window title="Freecell Help" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="0Dj-51-qMQ">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="403" y="304" width="640" height="480"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1410"/>
+            <view key="contentView" id="T6t-av-kz7">
+                <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </view>
+            <point key="canvasLocation" x="849" y="84"/>
+        </window>
+        <customObject id="6O8-2A-HO4" userLabel="HelpController" customClass="HelpController">
+            <connections>
+                <outlet property="window" destination="0Dj-51-qMQ" id="96r-Ie-aDC"/>
             </connections>
         </customObject>
     </objects>
