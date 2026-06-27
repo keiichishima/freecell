@@ -182,6 +182,5 @@
 /* Class = "NSTextFieldCell"; title = "Game background colour:"; ObjectID = "444"; */
 "444.title" = "ゲームの背景色:";
 
-
-
-
+/* Class = "NSWindow""; title = "Freecell Help"; ObjectID = "0Dj-51-qMQ"; */
+"0Dj-51-qMQ.title" = "フリーセルのヘルプ";
