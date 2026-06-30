@@ -339,14 +339,14 @@
         title = NSLocalizedString(@"wonTitle", @"Won sheet title");
         defaultButton = NSLocalizedString(@"wonDefaultButton", @"Won sheet default button");
         alternateButton = NSLocalizedString(@"showHistoryButton", @"Show history button");
-        message = NSLocalizedString(@"wonText", @"Won sheet text");
+        message = [NSString stringWithFormat:NSLocalizedString(@"wonText", @"Won sheet text"), [game moves]];
     }
     else if ([result isEqual: [Result resultWithLoss]])
     {
         title = NSLocalizedString(@"lostTitle", @"Lost sheet title");
         defaultButton = NSLocalizedString(@"lostDefaultButton", @"Lost sheet default button");
         alternateButton = NSLocalizedString(@"retryGameButton", @"Retry game button");
-        message = NSLocalizedString(@"lostText", @"Lost sheet text");
+        message = [NSString stringWithFormat:NSLocalizedString(@"lostText", @"Lost sheet text"), [game moves]];
     }
     else
     {
