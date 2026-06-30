@@ -101,7 +101,10 @@
         // 2. draw card image
         if (card != nil) {
             NSImage *svgImage = [self svgImageForCard:card];
-            [svgImage drawInRect:NSMakeRect(1, 1, dstRect.size.width - 2, dstRect.size.height - 2)
+            CGFloat xmargin = dstRect.size.width * 0.02;
+            CGFloat ymargin = dstRect.size.height * 0.02;
+            NSRect innerRect = NSMakeRect(xmargin, ymargin, dstRect.size.width - xmargin * 2, dstRect.size.height - ymargin * 2);
+            [svgImage drawInRect:innerRect
                         fromRect:NSZeroRect
                        operation:NSCompositingOperationSourceOver
                         fraction:1.0];
