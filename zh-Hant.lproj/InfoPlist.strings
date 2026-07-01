@@ -1,0 +1,8 @@
+/* Localized versions of Info.plist keys */
+
+CFBundleName = "空當接龍";
+CFBundleGetInfoString = "空當接龍, Copyright 2003–2019 Alisdair McDiarmid.";
+NSHumanReadableCopyright = "Copyright 2003–2019 Alisdair McDiarmid.";
+CFBundleHelpBookName = "org.wasters.Freecell.help";
+CFBundleHelpBookFolder = "Freecell.help";
+HPDBookAccessPath = "en.lproj/Freecell.html";

@@ -1,0 +1,186 @@
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
+"5.title" = "全部移至最前";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
+"19.title" = "視窗";
+
+/* Class = "NSWindow"; title = "Freecell"; ObjectID = "21"; */
+"21.title" = "空當接龍";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "23"; */
+"23.title" = "最小化";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "24"; */
+"24.title" = "視窗";
+
+/* Class = "NSMenu"; title = "MainMenu"; ObjectID = "29"; */
+"29.title" = "MainMenu";
+
+/* Class = "NSMenuItem"; title = "Freecell"; ObjectID = "56"; */
+"56.title" = "空當接龍";
+
+/* Class = "NSMenu"; title = "Freecell"; ObjectID = "57"; */
+"57.title" = "空當接龍";
+
+/* Class = "NSMenuItem"; title = "About Freecell"; ObjectID = "58"; */
+"58.title" = "關於空當接龍";
+
+/* Class = "NSMenuItem"; title = "Close"; ObjectID = "73"; */
+"73.title" = "關閉";
+
+/* Class = "NSMenu"; title = "Game"; ObjectID = "81"; */
+"81.title" = "遊戲";
+
+/* Class = "NSMenuItem"; title = "New"; ObjectID = "82"; */
+"82.title" = "新增";
+
+/* Class = "NSMenuItem"; title = "Game"; ObjectID = "83"; */
+"83.title" = "遊戲";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "103"; */
+"103.title" = "說明";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "106"; */
+"106.title" = "說明";
+
+/* Class = "NSMenuItem"; title = "Freecell Help"; ObjectID = "111"; */
+"111.title" = "空當接龍說明";
+
+/* Class = "NSMenuItem"; title = "Preferences..."; ObjectID = "129"; */
+"129.title" = "偏好設定...";
+
+/* Class = "NSMenu"; title = "Services"; ObjectID = "130"; */
+"130.title" = "服務";
+
+/* Class = "NSMenuItem"; title = "Services"; ObjectID = "131"; */
+"131.title" = "服務";
+
+/* Class = "NSMenuItem"; title = "Hide Freecell"; ObjectID = "134"; */
+"134.title" = "隱藏空當接龍";
+
+/* Class = "NSMenuItem"; title = "Quit Freecell"; ObjectID = "136"; */
+"136.title" = "結束空當接龍";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "145"; */
+"145.title" = "隱藏其他";
+
+/* Class = "NSMenuItem"; title = "Show All"; ObjectID = "150"; */
+"150.title" = "顯示全部";
+
+/* Class = "NSMenuItem"; title = "Undo move"; ObjectID = "158"; */
+"158.title" = "還原移動";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "163"; */
+"163.title" = "編輯";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "169"; */
+"169.title" = "編輯";
+
+/* Class = "NSMenuItem"; title = "Redo move"; ObjectID = "173"; */
+"173.title" = "重做移動";
+
+/* Class = "NSMenuItem"; title = "Play number..."; ObjectID = "204"; */
+"204.title" = "按編號開始...";
+
+/* Class = "NSWindow"; title = "Play number"; ObjectID = "205"; */
+"205.title" = "按編號開始";
+
+/* Class = "NSMenuItem"; title = "Show hint"; ObjectID = "229"; */
+"229.title" = "顯示提示";
+
+/* Class = "NSWindow"; title = "Freecell History"; ObjectID = "231"; */
+"231.title" = "空當接龍歷史記錄";
+
+/* Class = "NSTableColumn"; headerCell.title = "Result"; ObjectID = "233"; */
+"233.headerCell.title" = "結果";
+
+/* Class = "NSTableColumn"; headerCell.title = "Game Number"; ObjectID = "236"; */
+"236.headerCell.title" = "遊戲編號";
+
+/* Class = "NSTableColumn"; headerCell.title = "Moves"; ObjectID = "249"; */
+"249.headerCell.title" = "移動次數";
+
+/* Class = "NSTableColumn"; headerCell.title = "Duration"; ObjectID = "250"; */
+"250.headerCell.title" = "耗時";
+
+/* Class = "NSMenuItem"; title = "History..."; ObjectID = "265"; */
+"265.title" = "歷史記錄...";
+
+/* Class = "NSTableColumn"; headerCell.title = "Last Played"; ObjectID = "273"; */
+"273.headerCell.title" = "上次遊玩";
+
+/* Class = "NSMenuItem"; title = "Retry"; ObjectID = "284"; */
+"284.title" = "重試";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "342"; */
+"342.title" = "刪除";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "343"; */
+"343.title" = "複製";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "344"; */
+"344.title" = "貼上";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "345"; */
+"345.title" = "全選";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "346"; */
+"346.title" = "剪下";
+
+/* Class = "NSWindow"; title = "Freecell Preferences"; ObjectID = "353"; */
+"353.title" = "空當接龍偏好設定";
+
+/* Class = "NSTextFieldCell"; title = "00:00:00 (best is 00:00:00)"; ObjectID = "427"; */
+"427.title" = "00:00:00（最佳為 00:00:00）";
+
+/* Class = "NSTextFieldCell"; title = "0 moves (best is 0)"; ObjectID = "428"; */
+"428.title" = "0 次移動（最佳為 0）";
+
+/* Class = "NSButtonCell"; title = "Play"; ObjectID = "429"; */
+"429.title" = "開始";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "430"; */
+"430.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Game number:"; ObjectID = "432"; */
+"432.title" = "遊戲編號：";
+
+/* Class = "NSTextFieldCell"; title = "Played:"; ObjectID = "433"; */
+"433.title" = "已玩：";
+
+/* Class = "NSTextFieldCell"; title = "Won:"; ObjectID = "434"; */
+"434.title" = "勝利：";
+
+/* Class = "NSTextFieldCell"; title = "Lost:"; ObjectID = "435"; */
+"435.title" = "失敗：";
+
+/* Class = "NSTextFieldCell"; title = "999"; ObjectID = "436"; */
+"436.title" = "999";
+
+/* Class = "NSTextFieldCell"; title = "900 (90%)"; ObjectID = "437"; */
+"437.title" = "900 (90%)";
+
+/* Class = "NSTextFieldCell"; title = "99 (10%)"; ObjectID = "438"; */
+"438.title" = "99 (10%)";
+
+/* Class = "NSButtonCell"; title = "Clear History"; ObjectID = "439"; */
+"439.title" = "清除歷史記錄";
+
+/* Class = "NSButtonCell"; title = "Retry Game"; ObjectID = "440"; */
+"440.title" = "重新開始本局";
+
+/* Class = "NSButtonCell"; title = "Automatically move cards to stacks"; ObjectID = "441"; */
+"441.title" = "自動將牌移至牌堆";
+
+/* Class = "NSButtonCell"; title = "Allow multiple-card moves"; ObjectID = "442"; */
+"442.title" = "允許多張牌移動";
+
+/* Class = "NSButtonCell"; title = "Close"; ObjectID = "443"; */
+"443.title" = "關閉";
+
+/* Class = "NSTextFieldCell"; title = "Game background colour:"; ObjectID = "444"; */
+"444.title" = "遊戲背景顏色：";
+
+/* Class = "NSWindow"; title = "Freecell Help"; ObjectID = "0Dj-51-qMQ"; */
+"0Dj-51-qMQ.title" = "空當接龍說明";

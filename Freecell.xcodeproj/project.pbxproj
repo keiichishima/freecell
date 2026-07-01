@@ -134,6 +134,14 @@
 		82C16A2F2FF50D86000A4EBB /* ko */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; lineEnding = 0; name = ko; path = ko.lproj/Credits.html; sourceTree = "<group>"; };
 		82C16A302FF50D86000A4EBB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		82C16A312FF50D86000A4EBB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		82C16A322FF510A2000A4EBB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		82C16A332FF510A2000A4EBB /* zh-Hans */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; lineEnding = 0; name = "zh-Hans"; path = "zh-Hans.lproj/Credits.html"; sourceTree = "<group>"; };
+		82C16A342FF510A2000A4EBB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		82C16A352FF510A2000A4EBB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		82C16A362FF510AC000A4EBB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		82C16A372FF510AC000A4EBB /* zh-Hant */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; lineEnding = 0; name = "zh-Hant"; path = "zh-Hant.lproj/Credits.html"; sourceTree = "<group>"; };
+		82C16A382FF510AC000A4EBB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		82C16A392FF510AC000A4EBB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		82C2282D2FE6571600C5F4F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		82C2282E2FE6573000C5F4F2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		82C2282F2FE6573800C5F4F2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/MainMenu.strings; sourceTree = "<group>"; };
@@ -477,6 +485,8 @@
 				fi,
 				Base,
 				ko,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Freecell */;
 			projectDirPath = "";
@@ -594,6 +604,8 @@
 				823588FD2FE3B921007160ED /* es */,
 				823589032FE3BA46007160ED /* fi */,
 				82C16A312FF50D86000A4EBB /* ko */,
+				82C16A352FF510A2000A4EBB /* zh-Hans */,
+				82C16A392FF510AC000A4EBB /* zh-Hant */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -618,6 +630,8 @@
 				82C228312FE6574900C5F4F2 /* es */,
 				82C228322FE6575200C5F4F2 /* fr */,
 				82C16A2E2FF50D86000A4EBB /* ko */,
+				82C16A322FF510A2000A4EBB /* zh-Hans */,
+				82C16A362FF510AC000A4EBB /* zh-Hant */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -632,6 +646,8 @@
 				823588FC2FE3B921007160ED /* es */,
 				823589022FE3BA46007160ED /* fi */,
 				82C16A302FF50D86000A4EBB /* ko */,
+				82C16A342FF510A2000A4EBB /* zh-Hans */,
+				82C16A382FF510AC000A4EBB /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -646,6 +662,8 @@
 				823588FA2FE3B921007160ED /* es */,
 				823589002FE3BA45007160ED /* fi */,
 				82C16A2F2FF50D86000A4EBB /* ko */,
+				82C16A332FF510A2000A4EBB /* zh-Hans */,
+				82C16A372FF510AC000A4EBB /* zh-Hant */,
 			);
 			name = Credits.html;
 			sourceTree = "<group>";

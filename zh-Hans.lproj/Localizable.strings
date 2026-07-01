@@ -1,0 +1,63 @@
+/* Localized versions of application string keys */
+
+/*
+ * Sheet text
+ */
+
+/* windowShouldClose sheet title */
+closeTitle = "关闭窗口";
+/* Close button */
+closeButton = "关闭";
+/* Cancel button */
+cancelButton = "取消";
+/* windowShouldClose sheet text */
+closeText = "关闭此窗口会放弃当前游戏。";
+
+/* New game sheet title */
+newGameTitle = "新游戏";
+/* New game button */
+newGameButton = "新游戏";
+/* New game sheet text */
+newGameText = "开始新游戏会放弃当前游戏。";
+
+/* Won sheet title */
+wonTitle = "你赢了！";
+/* Won sheet default button */
+wonDefaultButton = "太好了！";
+/* Show history button */
+showHistoryButton = "查看历史记录";
+/* Won sheet text */
+wonText = "你在移动 %u 次后获胜！干得好。";
+
+/* Lost sheet title */
+lostTitle = "你输了！";
+/* Lost sheet default button */
+lostDefaultButton = "哎呀！";
+/* Retry game button */
+retryGameButton = "重新开始本局";
+/* Lost sheet text */
+lostText = "已没有可用移动。你在移动 %u 次后失败！";
+
+/* Clear history sheet title */
+clearTitle = "删除历史记录";
+/* Clear history button */
+clearButton = "删除全部历史记录";
+/* Clear history sheet text */
+clearText = "你确定要删除游戏历史记录吗？";
+
+
+/*
+ * Miscellaneous
+ */
+
+/* Format for the title of the game window */
+gameWindowTitleFormat = "空当接龙（游戏编号 %@）";
+
+/* Result: loss */
+resultLoss = "失败";
+/* Result: win */
+resultWin = "胜利";
+
+/* For status bar */
+bestIs = "最佳为";
+moves = "次移动";
