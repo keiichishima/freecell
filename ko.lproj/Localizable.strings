@@ -1,0 +1,63 @@
+/* Localized versions of application string keys */
+
+/*
+ * Sheet text
+ */
+
+/* windowShouldClose sheet title */
+closeTitle = "창 닫기";
+/* Close button */
+closeButton = "닫기";
+/* Cancel button */
+cancelButton = "취소";
+/* windowShouldClose sheet text */
+closeText = "이 창을 닫으면 현재 게임을 포기하게 됩니다.";
+
+/* New game sheet title */
+newGameTitle = "새 게임";
+/* New game button */
+newGameButton = "새 게임";
+/* New game sheet text */
+newGameText = "새 게임을 시작하면 현재 게임을 포기하게 됩니다.";
+
+/* Won sheet title */
+wonTitle = "승리했습니다!";
+/* Won sheet default button */
+wonDefaultButton = "좋아요!";
+/* Show history button */
+showHistoryButton = "기록 보기";
+/* Won sheet text */
+wonText = "%u번의 이동 끝에 승리했습니다! 잘하셨습니다.";
+
+/* Lost sheet title */
+lostTitle = "패배했습니다!";
+/* Lost sheet default button */
+lostDefaultButton = "아쉽네요!";
+/* Retry game button */
+retryGameButton = "게임 다시 시도";
+/* Lost sheet text */
+lostText = "더 이상 유효한 이동이 없습니다. %u번의 이동 후 패배했습니다!";
+
+/* Clear history sheet title */
+clearTitle = "기록 삭제";
+/* Clear history button */
+clearButton = "모든 기록 삭제";
+/* Clear history sheet text */
+clearText = "게임 기록을 삭제하시겠습니까?";
+
+
+/*
+ * Miscellaneous
+ */
+
+/* Format for the title of the game window */
+gameWindowTitleFormat = "프리셀 (게임 번호 %@)";
+
+/* Result: loss */
+resultLoss = "패배";
+/* Result: win */
+resultWin = "승리";
+
+/* For status bar */
+bestIs = "최고 기록";
+moves = "이동";
