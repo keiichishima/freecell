@@ -6,8 +6,6 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>Freecell</string>
-	<key>CFBundleGetInfoString</key>
-	<string>2.3.1</string>
 	<key>CFBundleHelpBookName</key>
 	<string>org.wasters.Freecell.help</string>
 	<key>CFBundleHelpBookFolder</key>
