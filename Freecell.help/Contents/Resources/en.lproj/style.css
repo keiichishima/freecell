@@ -22,3 +22,9 @@ dt {
 .centering {
     text-align: center;
 }
+.media-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 10px;
+}
