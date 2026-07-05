@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for lc in en es fi fr ja nl
+for lc in en es fi fr ja nl zh-Hans zh-Hant
 do
 	(
 	cd ${lc}.lproj
