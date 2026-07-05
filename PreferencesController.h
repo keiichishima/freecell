@@ -37,6 +37,7 @@
     IBOutlet GameView		*gameView;
     IBOutlet NSButton		*autoStack;
     IBOutlet NSButton		*superMove;
+    IBOutlet NSSlider		*cardSizeSlider;
     IBOutlet NSColorWell	*backgroundColour;
     IBOutlet NSWindow		*window;
 }
@@ -44,6 +45,7 @@
 - (IBAction) openWindow: (id) sender;
 - (IBAction) autoStackClicked: (id) sender;
 - (IBAction) superMoveClicked: (id) sender;
+- (IBAction) cardSizeChanged: (id) sender;
 - (IBAction) backgroundColourChosen: (id) sender;
 
 @end

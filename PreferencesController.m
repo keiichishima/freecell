@@ -31,20 +31,36 @@
 
 @implementation PreferencesController
 
+- (void) setCardSizeFromSliderValue: (double) sliderValue
+{
+    double scale = 0.5 + sliderValue / 100.0;
+    CardView *view = [CardView cardView];
+    NSSize size = NSMakeSize(95 * scale, 140 * scale);
+
+    [view setCardSize: size];
+    [gameView setCardView: view];
+}
+
 - (void) awakeFromNib
 {
     NSData *data;
+    double cardSize;
     
     defaults = [NSUserDefaults standardUserDefaults];
     [defaults registerDefaults:
         [NSDictionary dictionaryWithObjectsAndKeys:
             [NSNumber numberWithBool: YES], @"gameSuperMove",
             [NSNumber numberWithBool: YES], @"gameAutoStack",
+            [NSNumber numberWithDouble: 50.0], @"gameCardSize",
             nil]];
     
     [autoStack setState: [defaults boolForKey: @"gameAutoStack"]];
 
     [superMove setState: [defaults boolForKey: @"gameSuperMove"]];
+
+    cardSize = [defaults doubleForKey: @"gameCardSize"];
+    [cardSizeSlider setDoubleValue: cardSize];
+    [self setCardSizeFromSliderValue: cardSize];
 
     data = [defaults dataForKey: @"backgroundColour"];
     if (data)
@@ -69,6 +85,14 @@
 {
     NSNumber *state = [NSNumber numberWithBool: [superMove state] == NSOnState];
     [defaults setObject: state forKey: @"gameSuperMove"];
+}
+
+- (IBAction) cardSizeChanged: (id) sender
+{
+    double cardSize = [cardSizeSlider doubleValue];
+
+    [defaults setObject: [NSNumber numberWithDouble: cardSize] forKey: @"gameCardSize"];
+    [self setCardSizeFromSliderValue: cardSize];
 }
 
 

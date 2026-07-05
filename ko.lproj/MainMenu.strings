@@ -184,3 +184,6 @@
 
 /* Class = "NSWindow"; title = "Freecell Help"; ObjectID = "0Dj-51-qMQ"; */
 "0Dj-51-qMQ.title" = "프리셀 도움말";
+
+/* Class = "NSTextFieldCell"; title = "Change card size:"; ObjectID = "Uzg-2g-rUP"; */
+"Uzg-2g-rUP.title" = "카드 크기 변경:";

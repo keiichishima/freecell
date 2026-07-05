@@ -513,15 +513,15 @@ DQ
         <window title="Freecell Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="preferences" animationBehavior="default" id="353" userLabel="PreferencesWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="193" y="287" width="366" height="156"/>
+            <rect key="contentRect" x="193" y="287" width="366" height="184"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1410"/>
             <value key="minSize" type="size" width="366" height="156"/>
             <view key="contentView" id="354">
-                <rect key="frame" x="0.0" y="0.0" width="366" height="156"/>
+                <rect key="frame" x="0.0" y="0.0" width="366" height="184"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="355">
-                        <rect key="frame" x="18" y="120" width="328" height="18"/>
+                        <rect key="frame" x="18" y="148" width="328" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Automatically move cards to stacks" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="441">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -531,28 +531,17 @@ DQ
                             <action selector="autoStackClicked:" target="359" id="360"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="356">
-                        <rect key="frame" x="18" y="98" width="328" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Allow multiple-card moves" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="442">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="superMoveClicked:" target="359" id="361"/>
-                        </connections>
-                    </button>
                     <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="392">
-                        <rect key="frame" x="293" y="61" width="53" height="30"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="292" y="88" width="53" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <action selector="backgroundColourChosen:" target="359" id="395"/>
                         </connections>
                     </colorWell>
                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="393">
-                        <rect key="frame" x="17" y="67" width="270" height="17"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="16" y="94" width="270" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Game background colour:" id="444">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -573,14 +562,45 @@ Gw
                             <action selector="performClose:" target="353" id="368"/>
                         </connections>
                     </button>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wEW-i2-msR">
+                        <rect key="frame" x="16" y="66" width="113" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Change card size:" id="Uzg-2g-rUP">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wE6-yT-qnM">
+                        <rect key="frame" x="219" y="66" width="126" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                        <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="fQP-Qq-TMI">
+                            <font key="font" size="12" name="Helvetica"/>
+                        </sliderCell>
+                        <connections>
+                            <action selector="cardSizeChanged:" target="359" id="pkq-I7-lKJ"/>
+                        </connections>
+                    </slider>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="356">
+                        <rect key="frame" x="18" y="124" width="328" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Allow multiple-card moves" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="442">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="superMoveClicked:" target="359" id="361"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="-451" y="576"/>
+            <point key="canvasLocation" x="-451" y="590"/>
         </window>
         <customObject id="359" userLabel="PreferencesController" customClass="PreferencesController">
             <connections>
                 <outlet property="autoStack" destination="355" id="363"/>
                 <outlet property="backgroundColour" destination="392" id="394"/>
+                <outlet property="cardSizeSlider" destination="wE6-yT-qnM" id="jPl-s9-XyX"/>
                 <outlet property="gameView" destination="197" id="389"/>
                 <outlet property="superMove" destination="356" id="364"/>
                 <outlet property="window" destination="353" id="366"/>
@@ -602,5 +622,15 @@ Gw
                 <outlet property="window" destination="0Dj-51-qMQ" id="96r-Ie-aDC"/>
             </connections>
         </customObject>
+        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Uzb-Aq-FH9">
+            <rect key="frame" x="0.0" y="0.0" width="37" height="16"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="qc7-WY-LiF">
+                <font key="font" usesAppearanceFont="YES"/>
+                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+            <point key="canvasLocation" x="-915" y="401"/>
+        </textField>
     </objects>
 </document>

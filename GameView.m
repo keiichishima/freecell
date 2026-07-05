@@ -51,7 +51,9 @@
         // Set the default
         [defaults registerDefaults:
             [NSDictionary dictionaryWithObjectsAndKeys:
-                data, @"backgroundColour", nil]];
+                data, @"backgroundColour",
+                [NSNumber numberWithDouble: 50.0], @"gameCardSize",
+                nil]];
 
         // Then try to read the preference
         data = [defaults dataForKey: @"backgroundColour"];
@@ -205,8 +207,14 @@
 
 - (void) setController: (GameController *) newController;
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    double sliderValue = [defaults doubleForKey: @"gameCardSize"];
+    double scale = 0.5 + sliderValue / 100.0;
+    CardView *view = [CardView cardView];
+
+    [view setCardSize: NSMakeSize(95 * scale, 140 * scale)];
     controller = newController;
-    [self setCardView: [CardView cardView]];
+    [self setCardView: view];
 }
 
 - (void) setCardView: (CardView *) newCardView
