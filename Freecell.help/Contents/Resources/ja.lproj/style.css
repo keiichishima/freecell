@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+:root {
+    color-scheme: light dark;
+}
+body {
+    font-family: system-ui, sans-serif;
+    font-size: medium;
+}
+a {
+    color: -webkit-link;
+}
+th, td {
+    text-align: left;
+}
+dt {
+    font-weight: bold;
+}
+.draw-border-on-top {
+    border-top: 1px solid gray;
+}
+.centering {
+    text-align: center;
+}
+.media-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 10px;
+}
