@@ -35,6 +35,9 @@
 #import <AppKit/AppKit.h>
 #import "CardView.h"
 
+static const CGFloat kImageEdgeMarginRatio = 0.02;
+static const CGFloat kCornerRoundRatio = 0.1;
+
 @implementation CardView
 
 + cardView
@@ -93,16 +96,20 @@
 - (NSImage *) imageForCard: (Card *) card selected: (BOOL) isSelected
 {
     return [NSImage imageWithSize:cardSize flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
+        CGFloat cornerRadius = dstRect.size.width * kCornerRoundRatio;
+
         // 1. draw background with rounded corners
         [[NSColor whiteColor] set];
-        NSBezierPath *cardPath = [NSBezierPath bezierPathWithRoundedRect:dstRect xRadius:8 yRadius:8];
+        NSBezierPath *cardPath = [NSBezierPath bezierPathWithRoundedRect:dstRect
+                                                                 xRadius:cornerRadius
+                                                                 yRadius:cornerRadius];
         [cardPath fill];
         
         // 2. draw card image
         if (card != nil) {
             NSImage *svgImage = [self svgImageForCard:card];
-            CGFloat xmargin = dstRect.size.width * 0.02;
-            CGFloat ymargin = dstRect.size.height * 0.02;
+            CGFloat xmargin = dstRect.size.width * kImageEdgeMarginRatio;
+            CGFloat ymargin = dstRect.size.height * kImageEdgeMarginRatio;
             NSRect innerRect = NSMakeRect(xmargin, ymargin, dstRect.size.width - xmargin * 2, dstRect.size.height - ymargin * 2);
             [svgImage drawInRect:innerRect
                         fromRect:NSZeroRect
@@ -119,7 +126,7 @@
         
         // 4. draw surrounding lines with rounded corners
         [[NSColor blackColor] set];
-        NSBezierPath *borderPath = [NSBezierPath bezierPathWithRoundedRect:NSMakeRect(0.5, 0.5, dstRect.size.width - 1, dstRect.size.height - 1) xRadius:8 yRadius:8];
+        NSBezierPath *borderPath = [NSBezierPath bezierPathWithRoundedRect:NSMakeRect(0.5, 0.5, dstRect.size.width - 1, dstRect.size.height - 1) xRadius:cornerRadius yRadius:cornerRadius];
         [borderPath stroke];
         
         return YES;
