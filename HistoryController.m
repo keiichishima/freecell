@@ -73,6 +73,13 @@
     [self HC_updateWindow];
 }
 
+- (void) dealloc
+{
+    [history release];
+    [sortColumn release];
+    [super dealloc];
+}
+
 - (void) tableViewSelectionDidChange: (NSNotification *) notification
 {
     if ([tableView selectedRow] == -1)
@@ -156,6 +163,7 @@
 	[formatter setTimeStyle:NSDateFormatterNoStyle];
 	[formatter setDateStyle:NSDateFormatterShortStyle];
     [[lastPlayedColumn dataCell] setFormatter: formatter];
+    [formatter release];
 }
 
 // Action methods

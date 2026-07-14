@@ -60,6 +60,13 @@
     timer = nil;
 }
 
+- (void) dealloc
+{
+    [timer invalidate];
+    [game release];
+    [super dealloc];
+}
+
 - (BOOL) applicationShouldHandleReopen: (NSApplication *) app hasVisibleWindows: (BOOL) flag
 {
     if (flag == NO)
@@ -76,7 +83,7 @@
         return YES;
     }
 
-    NSAlert *alert = [[NSAlert alloc] init];
+    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
     [alert setMessageText: NSLocalizedString(@"closeTitle", @"windowShouldClose sheet title")];
     [alert setInformativeText: NSLocalizedString(@"closeText", @"windowShouldClose sheet text")];
     [alert addButtonWithTitle: NSLocalizedString(@"closeButton", @"Close button")];
@@ -94,7 +101,7 @@
     if ([game inProgress] == NO)
         return NSTerminateNow;
 
-    NSAlert *alert = [[NSAlert alloc] init];
+    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
     [alert setMessageText: NSLocalizedString(@"closeTitle", @"windowShouldClose sheet title")];
     [alert setInformativeText: NSLocalizedString(@"closeText", @"windowShouldClose sheet text")];
     [alert addButtonWithTitle: NSLocalizedString(@"closeButton", @"Close button")];
@@ -208,7 +215,7 @@
 
     if ([game inProgress] == YES)
     {
-        NSAlert *alert = [[NSAlert alloc] init];
+        NSAlert *alert = [[[NSAlert alloc] init] autorelease];
         [alert setMessageText: NSLocalizedString(@"newGameTitle", @"New game sheet title")];
         [alert setInformativeText: NSLocalizedString(@"newGameText", @"New game sheet text")];
         [alert addButtonWithTitle: NSLocalizedString(@"newGameButton", @"New game button")];
@@ -354,7 +361,7 @@
     }
     [self recordGame];
 
-    NSAlert *alert = [[NSAlert alloc] init];
+    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
     [alert setMessageText: title];
     [alert setInformativeText: message];
     [alert addButtonWithTitle: defaultButton];

@@ -71,6 +71,7 @@
 {
     [game release];
     [cardView release];
+    [backgroundColour release];
     [super dealloc];
 }
 
