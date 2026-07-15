@@ -33,26 +33,19 @@
 
 @implementation History
 
-- initWithFile: (NSString *) newFile
+- (id) initWithFile: (NSString *) newFile
 {
-    [super init];
+    self = [super init];
 
     if (self)
     {
-        file = [newFile retain];
-        records = [[NSMutableArray arrayWithContentsOfFile: file] retain];
+        file = [newFile copy];
+        records = [NSMutableArray arrayWithContentsOfFile: file];
         if (records == nil)
-            records = [[NSMutableArray array] retain];
+            records = [NSMutableArray array];
     }
 
     return self;
-}
-
-- (void) dealloc
-{
-    [file release];
-    [records release];
-    [super dealloc];
 }
 
 // Overridden methods
@@ -63,7 +56,7 @@
     return [records count];
 }
 
-- tableView: (NSTableView *) tableView objectValueForTableColumn: (NSTableColumn *) column
+- (id) tableView: (NSTableView *) tableView objectValueForTableColumn: (NSTableColumn *) column
         row: (NSInteger) row
 {
     id object = [[self record: row] objectForKey: [column identifier]];
@@ -71,9 +64,13 @@
     if ([[column identifier] isEqual: @"result"])
         return [Result translateResultFromString: object];
     else if ([[column identifier] isEqual: @"duration"])
-        return [object descriptionWithCalendarFormat: @"%H:%M:%S"
-                                            timeZone: [NSTimeZone timeZoneForSecondsFromGMT: 0]
-                                              locale: nil];
+    {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setTimeStyle: NSDateFormatterShortStyle];
+        [formatter setDateStyle: NSDateFormatterNoStyle];
+        [formatter setTimeZone: [NSTimeZone timeZoneForSecondsFromGMT: 0]];
+        return [formatter stringFromDate: object];
+    }
     else
         return object;
 }
@@ -83,8 +80,7 @@
 
 - (void) H_setRecords: (NSMutableArray *) newRecords
 {
-    [records release];
-    records = [newRecords retain];
+    records = newRecords;
 }
 
 // Mutators

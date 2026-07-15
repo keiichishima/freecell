@@ -43,22 +43,22 @@
 
 + resultWithUnplayed
 {
-    return [[[Result alloc] initWithResult: UNPLAYED] autorelease];
+    return [[Result alloc] initWithResult: UNPLAYED];
 }
 
 + resultWithLoss
 {
-    return [[[Result alloc] initWithResult: LOSS] autorelease];
+    return [[Result alloc] initWithResult: LOSS];
 }
 
 + resultWithWin
 {
-    return [[[Result alloc] initWithResult: WIN] autorelease];
+    return [[Result alloc] initWithResult: WIN];
 }
 
 - initWithResult: (ResultValue) newResult
 {
-    [super init];
+    self = [super init];
 
     if (self)
         result = newResult;

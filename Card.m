@@ -36,12 +36,12 @@
 
 + cardWithSuit: (Suit) newSuit rank: (Rank) newRank
 {
-    return [[[Card alloc] initWithSuit: newSuit rank: newRank] autorelease];
+    return [[Card alloc] initWithSuit: newSuit rank: newRank];
 }
 
 - initWithSuit: (Suit) newSuit rank: (Rank) newRank
 {
-    [super init];
+    self = [super init];
 
     if (self)
     {
@@ -54,7 +54,7 @@
 
 - copyWithZone: (NSZone *) zone
 {
-    return [self retain];
+    return self;
 }
 
 // Overridden methods

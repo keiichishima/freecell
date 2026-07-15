@@ -35,21 +35,21 @@
 
 + moveFromSource: (TableLocation *) newSource
 {
-    return [[[TableMove alloc] initWithSource: newSource destination: [TableLocation noLocation]] autorelease];
+    return [[TableMove alloc] initWithSource: newSource destination: [TableLocation noLocation]];
 }
 
 + moveFromSource: (TableLocation *) newSource toDestination: (TableLocation *) newDestination
 {
-    return [[[TableMove alloc] initWithSource: newSource
+    return [[TableMove alloc] initWithSource: newSource
                                  destination: newDestination
-                                       count: 1] autorelease];
+                                       count: 1];
 }
 
 + reverseMove: (TableMove *) move
 {
-    return [[[TableMove alloc] initWithSource: move->destination
+    return [[TableMove alloc] initWithSource: move->destination
                                  destination: move->source
-                                       count: move->count] autorelease];
+                                       count: move->count];
 }
 
 - init
@@ -69,7 +69,7 @@
 - initWithSource: (TableLocation *) newSource destination: (TableLocation *) newDestination
            count: (unsigned) newCount
 {
-    [super init];
+    self = [super init];
 
     if (self)
     {
@@ -83,13 +83,6 @@
     }
 
     return self;
-}
-
-- (void) dealloc
-{
-    [self setSource: nil];
-    [self setDestination: nil];
-    [super dealloc];
 }
 
 - copyWithZone: (NSZone *) zone
@@ -113,13 +106,11 @@
 
 - (void) setSource: (TableLocation *) newSource
 {
-    [source release];
     source = [newSource copy];
 }
 
 - (void) setDestination: (TableLocation *) newDestination
 {
-    [destination release];
     destination = [newDestination copy];
 }
 

@@ -37,7 +37,7 @@
 {
     unsigned i;
 
-    [super init];
+    self = [super init];
 
     freeCells = [[NSMutableArray alloc] init];
     stacks    = [[NSMutableArray alloc] init];
@@ -62,16 +62,6 @@
         [[decks lastObject] addObject: [Card cardWithSuit: SPADES rank: i]];
     }
     return self;
-}
-
-- (void) dealloc
-{
-    [freeCells release];
-    [stacks release];
-    [columns release];
-    [decks release];
-    
-    [super dealloc];
 }
 
 // Mutators

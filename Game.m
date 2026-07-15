@@ -51,16 +51,16 @@
     controller: (GameController *) newController
     gameNumber: (NSNumber *) newGameNumber
 {
-    return [[[Game alloc] initWithView: newView
+    return [[Game alloc] initWithView: newView
                             controller: newController
-                            gameNumber: newGameNumber] autorelease];
+                            gameNumber: newGameNumber];
 }
 
 - initWithView: (GameView *) newView
     controller: (GameController *) newController
           gameNumber: (NSNumber *) newGameNumber
 {
-    [super init];
+    self = [super init];
 
     if (self)
     {
@@ -69,12 +69,12 @@
 
         defaults = [NSUserDefaults standardUserDefaults];
         
-        gameNumber = [newGameNumber retain];
+        gameNumber = [newGameNumber copy];
         
         table = [[Table alloc] init];
         [self G_deal];
         
-        result = [[Result resultWithUnplayed] retain];
+        result = [Result resultWithUnplayed];
         played = [[NSMutableArray alloc] init];
         undone = [[NSMutableArray alloc] init];
 
@@ -84,20 +84,6 @@
         [view setNeedsDisplay: YES];
     }
     return self;
-}
-
-- (void) dealloc
-{
-    [gameNumber release];
-    [table release];
-    [result release];
-    [played release];
-    [undone release];
-    [move release];
-    [hint release];
-    [self setStartDate: nil];
-    [self setEndDate: nil];
-    [super dealloc];
 }
 
 // Private methods
@@ -128,7 +114,6 @@
 
 - (void) G_setMove: (TableMove *) newMove
 {
-    [move release];
     move = [newMove copy];
 }
 
@@ -342,14 +327,12 @@ makeMove:
 
 - (void) setStartDate: (NSDate *) date
 {
-    [startDate release];
-    startDate = [date retain];
+    startDate = date;
 }
 
 - (void) setEndDate: (NSDate *) date
 {
-    [endDate release];
-    endDate = [date retain];
+    endDate = date;
 }
 
 - (void) undo
@@ -498,14 +481,12 @@ foundHint:
 
 - (void) setHint: (TableMove *) newHint
 {
-    [hint release];
     hint = [newHint copy];
 }
 
 - (void) gameOverWithResult: (Result *) newResult
 {
     [self setEndDate: [NSDate date]];
-    [result release];
     result = [newResult copy];
     inProgress = NO;
 }

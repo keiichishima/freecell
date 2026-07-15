@@ -38,18 +38,11 @@
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     CGRect frame = [[window contentView] bounds];
     webView = [[WKWebView alloc] initWithFrame:frame configuration:config];
-    [config release];
     webView.navigationDelegate = self;
     webView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     [[window contentView] addSubview:webView];
     
     [self loadHelpContent];
-}
-
-- (void) dealloc
-{
-    [webView release];
-    [super dealloc];
 }
 
 - (void)loadHelpContent

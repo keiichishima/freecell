@@ -42,7 +42,7 @@ static const CGFloat kCornerRoundRatio = 0.1;
 
 + cardView
 {
-    return [[[CardView alloc] init] autorelease];
+    return [[CardView alloc] init];
 }
 
 - init
@@ -53,12 +53,6 @@ static const CGFloat kCornerRoundRatio = 0.1;
         cardSize = NSMakeSize(95, 140);
     }
     return self;
-}
-
-- (void) dealloc
-{
-    [svgCache release];
-    [super dealloc];
 }
 
 - (NSString *) svgFilenameForCard: (Card *) card
@@ -88,7 +82,6 @@ static const CGFloat kCornerRoundRatio = 0.1;
     NSImage *image = [[NSImage alloc] initWithContentsOfFile: svgPath];
     if (image) {
         [svgCache setObject: image forKey: filename];
-        [image release];
     }
     return [svgCache objectForKey: filename];
 }

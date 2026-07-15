@@ -60,13 +60,6 @@
     timer = nil;
 }
 
-- (void) dealloc
-{
-    [timer invalidate];
-    [game release];
-    [super dealloc];
-}
-
 - (BOOL) applicationShouldHandleReopen: (NSApplication *) app hasVisibleWindows: (BOOL) flag
 {
     if (flag == NO)
@@ -83,14 +76,14 @@
         return YES;
     }
 
-    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+    NSAlert *alert = [[NSAlert alloc] init];
     [alert setMessageText: NSLocalizedString(@"closeTitle", @"windowShouldClose sheet title")];
     [alert setInformativeText: NSLocalizedString(@"closeText", @"windowShouldClose sheet text")];
     [alert addButtonWithTitle: NSLocalizedString(@"closeButton", @"Close button")];
     [alert addButtonWithTitle: NSLocalizedString(@"cancelButton", @"Cancel button")];
     [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
         if (returnCode == NSAlertFirstButtonReturn)
-            [window close];
+            [self->window close];
     }];
 
     return NO;
@@ -101,13 +94,13 @@
     if ([game inProgress] == NO)
         return NSTerminateNow;
 
-    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+    NSAlert *alert = [[NSAlert alloc] init];
     [alert setMessageText: NSLocalizedString(@"closeTitle", @"windowShouldClose sheet title")];
     [alert setInformativeText: NSLocalizedString(@"closeText", @"windowShouldClose sheet text")];
     [alert addButtonWithTitle: NSLocalizedString(@"closeButton", @"Close button")];
     [alert addButtonWithTitle: NSLocalizedString(@"cancelButton", @"Cancel button")];
     [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
-        [window close];
+        [self->window close];
         [NSApp replyToApplicationShouldTerminate: (returnCode == NSAlertFirstButtonReturn)];
     }];
 
@@ -145,7 +138,6 @@
 
 - (IBAction) playGameNumber: (id) sender
 {
-    [NSApp stopModal];
     [self GC_startGame];
 }
 
@@ -153,22 +145,15 @@
 {
     if ([window attachedSheet] == nil)
     {
-        [NSApp beginSheet: playNumberDialog
-           modalForWindow: window
-            modalDelegate: nil
-           didEndSelector: nil
-              contextInfo: nil];
-        [NSApp runModalForWindow: window];
-        // Wait for sheet to end...
-        [NSApp endSheet: playNumberDialog];
-        [playNumberDialog orderOut: self];
-        [playNumberDialog close];
+        [window beginSheet: playNumberDialog completionHandler: nil];
     }
 }
 
 - (IBAction) closePlayNumberDialog: (id) sender
 {
-    [NSApp stopModal];
+    [window endSheet: playNumberDialog];
+    [playNumberDialog orderOut: self];
+    [playNumberDialog close];
 }
 
 - (IBAction) showHint: (id) sender
@@ -179,8 +164,8 @@
         [view setNeedsDisplay: YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC),
                        dispatch_get_main_queue(), ^{
-            [game setHint: nil];
-            [view setNeedsDisplay: YES];
+            [self->game setHint: nil];
+            [self->view setNeedsDisplay: YES];
         });
     }
 }
@@ -215,7 +200,7 @@
 
     if ([game inProgress] == YES)
     {
-        NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+        NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText: NSLocalizedString(@"newGameTitle", @"New game sheet title")];
         [alert setInformativeText: NSLocalizedString(@"newGameText", @"New game sheet text")];
         [alert addButtonWithTitle: NSLocalizedString(@"newGameButton", @"New game button")];
@@ -259,8 +244,13 @@
 {
     NSDate *current = [NSDate dateWithTimeIntervalSinceReferenceDate: 0];
     NSDate *shortest = [NSDate dateWithTimeIntervalSinceReferenceDate: 0];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     NSString *currentDuration;
     NSString *shortestDuration;
+
+    [formatter setTimeStyle: NSDateFormatterShortStyle];
+    [formatter setDateStyle: NSDateFormatterNoStyle];
+    [formatter setTimeZone: [NSTimeZone timeZoneForSecondsFromGMT: 0]];
     
     if ([game inProgress])
     {
@@ -271,14 +261,10 @@
         NSTimeInterval duration = [game duration];
         current = [NSDate dateWithTimeIntervalSinceReferenceDate: duration];
     }
-    currentDuration = [current descriptionWithCalendarFormat: @"%H:%M:%S"
-                                                     timeZone: [NSTimeZone timeZoneForSecondsFromGMT: 0]
-                                                       locale: nil];
+    currentDuration = [formatter stringFromDate: current];
     if (history)
         shortest = [history shortestDuration];
-    shortestDuration = [shortest descriptionWithCalendarFormat: @"%H:%M:%S"
-                                 timeZone: [NSTimeZone timeZoneForSecondsFromGMT: 0]
-                                   locale: nil];
+    shortestDuration = [formatter stringFromDate: shortest];
 
     if (game != nil)
         [timeElapsed setStringValue: [NSString stringWithFormat: @"%@ (%@ %@)",
@@ -327,8 +313,7 @@
     if ([[game result] isEqual: [Result resultWithWin]] || [[game result] isEqual: [Result resultWithLoss]])
         [self recordGame];
     
-    [game release];
-    game = [newGame retain];
+    game = newGame;
 }
 
 - (void) gameOver
@@ -361,7 +346,7 @@
     }
     [self recordGame];
 
-    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+    NSAlert *alert = [[NSAlert alloc] init];
     [alert setMessageText: title];
     [alert setInformativeText: message];
     [alert addButtonWithTitle: defaultButton];
@@ -372,7 +357,7 @@
     {
         [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
             if (returnCode == NSAlertSecondButtonReturn)
-                [history openWindow: self];
+                [self->history openWindow: self];
             if (returnCode == NSAlertThirdButtonReturn)
                 [self newGame: self];
         }];
