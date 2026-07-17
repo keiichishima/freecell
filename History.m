@@ -66,8 +66,7 @@
     else if ([[column identifier] isEqual: @"duration"])
     {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setTimeStyle: NSDateFormatterShortStyle];
-        [formatter setDateStyle: NSDateFormatterNoStyle];
+        [formatter setDateFormat:@"HH:mm:ss"];
         [formatter setTimeZone: [NSTimeZone timeZoneForSecondsFromGMT: 0]];
         return [formatter stringFromDate: object];
     }

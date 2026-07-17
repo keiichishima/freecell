@@ -263,8 +263,7 @@
     NSString *currentDuration;
     NSString *shortestDuration;
 
-    [formatter setTimeStyle: NSDateFormatterShortStyle];
-    [formatter setDateStyle: NSDateFormatterNoStyle];
+    [formatter setDateFormat:@"HH:mm:ss"];
     [formatter setTimeZone: [NSTimeZone timeZoneForSecondsFromGMT: 0]];
     
     if ([game inProgress])
