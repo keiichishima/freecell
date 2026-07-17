@@ -138,14 +138,29 @@
 
 - (IBAction) playGameNumber: (id) sender
 {
+    if ([gameNumberField doubleValue] <= 0)
+    {
+        NSBeep();
+        [gameNumberField selectText: self];
+        return;
+    }
+
     [self GC_startGame];
 }
 
 - (IBAction) openPlayNumberDialog: (id) sender
 {
+    NSNumberFormatter *formatter = (NSNumberFormatter *)[gameNumberField formatter];
+    if ([formatter isKindOfClass: [NSNumberFormatter class]])
+    {
+        [formatter setAllowsFloats: NO];
+        [formatter setMinimum: [NSNumber numberWithInt: 1]];
+    }
+
     if ([window attachedSheet] == nil)
     {
         [window beginSheet: playNumberDialog completionHandler: nil];
+        [gameNumberField selectText: self];
     }
 }
 
