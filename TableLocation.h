@@ -29,7 +29,13 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum { NONE, FREE_CELL, STACK, COLUMN, DECK } TableLocationType;
+typedef NS_ENUM(NSInteger, TableLocationType) {
+    TableLocationTypeNone,
+    TableLocationTypeFreeCell,
+    TableLocationTypeStack,
+    TableLocationTypeColumn,
+    TableLocationTypeDeck
+};
 
 @interface TableLocation : NSObject <NSCopying>
 {

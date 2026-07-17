@@ -65,7 +65,7 @@
 {
     // Suit ranges from 0 to 3; rank ranges from 1 (ACE) to 13 (KING).
     // This therefore returns a unique number between 0 and 51.
-    return ((NSInteger)suit * (NSInteger)KING + ((NSInteger)rank - (NSInteger)ACE));
+    return ((NSInteger)suit * RankKing + ((NSInteger)rank - RankAce));
 }
 
 - (BOOL) isEqual: (id) other
@@ -108,24 +108,24 @@
         @"Five", @"Six", @"Seven", @"Eight", @"Nine",
         @"Ten", @"Jack", @"Queen", @"King" };
 
-    return rankToString[rank];
+    return rankToString[rank - 1];
 }
 
 - (BOOL) isRed
 {
-    return (suit == HEARTS || suit == DIAMONDS);
+    return (suit == SuitHearts || suit == SuitDiamonds);
 }
 
 - (BOOL) isBlack
 {
-    return (suit == CLUBS || suit == SPADES);
+    return (suit == SuitClubs || suit == SuitSpades);
 }
 
 - (BOOL) isSuccessorTo: (Card *) other
 {
     // An ace is the only successor to a blank space
     if (other == nil)
-        return (rank == ACE);
+        return (rank == RankAce);
 
     // If our suits match, and my rank is one more than the other card, I am
     // its successor.
@@ -139,7 +139,7 @@
         return YES;
 
     // Can't play a king on anything
-    if (rank == KING)
+    if (rank == RankKing)
         return NO;
     
     // If I am red and the other card is black, or vice versa, and my rank is

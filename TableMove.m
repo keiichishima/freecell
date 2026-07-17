@@ -76,7 +76,7 @@
         source = [newSource copy];
         destination = [newDestination copy];
         
-        if ([source type] == NONE || [destination type] == NONE)
+        if ([source type] == TableLocationTypeNone || [destination type] == TableLocationTypeNone)
             count = 0;
         else
             count = newCount;

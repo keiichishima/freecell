@@ -30,15 +30,28 @@
 #import <Foundation/Foundation.h>
 
 // Suit order is important: must match the card graphics file.
-typedef enum {
-    CLUBS, DIAMONDS, HEARTS, SPADES
-} Suit;
+typedef NS_ENUM(NSInteger, Suit) {
+    SuitClubs,
+    SuitDiamonds,
+    SuitHearts,
+    SuitSpades
+};
 
-enum { NUMBER_OF_SUITS = 4 };
-
-typedef enum {
-    ACE = 1, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING
-} Rank;
+typedef NS_ENUM(NSInteger, Rank) {
+    RankAce = 1,
+    RankTwo,
+    RankThree,
+    RankFour,
+    RankFive,
+    RankSix,
+    RankSeven,
+    RankEight,
+    RankNine,
+    RankTen,
+    RankJack,
+    RankQueen,
+    RankKing
+};
 
 
 @interface Card : NSObject <NSCopying>

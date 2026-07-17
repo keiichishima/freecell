@@ -39,7 +39,7 @@
 
 + (TableLocation *) noLocation
 {
-    return [[TableLocation alloc] initWithType: NONE number: 0];
+    return [[TableLocation alloc] initWithType: TableLocationTypeNone number: 0];
 }
 
 - (TableLocation *) initWithType: (TableLocationType) newType number: (unsigned short) newNumber

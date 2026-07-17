@@ -32,10 +32,14 @@
 #import "TableMove.h"
 #import "TableLocation.h"
 
-enum {
-    NUMBER_OF_COLUMNS = 8, NUMBER_OF_STACKS = 4, NUMBER_OF_FREE_CELLS = 4,
-    NUMBER_OF_DECKS = 1
-};
+//enum {
+//    NUMBER_OF_COLUMNS = 8, NUMBER_OF_STACKS = 4, NUMBER_OF_FREE_CELLS = 4,
+//    NUMBER_OF_DECKS = 1
+//};
+FOUNDATION_EXPORT NSInteger const TableNumberOfColumns;
+FOUNDATION_EXPORT NSInteger const TableNumberOfStacks;
+FOUNDATION_EXPORT NSInteger const TableNumberOfFreeCells;
+FOUNDATION_EXPORT NSInteger const TableNumberOfDecks;
 
 @interface Table : NSObject
 {

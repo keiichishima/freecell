@@ -29,7 +29,11 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum { UNPLAYED, LOSS, WIN } ResultValue;
+typedef NS_ENUM(NSInteger, ResultValue) {
+    ResultValueUnplayed,
+    ResultValueLoss,
+    ResultValueWin
+};
 
 @interface Result : NSObject <NSCopying>
 {

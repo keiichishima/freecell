@@ -43,17 +43,17 @@
 
 + resultWithUnplayed
 {
-    return [[Result alloc] initWithResult: UNPLAYED];
+    return [[Result alloc] initWithResult: ResultValueUnplayed];
 }
 
 + resultWithLoss
 {
-    return [[Result alloc] initWithResult: LOSS];
+    return [[Result alloc] initWithResult: ResultValueLoss];
 }
 
 + resultWithWin
 {
-    return [[Result alloc] initWithResult: WIN];
+    return [[Result alloc] initWithResult: ResultValueWin];
 }
 
 - initWithResult: (ResultValue) newResult
@@ -76,11 +76,11 @@
     switch (result)
     {
         default:
-        case UNPLAYED:
+        case ResultValueUnplayed:
             return @"Unplayed";
-        case LOSS:
+        case ResultValueLoss:
             return @"Loss";
-        case WIN:
+        case ResultValueWin:
             return @"Win";
     }
 }

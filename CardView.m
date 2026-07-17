@@ -59,11 +59,11 @@ static const CGFloat kCornerRoundRatio = 0.1;
 {
     NSString *rankStr;
     switch ([card rank]) {
-        case ACE:   rankStr = @"ace"; break;
-        case JACK:  rankStr = @"jack"; break;
-        case QUEEN: rankStr = @"queen"; break;
-        case KING:  rankStr = @"king"; break;
-        default:    rankStr = [NSString stringWithFormat:@"%d", [card rank]]; break;
+        case RankAce:   rankStr = @"ace"; break;
+        case RankJack:  rankStr = @"jack"; break;
+        case RankQueen: rankStr = @"queen"; break;
+        case RankKing:  rankStr = @"king"; break;
+        default:    rankStr = [NSString stringWithFormat:@"%ld", [card rank]]; break;
     }
     return [NSString stringWithFormat: @"%@_of_%@", rankStr, [[card suitString] lowercaseString]];
 }

@@ -31,11 +31,15 @@
 #import "Table.h"
 #import "Card.h"
 
+NSInteger const TableNumberOfColumns = 8;
+NSInteger const TableNumberOfStacks = 4;
+NSInteger const TableNumberOfFreeCells = 4;
+NSInteger const TableNumberOfDecks = 1;
+
 @implementation Table
 
 - init
 {
-    unsigned i;
 
     self = [super init];
 
@@ -44,22 +48,22 @@
     columns   = [[NSMutableArray alloc] init];
     decks     = [[NSMutableArray alloc] init];
 
-    for (i = 0; i < NUMBER_OF_FREE_CELLS; i++)
+    for (NSInteger i = 0; i < TableNumberOfFreeCells; i++)
         [freeCells addObject: [NSMutableArray array]];
-    for (i = 0; i < NUMBER_OF_STACKS; i++)
+    for (NSInteger i = 0; i < TableNumberOfStacks; i++)
         [stacks addObject: [NSMutableArray array]];
-    for (i = 0; i < NUMBER_OF_COLUMNS; i++)
+    for (NSInteger i = 0; i < TableNumberOfColumns; i++)
         [columns addObject: [NSMutableArray array]];
-    for (i = 0; i < NUMBER_OF_DECKS; i++)
+    for (NSInteger i = 0; i < TableNumberOfDecks; i++)
         [decks addObject: [NSMutableArray array]];
 
-    for (i = ACE; i <= KING; i++)
+    for (NSInteger i = RankAce; i <= RankKing; i++)
     {
         // Use Windows suit ordering
-        [[decks lastObject] addObject: [Card cardWithSuit: CLUBS rank: i]];
-        [[decks lastObject] addObject: [Card cardWithSuit: DIAMONDS rank: i]];
-        [[decks lastObject] addObject: [Card cardWithSuit: HEARTS rank: i]];
-        [[decks lastObject] addObject: [Card cardWithSuit: SPADES rank: i]];
+        [[decks lastObject] addObject: [Card cardWithSuit: SuitClubs rank: i]];
+        [[decks lastObject] addObject: [Card cardWithSuit: SuitDiamonds rank: i]];
+        [[decks lastObject] addObject: [Card cardWithSuit: SuitHearts rank: i]];
+        [[decks lastObject] addObject: [Card cardWithSuit: SuitSpades rank: i]];
     }
     return self;
 }
@@ -95,11 +99,11 @@
 {
     switch (locationType)
     {
-        case NONE:	return nil;
-        case FREE_CELL:	return freeCells;
-        case STACK:	return stacks;
-        case COLUMN:	return columns;
-        case DECK:	return decks;
+        case TableLocationTypeNone:	return nil;
+        case TableLocationTypeFreeCell:	return freeCells;
+        case TableLocationTypeStack:	return stacks;
+        case TableLocationTypeColumn:	return columns;
+        case TableLocationTypeDeck:	return decks;
     }
     
     return nil;

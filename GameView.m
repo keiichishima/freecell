@@ -78,9 +78,9 @@
     if (game == nil || cardView == nil)
         return;
 
-    for (i = 0; i < NUMBER_OF_FREE_CELLS; i++)
+    for (i = 0; i < TableNumberOfFreeCells; i++)
     {
-        TableLocation *location = [TableLocation locationWithType: FREE_CELL number: i];
+        TableLocation *location = [TableLocation locationWithType: TableLocationTypeFreeCell number: i];
         NSPoint origin = NSMakePoint(edgeMargin + (cardWidth + margin) * i,
                                      frame.size.height - edgeMargin - cardHeight);
         Card *card = [table firstCardAtLocation: location];
@@ -98,9 +98,9 @@
                        fraction: card == nil? 0.5 : 1.0 ];
     }
     
-    for (i = 0; i < NUMBER_OF_STACKS; i++)
+    for (i = 0; i < TableNumberOfStacks; i++)
     {
-        TableLocation *location = [TableLocation locationWithType: STACK number: i];
+        TableLocation *location = [TableLocation locationWithType: TableLocationTypeStack number: i];
         NSPoint origin = NSMakePoint(edgeMargin + (cardWidth + margin) * (i + 4),
                                      frame.size.height - edgeMargin - cardHeight);
         Card *card = [table firstCardAtLocation: location];
@@ -118,9 +118,9 @@
                        fraction: card == nil? 0.25 : 1.0 ];
     }
 
-    for (i = 0; i < NUMBER_OF_COLUMNS; i++)
+    for (i = 0; i < TableNumberOfColumns; i++)
     {
-        TableLocation *location = [TableLocation locationWithType: COLUMN number: i];
+        TableLocation *location = [TableLocation locationWithType: TableLocationTypeColumn number: i];
         NSArray *column = [table arrayForLocation: location];
         NSEnumerator *enumerator = [column objectEnumerator];
         Card *card;
@@ -141,7 +141,7 @@
         }
 
         // If the column is empty and selected, draw the selected image
-        if (row == 0 && [game isTableLocationSelected: [TableLocation locationWithType: COLUMN number: i]])
+        if (row == 0 && [game isTableLocationSelected: [TableLocation locationWithType: TableLocationTypeColumn number: i]])
         {
             NSPoint origin = NSMakePoint(edgeMargin + (cardWidth + margin) * i,
                                          frame.size.height - edgeMargin
@@ -163,15 +163,15 @@
     {
         if (pos.y >= frame.size.height - cardHeight - margin)
         {
-            if (pos.x < edgeMargin + (cardWidth + margin) * NUMBER_OF_FREE_CELLS)
-                location = [TableLocation locationWithType: FREE_CELL
+            if (pos.x < edgeMargin + (cardWidth + margin) * (CGFloat)TableNumberOfFreeCells)
+                location = [TableLocation locationWithType: TableLocationTypeFreeCell
                                                number: (pos.x - edgeMargin)/(cardWidth + margin)];
             else
-                location = [TableLocation locationWithType: STACK
+                location = [TableLocation locationWithType: TableLocationTypeStack
                                                number: (pos.x - edgeMargin)/(cardWidth + margin) - 4];
         }
         else if (pos.y <= frame.size.height - cardHeight - margin * 2)
-            location = [TableLocation locationWithType: COLUMN
+            location = [TableLocation locationWithType: TableLocationTypeColumn
                                            number: (pos.x - edgeMargin)/(cardWidth + margin)];
     }
 

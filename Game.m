@@ -91,7 +91,7 @@
 
 - (void) G_deal
 {
-    TableLocation *deckTableLocation = [TableLocation locationWithType: DECK number: 0];
+    TableLocation *deckTableLocation = [TableLocation locationWithType: TableLocationTypeDeck number: 0];
     NSMutableArray *deck = (NSMutableArray *) [table arrayForLocation: deckTableLocation];
     NSUInteger i, n;
 	
@@ -107,7 +107,7 @@
     n = [deck count];
     for (i = 0; i < n; i++)
     {
-        TableLocation *column = [TableLocation locationWithType: COLUMN number: i % NUMBER_OF_COLUMNS];
+        TableLocation *column = [TableLocation locationWithType: TableLocationTypeColumn number: i % TableNumberOfColumns];
         [table move: [TableMove moveFromSource: deckTableLocation toDestination: column]];
     }
 }
@@ -121,10 +121,10 @@
 {
     [move setCount: 0];
 
-    if ([[move source] type] == COLUMN && [[move destination] type] == COLUMN)
+    if ([[move source] type] == TableLocationTypeColumn && [[move destination] type] == TableLocationTypeColumn)
     {
-        unsigned emptyFreeCells = [table numberOfEmptyTableLocationType: FREE_CELL];
-        unsigned emptyColumns   = [table numberOfEmptyTableLocationType: COLUMN];
+        unsigned emptyFreeCells = [table numberOfEmptyTableLocationType: TableLocationTypeFreeCell];
+        unsigned emptyColumns   = [table numberOfEmptyTableLocationType: TableLocationTypeColumn];
         unsigned count;
 
         // The maximum number of cards which may be played with F empty free
@@ -161,19 +161,19 @@
             }
         }
     }
-    else if ([[move destination] type] == STACK)
+    else if ([[move destination] type] == TableLocationTypeStack)
     {
         if ([[table firstCardAtLocation: [move source]] isSuccessorTo:
             [table firstCardAtLocation: [move destination]]])
             [move setCount: 1];
     }
-    else if ([[move destination] type] == COLUMN)
+    else if ([[move destination] type] == TableLocationTypeColumn)
     {
         if ([[table firstCardAtLocation: [move source]] isPlayableOn:
             [table firstCardAtLocation: [move destination]]])
             [move setCount: 1];
     }
-    else if ([[move destination] type] == FREE_CELL)
+    else if ([[move destination] type] == TableLocationTypeFreeCell)
     {
         if ([[table arrayForLocation: [move destination]] count] == 0)
             [move setCount: 1];
@@ -204,59 +204,59 @@
     unsigned i;
     Card *card;
 
-    for (i = 0; i < NUMBER_OF_STACKS; i++)
+    for (i = 0; i < TableNumberOfStacks; i++)
         if ([[table cardNumber: 1
-                    atTableLocation: [TableLocation locationWithType: STACK number: i]] rank] != KING)
+                    atTableLocation: [TableLocation locationWithType: TableLocationTypeStack number: i]] rank] != RankKing)
             break;
 
-    if (i == NUMBER_OF_STACKS)
+    if (i == TableNumberOfStacks)
     {
         [self gameOverWithResult: [Result resultWithWin]];
         [controller gameOver];
         return;
     }
 
-    if ([table numberOfEmptyTableLocationType: FREE_CELL] != 0)
+    if ([table numberOfEmptyTableLocationType: TableLocationTypeFreeCell] != 0)
         return;
 
-    for (i = 0; i < NUMBER_OF_FREE_CELLS; i++)
+    for (i = 0; i < TableNumberOfFreeCells; i++)
     {
         unsigned j;
 
-        card = [table firstCardAtLocation: [TableLocation locationWithType: FREE_CELL number: i]];
-        for (j = 0; j < NUMBER_OF_STACKS; j++)
+        card = [table firstCardAtLocation: [TableLocation locationWithType: TableLocationTypeFreeCell number: i]];
+        for (j = 0; j < TableNumberOfStacks; j++)
         {
-            Card *other = [table firstCardAtLocation: [TableLocation locationWithType: STACK
+            Card *other = [table firstCardAtLocation: [TableLocation locationWithType: TableLocationTypeStack
                                                                           number: j]];
             if ([card isSuccessorTo: other])
                 return;
         }
 
-        for (j = 0; j < NUMBER_OF_COLUMNS; j++)
+        for (j = 0; j < TableNumberOfColumns; j++)
         {
-            Card *other = [table firstCardAtLocation: [TableLocation locationWithType: COLUMN
+            Card *other = [table firstCardAtLocation: [TableLocation locationWithType: TableLocationTypeColumn
                                                                           number: j]];
             if ([card isPlayableOn: other])
                 return;
         }
     }
 
-    for (i = 0; i < NUMBER_OF_COLUMNS; i++)
+    for (i = 0; i < TableNumberOfColumns; i++)
     {
         unsigned j;
 
-        card = [table firstCardAtLocation: [TableLocation locationWithType: COLUMN number: i]];
-        for (j = 0; j < NUMBER_OF_STACKS; j++)
+        card = [table firstCardAtLocation: [TableLocation locationWithType: TableLocationTypeColumn number: i]];
+        for (j = 0; j < TableNumberOfStacks; j++)
         {
-            Card *other = [table firstCardAtLocation: [TableLocation locationWithType: STACK
+            Card *other = [table firstCardAtLocation: [TableLocation locationWithType: TableLocationTypeStack
                                                                           number: j]];
             if ([card isSuccessorTo: other])
                 return;
         }
 
-        for (j = 0; j < NUMBER_OF_COLUMNS; j++)
+        for (j = 0; j < TableNumberOfColumns; j++)
         {
-            Card *other = [table firstCardAtLocation: [TableLocation locationWithType: COLUMN
+            Card *other = [table firstCardAtLocation: [TableLocation locationWithType: TableLocationTypeColumn
                                                                           number: j]];
             if ([card isPlayableOn: other])
                 return;
@@ -269,45 +269,45 @@
 
 - (void) G_autoStack
 {
-    unsigned i, minimumStackedRank;
+    NSInteger minimumStackedRank;
     TableLocation *source, *destination;
     Card *card, *other;
 
-    minimumStackedRank = KING;
-    for (i = 0; i < NUMBER_OF_STACKS; i++)
+    minimumStackedRank = RankKing;
+    for (NSInteger i = 0; i < TableNumberOfStacks; i++)
     {
-        TableLocation *stack = [TableLocation locationWithType: STACK number: i];
-        unsigned rank = [[table firstCardAtLocation: stack] rank];
+        TableLocation *stack = [TableLocation locationWithType: TableLocationTypeStack number: i];
+        NSInteger rank = [[table firstCardAtLocation: stack] rank];
         if (rank < minimumStackedRank)
             minimumStackedRank = rank;
     }
 
-    for (i = 0; i < NUMBER_OF_FREE_CELLS; i++)
+    for (NSInteger i = 0; i < TableNumberOfFreeCells; i++)
     {
         unsigned j;
 
-        source = [TableLocation locationWithType: FREE_CELL number: i];
+        source = [TableLocation locationWithType: TableLocationTypeFreeCell number: i];
         card = [table firstCardAtLocation: source];
 
-        for (j = 0; j < NUMBER_OF_STACKS; j++)
+        for (j = 0; j < TableNumberOfStacks; j++)
         {
-            destination = [TableLocation locationWithType: STACK number: j];
+            destination = [TableLocation locationWithType: TableLocationTypeStack number: j];
             other = [table firstCardAtLocation: destination];
             if ([card isSuccessorTo: other] && [card rank] < minimumStackedRank + 3)
                 goto makeMove;
         }
     }
 
-    for (i = 0; i < NUMBER_OF_COLUMNS; i++)
+    for (NSInteger i = 0; i < TableNumberOfColumns; i++)
     {
         unsigned j;
 
-        source = [TableLocation locationWithType: COLUMN number: i];
+        source = [TableLocation locationWithType: TableLocationTypeColumn number: i];
         card = [table firstCardAtLocation: source];
 
-        for (j = 0; j < NUMBER_OF_STACKS; j++)
+        for (j = 0; j < TableNumberOfStacks; j++)
         {
-            destination = [TableLocation locationWithType: STACK number: j];
+            destination = [TableLocation locationWithType: TableLocationTypeStack number: j];
             other = [table firstCardAtLocation: destination];
             if ([card isSuccessorTo: other] && [card rank] < minimumStackedRank + 3)
                 goto makeMove;
@@ -371,7 +371,7 @@ makeMove:
     // moved from (it's a free cell or a column), start the move.
     if (move == nil)
     {
-        if (([location type] == FREE_CELL || [location type] == COLUMN)
+        if (([location type] == TableLocationTypeFreeCell || [location type] == TableLocationTypeColumn)
             && [table firstCardAtLocation: location] != nil)
         {
             [self G_setMove: [TableMove moveFromSource: location]];
@@ -392,9 +392,9 @@ makeMove:
 
     [self G_setMove: [TableMove moveFromSource: source]];
 
-    for (i = 0; i < NUMBER_OF_FREE_CELLS; i++)
+    for (i = 0; i < TableNumberOfFreeCells; i++)
     {
-        TableLocation *freeCell = [TableLocation locationWithType: FREE_CELL number: i];
+        TableLocation *freeCell = [TableLocation locationWithType: TableLocationTypeFreeCell number: i];
         
         if ([table firstCardAtLocation: freeCell] == nil)
         {
@@ -410,63 +410,56 @@ makeMove:
 {
     Card *card, *other;
     TableLocation *source, *destination;
-    int i;
 
-    for (i = 0; i < NUMBER_OF_COLUMNS; i++)
+    for (NSInteger i = 0; i < TableNumberOfColumns; i++)
     {
-        unsigned j;
-
-        source = [TableLocation locationWithType: COLUMN number: i];
+        source = [TableLocation locationWithType: TableLocationTypeColumn number: i];
         card = [table firstCardAtLocation: source];
-        for (j = 0; j < NUMBER_OF_STACKS; j++)
+        for (NSInteger j = 0; j < TableNumberOfStacks; j++)
         {
-            destination = [TableLocation locationWithType: STACK number: j];
+            destination = [TableLocation locationWithType: TableLocationTypeStack number: j];
             other = [table firstCardAtLocation: destination];
             if ([card isSuccessorTo: other])
                 goto foundHint;
         }
-        for (j = 0; j < NUMBER_OF_COLUMNS; j++)
+        for (NSInteger j = 0; j < TableNumberOfColumns; j++)
         {
-            destination = [TableLocation locationWithType: COLUMN number: j];
+            destination = [TableLocation locationWithType: TableLocationTypeColumn number: j];
             other = [table firstCardAtLocation: destination];
             if ([card isPlayableOn: other])
                 goto foundHint;
         }
     }
 
-    for (i = 0; i < NUMBER_OF_FREE_CELLS; i++)
+    for (NSInteger i = 0; i < TableNumberOfFreeCells; i++)
     {
-        unsigned j;
-
-        source = [TableLocation locationWithType: FREE_CELL number: i];
+        source = [TableLocation locationWithType: TableLocationTypeFreeCell number: i];
         card = [table firstCardAtLocation: source];
-        for (j = 0; j < NUMBER_OF_STACKS; j++)
+        for (NSInteger j = 0; j < TableNumberOfStacks; j++)
         {
-            destination = [TableLocation locationWithType: STACK number: j];
+            destination = [TableLocation locationWithType: TableLocationTypeStack number: j];
             other = [table firstCardAtLocation: destination];
             if ([card isSuccessorTo: other])
                 goto foundHint;
         }
-        for (j = 0; j < NUMBER_OF_COLUMNS; j++)
+        for (NSInteger j = 0; j < TableNumberOfColumns; j++)
         {
-            destination = [TableLocation locationWithType: COLUMN number: j];
+            destination = [TableLocation locationWithType: TableLocationTypeColumn number: j];
             other = [table firstCardAtLocation: destination];
             if ([card isPlayableOn: other])
                 goto foundHint;
         }
     }
 
-    for (i = 0; i < NUMBER_OF_COLUMNS; i++)
+    for (NSInteger i = 0; i < TableNumberOfColumns; i++)
     {
-        unsigned j;
-
-        source = [TableLocation locationWithType: COLUMN number: i];
+        source = [TableLocation locationWithType: TableLocationTypeColumn number: i];
         if ([table firstCardAtLocation: source] == nil)
             continue;
         
-        for (j = 0; j < NUMBER_OF_FREE_CELLS; j++)
+        for (NSInteger j = 0; j < TableNumberOfFreeCells; j++)
         {
-            destination = [TableLocation locationWithType: FREE_CELL number: j];
+            destination = [TableLocation locationWithType: TableLocationTypeFreeCell number: j];
             if ([table firstCardAtLocation: destination] == nil)
                 goto foundHint;
         }
