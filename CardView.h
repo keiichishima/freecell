@@ -31,20 +31,15 @@
 #import "Card.h"
 
 @interface CardView : NSObject
-{
-    NSSize          cardSize;
-    NSMutableDictionary *svgCache;
-}
 
-+ cardView;
-- init;
+@property (nonatomic, assign) NSSize cardSize;
+@property (nonatomic, readonly) unsigned int overlap;
+@property (nonatomic, readonly) unsigned int smallOverlap;
+
++ (instancetype)cardView;
+- (instancetype)init;
 - (NSImage *) svgImageForCard: (Card *) card;
 - (NSString *) svgFilenameForCard: (Card *) card;
-- (void) setCardSize: (NSSize) newSize;
-
 - (NSImage *) imageForCard: (Card *) card selected: (BOOL) isSelected;
-- (NSSize) size;
-- (unsigned) overlap;
-- (unsigned) smallOverlap;
 
 @end

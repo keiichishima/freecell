@@ -55,23 +55,17 @@ typedef NS_ENUM(NSInteger, Rank) {
 
 
 @interface Card : NSObject <NSCopying>
-{
-    Suit suit;
-    Rank rank;
-}
 
-+ cardWithSuit: (Suit) newSuit rank: (Rank) newRank;
-- initWithSuit: (Suit) newSuit rank: (Rank) newRank;
+@property (nonatomic, assign) Suit suit;
+@property (nonatomic, assign) Rank rank;
+@property (nonatomic, readonly, copy) NSString *suitString;
+@property (nonatomic, readonly, copy) NSString *rankString;
+@property (nonatomic, readonly, getter=isRed) BOOL red;
+@property (nonatomic, readonly, getter=isBlack) BOOL black;
 
-// Accessors
-//
++ (instancetype)cardWithSuit: (Suit) newSuit rank: (Rank) newRank;
+- (instancetype)initWithSuit: (Suit) newSuit rank: (Rank) newRank;
 
-- (Suit) suit;
-- (NSString *) suitString;
-- (Rank) rank;
-- (NSString *) rankString;
-- (BOOL) isRed;
-- (BOOL) isBlack;
 - (BOOL) isSuccessorTo: (Card *) other; // Move to Game logic: these methods are
 - (BOOL) isPlayableOn: (Card *) other;  // not part of a generic card class.
 

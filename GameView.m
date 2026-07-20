@@ -221,8 +221,8 @@
     edgeMargin = 2 * margin;
     overlap = [cardView overlap];
     smallOverlap = [cardView smallOverlap];
-    cardWidth = [cardView size].width;
-    cardHeight = [cardView size].height;
+    cardWidth = [cardView cardSize].width;
+    cardHeight = [cardView cardSize].height;
 
     size = NSMakeSize(edgeMargin + (cardWidth + margin) * 8 - margin + edgeMargin,
                             edgeMargin + (cardHeight + margin) * 2 + smallOverlap * 18 + edgeMargin);
