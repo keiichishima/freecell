@@ -38,19 +38,12 @@ typedef NS_ENUM(NSInteger, TableLocationType) {
 };
 
 @interface TableLocation : NSObject <NSCopying>
-{
-    TableLocationType type;
-    unsigned short number;
-}
 
-+ (TableLocation *) locationWithType: (TableLocationType) newType number: (unsigned short) newNumber;
-+ (TableLocation *) noLocation;
-- (TableLocation *) initWithType: (TableLocationType) newType number: (unsigned short) newNumber;
+@property (nonatomic, readonly) TableLocationType type;
+@property (nonatomic, readonly) NSUInteger number;
 
-// Accessors
-//
-
-- (TableLocationType) type;
-- (unsigned short) number;
++ (instancetype)locationWithType: (TableLocationType) newType number: (NSUInteger) newNumber;
++ (instancetype) noLocation;
+- (instancetype) initWithType: (TableLocationType) newType number: (NSUInteger) newNumber;
 
 @end

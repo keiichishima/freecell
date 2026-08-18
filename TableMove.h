@@ -34,7 +34,7 @@
 {
     TableLocation *source;
     TableLocation *destination;
-    unsigned count;
+    NSUInteger count;
 }
 
 + moveFromSource: (TableLocation *) newSource;
@@ -42,20 +42,20 @@
 + reverseMove: (TableMove *) move;
 - initWithSource: (TableLocation *) newSource destination: (TableLocation *) newDestination;
 - initWithSource: (TableLocation *) newSource destination: (TableLocation *) newDestination
-           count: (unsigned) newCount;
+           count: (NSUInteger) newCount;
 
 // Mutators
 //
 
 - (void) setSource: (TableLocation *) newSource;
 - (void) setDestination: (TableLocation *) newDestination;
-- (void) setCount: (unsigned) newCount;
+- (void) setCount: (NSUInteger) newCount;
 
 // Accessors
 //
 
 - (TableLocation *) source;
 - (TableLocation *) destination;
-- (unsigned) count;
+- (NSUInteger) count;
 
 @end

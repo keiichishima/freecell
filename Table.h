@@ -42,12 +42,11 @@ FOUNDATION_EXPORT NSInteger const TableNumberOfFreeCells;
 FOUNDATION_EXPORT NSInteger const TableNumberOfDecks;
 
 @interface Table : NSObject
-{
-    NSMutableArray	*columns;
-    NSMutableArray	*stacks;
-    NSMutableArray	*freeCells;
-    NSMutableArray	*decks;
-}
+
+@property (nonatomic, strong) NSMutableArray<NSMutableArray *> *columns;
+@property (nonatomic, strong) NSMutableArray<NSMutableArray *> *stacks;
+@property (nonatomic, strong) NSMutableArray<NSMutableArray *> *freeCells;
+@property (nonatomic, strong) NSMutableArray<NSMutableArray *> *decks;
 
 // Mutators
 //
@@ -59,8 +58,8 @@ FOUNDATION_EXPORT NSInteger const TableNumberOfDecks;
 
 - (NSArray *) arrayForLocation: (TableLocation *) location;
 - (NSArray *) arrayForLocationType: (TableLocationType) locationType;
-- (unsigned) numberOfEmptyTableLocationType: (TableLocationType) locationType;
-- (Card *) cardNumber: (unsigned) n atTableLocation: (TableLocation *) location;
+- (NSUInteger) numberOfEmptyTableLocationType: (TableLocationType) locationType;
+- (Card *) cardNumber: (NSUInteger) n atTableLocation: (TableLocation *) location;
 - (Card *) firstCardAtLocation: (TableLocation *) location;
 
 @end

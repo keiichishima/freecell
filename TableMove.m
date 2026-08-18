@@ -67,7 +67,7 @@
 }
 
 - initWithSource: (TableLocation *) newSource destination: (TableLocation *) newDestination
-           count: (unsigned) newCount
+           count: (NSUInteger) newCount
 {
     self = [super init];
 
@@ -114,7 +114,7 @@
     destination = [newDestination copy];
 }
 
-- (void) setCount: (unsigned) newCount
+- (void) setCount: (NSUInteger) newCount
 {
     count = newCount;
 }
@@ -132,7 +132,7 @@
     return destination;
 }
 
-- (unsigned) count
+- (NSUInteger) count
 {
     return count;
 }

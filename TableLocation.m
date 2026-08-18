@@ -32,60 +32,51 @@
 
 @implementation TableLocation
 
-+ (TableLocation *) locationWithType: (TableLocationType) newType number: (unsigned short) newNumber
++ (instancetype)locationWithType: (TableLocationType) newType number: (NSUInteger) newNumber
 {
     return [[TableLocation alloc] initWithType: newType number: newNumber];
 }
 
-+ (TableLocation *) noLocation
++ (instancetype)noLocation
 {
     return [[TableLocation alloc] initWithType: TableLocationTypeNone number: 0];
 }
 
-- (TableLocation *) initWithType: (TableLocationType) newType number: (unsigned short) newNumber
+- (instancetype)initWithType: (TableLocationType) newType number: (NSUInteger) newNumber
 {
     self = [super init];
 
     if (self)
     {
-        type = newType;
-        number = newNumber;
+        _type = newType;
+        _number = newNumber;
     }
 
     return self;
 }
 
-- copyWithZone: (NSZone *) zone
+- (id)copyWithZone: (NSZone *) zone
 {
-    return [[TableLocation allocWithZone: zone] initWithType: type number: number];
+    return [[TableLocation allocWithZone: zone] initWithType: self.type number: self.number];
 }
 
 // Overridden methods
 //
 
-- (BOOL) isEqual: (TableLocation *) other
+- (BOOL)isEqual: (id)object
 {
-    return (type == [other type] && number == [other number]);
+    if (self == object) return YES;
+    if (![object isKindOfClass:[TableLocation class]]) return NO;
+    
+    TableLocation *other = (TableLocation *)object;
+    return (self.type == other.type && self.number == other.number);
 }
 
 - (NSString *) description
 {
     NSString *typeToString[] = { @"None", @"Free Cell", @"Stack", @"Column", @"Deck" };
 
-    return [NSString stringWithFormat: @"%@:%d", typeToString[type], number];
-}
-
-// Accessors
-//
-
-- (TableLocationType) type
-{
-    return type;
-}
-
-- (unsigned short) number
-{
-    return number;
+    return [NSString stringWithFormat: @"%@:%lu", typeToString[self.type], self.number];
 }
 
 @end

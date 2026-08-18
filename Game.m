@@ -123,9 +123,9 @@
 
     if ([[move source] type] == TableLocationTypeColumn && [[move destination] type] == TableLocationTypeColumn)
     {
-        unsigned emptyFreeCells = [table numberOfEmptyTableLocationType: TableLocationTypeFreeCell];
-        unsigned emptyColumns   = [table numberOfEmptyTableLocationType: TableLocationTypeColumn];
-        unsigned count;
+        NSUInteger emptyFreeCells = [table numberOfEmptyTableLocationType: TableLocationTypeFreeCell];
+        NSUInteger emptyColumns   = [table numberOfEmptyTableLocationType: TableLocationTypeColumn];
+        NSUInteger count;
 
         // The maximum number of cards which may be played with F empty free
         // cells is F + 1. However, this is doubled for every empty column,
@@ -142,7 +142,7 @@
         // 2^C == 1 << C.
         for (count = (emptyFreeCells + 1) * (1 << emptyColumns); count > 0; count--)
         {
-            unsigned try;
+            NSUInteger try;
 
             // Check that the `count' cards are in valid sequence; break from the
             // loop if they are not.
