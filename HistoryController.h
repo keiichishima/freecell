@@ -33,39 +33,41 @@
 
 @class GameController;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface HistoryController : NSObject
-{
-    IBOutlet NSTextField	*gamesLost;
-    IBOutlet NSTextField	*gamesPlayed;
-    IBOutlet NSTextField	*gamesWon;
-    IBOutlet NSButton		*retryGame;
-    IBOutlet NSTableView	*tableView;
-    IBOutlet NSWindow		*window;
-    IBOutlet NSTableColumn	*lastPlayedColumn;
-    GameController          *gameController;
-    History                 *history;
-    NSString                *sortColumn;
-    BOOL                    sortDescending;
-}
+
+// IBOutlet Properties
+@property (nonatomic, weak) IBOutlet NSTextField *gamesLost;
+@property (nonatomic, weak) IBOutlet NSTextField *gamesPlayed;
+@property (nonatomic, weak) IBOutlet NSTextField *gamesWon;
+@property (nonatomic, weak) IBOutlet NSButton *retryGame;
+@property (nonatomic, weak) IBOutlet NSTableView *tableView;
+@property (nonatomic, weak) IBOutlet NSWindow *window;
+@property (nonatomic, weak) IBOutlet NSTableColumn *lastPlayedColumn;
+
+// Object Properties
+@property (nonatomic, weak) IBOutlet GameController *gameController;
+@property (nonatomic, strong) History *history;
+@property (nonatomic, copy) NSString *sortColumn;
+@property (nonatomic, assign) BOOL sortDescending;
 
 // Action methods
-//
-
 - (IBAction) clear: (id) sender;
 - (IBAction) openWindow: (id) sender;
 - (IBAction) retryGame: (id) sender;
 
 // Mutators
-//
-
 - (void) addRecordWithGameNumber: (NSNumber *) gameNumber
                           result: (Result *) result
                            moves: (unsigned short) moves
                         duration: (NSTimeInterval) duration
                             date: (NSDate *) date;
 
-- (NSDate *) shortestDuration;
+- (nullable NSDate *) shortestDuration;
 - (unsigned) shortestMoves;
 - (unsigned) numberOfGamesWon;
 
 @end
+
+NS_ASSUME_NONNULL_END

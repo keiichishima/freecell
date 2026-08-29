@@ -33,16 +33,16 @@
 
 @implementation History
 
-- (id) initWithFile: (NSString *) newFile
+- (instancetype) initWithFile: (NSString *) newFile
 {
     self = [super init];
 
     if (self)
     {
-        file = [newFile copy];
-        records = [NSMutableArray arrayWithContentsOfFile: file];
-        if (records == nil)
-            records = [NSMutableArray array];
+        _file = [newFile copy];
+        _records = [NSMutableArray arrayWithContentsOfFile: _file];
+        if (_records == nil)
+            _records = [NSMutableArray array];
     }
 
     return self;
@@ -53,7 +53,7 @@
 
 - (NSInteger) numberOfRowsInTableView: (NSTableView *) tableView
 {
-    return [records count];
+    return [self.records count];
 }
 
 - (id) tableView: (NSTableView *) tableView objectValueForTableColumn: (NSTableColumn *) column
@@ -74,14 +74,6 @@
         return object;
 }
 
-// Private methods
-//
-
-- (void) H_setRecords: (NSMutableArray *) newRecords
-{
-    records = newRecords;
-}
-
 // Mutators
 //
 
@@ -95,7 +87,7 @@
     NSMutableDictionary *record;
 
     while ((oldRecord = [self recordWithGameNumber: gameNumber]))
-        [records removeObject: oldRecord];
+        [self.records removeObject: oldRecord];
 
     record = [NSMutableDictionary dictionaryWithCapacity: 5];
     [record setObject: gameNumber forKey: @"gameNumber"];
@@ -104,23 +96,23 @@
     [record setObject: [NSDate dateWithTimeIntervalSinceReferenceDate: duration] forKey: @"duration"];
     [record setObject: date forKey: @"date"];
     
-    [records addObject: record];    
-    [records writeToFile: file atomically: YES];
+    [self.records addObject: record];
+    [self.records writeToFile: self.file atomically: YES];
 }
 
 - (void) clear
 {
-    [records removeAllObjects];
-    [records writeToFile: file atomically: YES];    
+    [self.records removeAllObjects];
+    [self.records writeToFile: self.file atomically: YES];
 }
 
 - (void) sortByColumn: (NSString *) column withDescending: (BOOL) descending
 {
     SEL compare = NSSelectorFromString([NSString stringWithFormat: @"%@Compare:", column]);
 
-    [records sortUsingSelector: compare];
+    [self.records sortUsingSelector: compare];
     if (descending)
-        [records setArray: [[records reverseObjectEnumerator] allObjects]];
+        [self.records setArray: [[self.records reverseObjectEnumerator] allObjects]];
 }
 
 // Accessors
@@ -128,7 +120,7 @@
 
 - (unsigned) numberOfRecordsWithResult: (Result *) result
 {
-    NSEnumerator *enumerator = [records objectEnumerator];
+    NSEnumerator *enumerator = [self.records objectEnumerator];
     NSDictionary *record;
     unsigned n = 0;
 
@@ -141,8 +133,8 @@
 
 - (NSDictionary *) record: (NSUInteger) n
 {
-    if (n < [records count])
-        return [records objectAtIndex: n];
+    if (n < [self.records count])
+        return [self.records objectAtIndex: n];
     
     return nil;
 }
@@ -155,7 +147,7 @@
 - (NSDictionary *) recordWithGameNumber: (NSNumber *) gameNumber
 {
     NSDictionary *record;
-    NSEnumerator *enumerator = [records objectEnumerator];
+    NSEnumerator *enumerator = [self.records objectEnumerator];
 
     while (record = [enumerator nextObject])
         if ([[record objectForKey: @"gameNumber"] isEqual: gameNumber])
@@ -167,7 +159,7 @@
 - (NSDate *) shortestDuration
 {
     NSDictionary *record;
-    NSEnumerator *enumerator = [records objectEnumerator];
+    NSEnumerator *enumerator = [self.records objectEnumerator];
     NSDate *shortest = [NSDate distantFuture];
     
     while (record = [enumerator nextObject])
@@ -180,7 +172,7 @@
 - (unsigned) shortestMoves
 {
     NSDictionary *record;
-    NSEnumerator *enumerator = [records objectEnumerator];
+    NSEnumerator *enumerator = [self.records objectEnumerator];
     unsigned shortest = UINT_MAX;
     
     while (record = [enumerator nextObject])

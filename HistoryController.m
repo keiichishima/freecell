@@ -50,13 +50,13 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     NSString *file = [@"~/Library/Preferences/org.wasters.Freecell.history.plist" stringByExpandingTildeInPath];
-    history = [[History alloc] initWithFile: file];
+    self.history = [[History alloc] initWithFile: file];
 
-    [tableView setDataSource: history];
-    [tableView setAutosaveName: @"history"];
-    [tableView setAutosaveTableColumns: YES];
-    [tableView setTarget: self];
-    [tableView setDoubleAction: @selector(retryGame:)];
+    [self.tableView setDataSource: self.history];
+    [self.tableView setAutosaveName: @"history"];
+    [self.tableView setAutosaveTableColumns: YES];
+    [self.tableView setTarget: self];
+    [self.tableView setDoubleAction: @selector(retryGame:)];
 
     [defaults registerDefaults:
         [NSDictionary dictionaryWithObjectsAndKeys:
@@ -64,8 +64,8 @@
             [NSNumber numberWithBool: YES], @"historySortDescending",
             nil]];
 
-    [self HC_setSortColumn: [defaults stringForKey: @"historySortColumn"]];
-    sortDescending = [defaults boolForKey: @"historySortDescending"];
+    self.sortColumn = [defaults stringForKey: @"historySortColumn"];
+    self.sortDescending = [defaults boolForKey: @"historySortDescending"];
     [self HC_sortTable];
 
     [self HC_setDateFormat];
@@ -75,30 +75,30 @@
 
 - (void) tableViewSelectionDidChange: (NSNotification *) notification
 {
-    if ([tableView selectedRow] == -1)
-        [retryGame setEnabled: NO];
+    if ([self.tableView selectedRow] == -1)
+        [self.retryGame setEnabled: NO];
     else
-        [retryGame setEnabled: YES];
+        [self.retryGame setEnabled: YES];
 }
 
 - (void) tableView: (NSTableView *) newTableView didClickTableColumn: (NSTableColumn *) column
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if ([sortColumn isEqualToString: [column identifier]])
-        sortDescending = !sortDescending;
+    if ([self.sortColumn isEqualToString: [column identifier]])
+        self.sortDescending = !self.sortDescending;
     else
     {
-        [tableView setIndicatorImage: nil
-                       inTableColumn: [tableView tableColumnWithIdentifier: sortColumn]];
-        sortDescending = NO;
+        [self.tableView setIndicatorImage: nil
+                            inTableColumn: [self.tableView tableColumnWithIdentifier: self.sortColumn]];
+        self.sortDescending = NO;
     }
 
-    [self HC_setSortColumn: [column identifier]];
+    self.sortColumn = [column identifier];
     [self HC_sortTable];
 
-    [defaults setObject: sortColumn forKey: @"historySortColumn"];
-    [defaults setObject: [NSNumber numberWithBool: sortDescending] forKey: @"historySortDescending"];
+    [defaults setObject: self.sortColumn forKey: @"historySortColumn"];
+    [defaults setObject: [NSNumber numberWithBool: self.sortDescending] forKey: @"historySortDescending"];
 }
 
 // Private methods
@@ -106,44 +106,39 @@
 
 - (void) HC_updateWindow
 {
-    unsigned won  = [history numberOfRecordsWithResult: [Result resultWithWin]];
-    unsigned lost = [history numberOfRecordsWithResult: [Result resultWithLoss]];
+    unsigned won  = [self.history numberOfRecordsWithResult: [Result resultWithWin]];
+    unsigned lost = [self.history numberOfRecordsWithResult: [Result resultWithLoss]];
     unsigned wonPercent = (unsigned) floor(((double) won * 100.0) / (won + lost));
     unsigned lostPercent = 100 - wonPercent;
     
     if (won + lost == 0)
         wonPercent = lostPercent = 0.0;
     
-    [gamesPlayed setIntValue: won + lost];
-    [gamesWon    setStringValue: [NSString stringWithFormat: @"%d (%d%%)",
-        won, wonPercent]];
-    [gamesLost    setStringValue: [NSString stringWithFormat: @"%d (%d%%)",
-        lost, lostPercent]];
+    [self.gamesPlayed setIntValue: won + lost];
+    [self.gamesWon setStringValue: [NSString stringWithFormat: @"%d (%d%%)",
+                                    won, wonPercent]];
+    [self.gamesLost setStringValue: [NSString stringWithFormat: @"%d (%d%%)",
+                                     lost, lostPercent]];
 
-    [tableView noteNumberOfRowsChanged];
-    [tableView setNeedsDisplay: YES];
+    [self.tableView noteNumberOfRowsChanged];
+    [self.tableView setNeedsDisplay: YES];
 }
 
 - (void) HC_sortTable
 {
     NSImage *sortImage = [self HC_sortDescendingToImage];
-    NSTableColumn *column = [tableView tableColumnWithIdentifier: sortColumn];
+    NSTableColumn *column = [self.tableView tableColumnWithIdentifier: self.sortColumn];
     
-    [tableView setIndicatorImage: sortImage inTableColumn: column];
-    [tableView setHighlightedTableColumn: column];
+    [self.tableView setIndicatorImage: sortImage inTableColumn: column];
+    [self.tableView setHighlightedTableColumn: column];
 
-    [history sortByColumn: sortColumn withDescending: sortDescending];
-    [tableView reloadData];
-}
-
-- (void) HC_setSortColumn: (NSString *) newSortColumn
-{
-    sortColumn = [newSortColumn copy];
+    [self.history sortByColumn: self.sortColumn withDescending: self.sortDescending];
+    [self.tableView reloadData];
 }
 
 - (NSImage *) HC_sortDescendingToImage
 {
-    if (sortDescending)
+    if (self.sortDescending)
         return [NSImage imageNamed: @"NSDescendingSortIndicator"];
     else
         return [NSImage imageNamed: @"NSAscendingSortIndicator"];
@@ -153,7 +148,7 @@
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"HH:mm:ss"];
-    [[lastPlayedColumn dataCell] setFormatter: formatter];
+    [[self.lastPlayedColumn dataCell] setFormatter: formatter];
 }
 
 // Action methods
@@ -167,9 +162,9 @@
     [alert setMessageText: NSLocalizedString(@"clearTitle", @"Clear history sheet title")];
     [alert setInformativeText: NSLocalizedString(@"clearText", @"Clear history sheet text")];
     [alert setAlertStyle: NSAlertStyleWarning];
-    [alert beginSheetModalForWindow: window completionHandler: ^(NSModalResponse returnCode) {
+    [alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
         if (returnCode == NSAlertSecondButtonReturn) {
-            [self->history clear];
+            [self.history clear];
             [self HC_updateWindow];
         }
     }];
@@ -177,21 +172,21 @@
 
 - (IBAction) openWindow: (id) sender
 {
-    [window makeKeyAndOrderFront: self];
+    [self.window makeKeyAndOrderFront: self];
 }
 
 - (IBAction) retryGame: (id) sender
 {
-    NSInteger row = [tableView selectedRow];
+    NSInteger row = [self.tableView selectedRow];
 
     // Ignore double-clicks on the TableView if they are on a column header
-    if (sender == tableView && [tableView clickedRow] == -1)
+    if (sender == self.tableView && [self.tableView clickedRow] == -1)
         return;
     
     if (row != -1)
     {
-        [gameController playGameWithNumber: [history gameNumberForRecord: row]];
-        [window close];
+        [self.gameController playGameWithNumber: [self.history gameNumberForRecord: row]];
+        [self.window close];
     }
 }
 
@@ -204,25 +199,25 @@
                         duration: (NSTimeInterval) duration
                             date: (NSDate *) date
 {
-    [history addRecordWithGameNumber: gameNumber result: result moves: moves
-                            duration: duration date: date];
+    [self.history addRecordWithGameNumber: gameNumber result: result moves: moves
+                                 duration: duration date: date];
     [self HC_sortTable];
     [self HC_updateWindow];
 }
 
 - (NSDate *) shortestDuration
 {
-    return [history shortestDuration];
+    return [self.history shortestDuration];
 }
 
 - (unsigned) shortestMoves
 {
-    return [history shortestMoves];
+    return [self.history shortestMoves];
 }
 
 - (unsigned) numberOfGamesWon
 {
-    return [history numberOfRecordsWithResult: [Result resultWithWin]];
+    return [self.history numberOfRecordsWithResult: [Result resultWithWin]];
 }
 
 @end

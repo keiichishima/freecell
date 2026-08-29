@@ -30,17 +30,16 @@
 #import <Cocoa/Cocoa.h>
 #import "Result.h"
 
-@interface History : NSObject <NSTableViewDataSource>
-{
-    NSString		*file;
-    NSMutableArray	*records;
-}
+NS_ASSUME_NONNULL_BEGIN
 
-- initWithFile: (NSString *) file;
+@interface History : NSObject <NSTableViewDataSource>
+
+@property (nonatomic, copy) NSString *file;
+@property (nonatomic, strong) NSMutableArray *records;
+
+- (instancetype)initWithFile: (NSString *) file;
 
 // Mutators
-//
-
 - (void) addRecordWithGameNumber: (NSNumber *) gameNumber
                           result: (Result *) result
                            moves: (unsigned) moves
@@ -51,13 +50,13 @@
 - (void) sortByColumn: (NSString *) column withDescending: (BOOL) ascending;
 
 // Accessors
-//
-
 - (unsigned) numberOfRecordsWithResult: (Result *) result;
-- (NSDictionary *) record: (NSUInteger) n;
-- (NSNumber *) gameNumberForRecord: (NSUInteger) n;
-- (NSDictionary *) recordWithGameNumber: (NSNumber *) gameNumber;
+- (nullable NSDictionary *) record: (NSUInteger) n;
+- (nullable NSNumber *) gameNumberForRecord: (NSUInteger) n;
+- (nullable NSDictionary *) recordWithGameNumber: (NSNumber *) gameNumber;
 - (NSDate *) shortestDuration;
 - (unsigned) shortestMoves;
 
 @end
+
+NS_ASSUME_NONNULL_END
