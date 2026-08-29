@@ -38,7 +38,7 @@
     NSSize size = NSMakeSize(95 * scale, 140 * scale);
 
     [view setCardSize: size];
-    [gameView setCardView: view];
+    [self.gameView setCardView: view];
 }
 
 - (void) awakeFromNib
@@ -46,61 +46,61 @@
     NSData *data;
     double cardSize;
     
-    defaults = [NSUserDefaults standardUserDefaults];
-    [defaults registerDefaults:
+    self.defaults = [NSUserDefaults standardUserDefaults];
+    [self.defaults registerDefaults:
         [NSDictionary dictionaryWithObjectsAndKeys:
             [NSNumber numberWithBool: YES], @"gameSuperMove",
             [NSNumber numberWithBool: YES], @"gameAutoStack",
             [NSNumber numberWithDouble: 50.0], @"gameCardSize",
             nil]];
     
-    [autoStack setState: [defaults boolForKey: @"gameAutoStack"]];
+    [self.autoStack setState: [self.defaults boolForKey: @"gameAutoStack"]];
 
-    [superMove setState: [defaults boolForKey: @"gameSuperMove"]];
+    [self.superMove setState: [self.defaults boolForKey: @"gameSuperMove"]];
 
-    cardSize = [defaults doubleForKey: @"gameCardSize"];
-    [cardSizeSlider setDoubleValue: cardSize];
+    cardSize = [self.defaults doubleForKey: @"gameCardSize"];
+    [self.cardSizeSlider setDoubleValue: cardSize];
     [self setCardSizeFromSliderValue: cardSize];
 
-    data = [defaults dataForKey: @"backgroundColour"];
+    data = [self.defaults dataForKey: @"backgroundColour"];
     if (data)
     {
         NSColor *colour = [NSUnarchiver unarchiveObjectWithData: data];
-        [backgroundColour setColor: colour];
+        [self.backgroundColour setColor: colour];
     }
 }
 
 - (IBAction) openWindow: (id) sender
 {
-    [window makeKeyAndOrderFront: self];
+    [self.window makeKeyAndOrderFront: self];
 }
 
 - (IBAction) autoStackClicked: (id) sender
 {
-    NSNumber *state = [NSNumber numberWithBool: [autoStack state] == NSOnState];
-    [defaults setObject: state forKey: @"gameAutoStack"];
+    NSNumber *state = [NSNumber numberWithBool: [self.autoStack state] == NSOnState];
+    [self.defaults setObject: state forKey: @"gameAutoStack"];
 }
 
 - (IBAction) superMoveClicked: (id) sender
 {
-    NSNumber *state = [NSNumber numberWithBool: [superMove state] == NSOnState];
-    [defaults setObject: state forKey: @"gameSuperMove"];
+    NSNumber *state = [NSNumber numberWithBool: [self.superMove state] == NSOnState];
+    [self.defaults setObject: state forKey: @"gameSuperMove"];
 }
 
 - (IBAction) cardSizeChanged: (id) sender
 {
-    double cardSize = [cardSizeSlider doubleValue];
+    double cardSize = [self.cardSizeSlider doubleValue];
 
-    [defaults setObject: [NSNumber numberWithDouble: cardSize] forKey: @"gameCardSize"];
+    [self.defaults setObject: [NSNumber numberWithDouble: cardSize] forKey: @"gameCardSize"];
     [self setCardSizeFromSliderValue: cardSize];
 }
 
 
 - (IBAction) backgroundColourChosen: (id) sender
 {
-    NSColor *colour = [backgroundColour color];
-    [defaults setObject: [NSArchiver archivedDataWithRootObject: colour] forKey: @"backgroundColour"];
-    [gameView setBackgroundColour: colour];
+    NSColor *colour = [self.backgroundColour color];
+    [self.defaults setObject: [NSArchiver archivedDataWithRootObject: colour] forKey: @"backgroundColour"];
+    [self.gameView setBackgroundColour: colour];
 }
 
 @end

@@ -32,16 +32,18 @@
 #import "CardView.h"
 
 @interface PreferencesController : NSObject
-{
-    NSUserDefaults		*defaults;
-    IBOutlet GameView		*gameView;
-    IBOutlet NSButton		*autoStack;
-    IBOutlet NSButton		*superMove;
-    IBOutlet NSSlider		*cardSizeSlider;
-    IBOutlet NSColorWell	*backgroundColour;
-    IBOutlet NSWindow		*window;
-}
 
+// IBOutlet
+@property (nonatomic, weak) IBOutlet GameView *gameView;
+@property (nonatomic, weak) IBOutlet NSButton *autoStack;
+@property (nonatomic, weak) IBOutlet NSButton *superMove;
+@property (nonatomic, weak) IBOutlet NSSlider *cardSizeSlider;
+@property (nonatomic, weak) IBOutlet NSColorWell *backgroundColour;
+@property (nonatomic, weak) IBOutlet NSWindow *window;
+
+@property (nonatomic, strong) NSUserDefaults *defaults;
+
+// Action
 - (IBAction) openWindow: (id) sender;
 - (IBAction) autoStackClicked: (id) sender;
 - (IBAction) superMoveClicked: (id) sender;
