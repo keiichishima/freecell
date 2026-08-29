@@ -61,19 +61,19 @@
     self = [super init];
 
     if (self)
-        result = newResult;
+        _result = newResult;
 
     return self;
 }
 
 - copyWithZone: (NSZone *) zone
 {
-    return [[Result allocWithZone: zone] initWithResult: result];
+    return [[Result allocWithZone: zone] initWithResult: self.result];
 }
 
 - (NSString *) description
 {
-    switch (result)
+    switch (self.result)
     {
         default:
         case ResultValueUnplayed:
@@ -87,15 +87,10 @@
 
 - (BOOL) isEqual: (Result *) other
 {
-    return (result == [other result]);
-}
-
-// Accessor methods
-//
-
-- (ResultValue) result
-{
-    return result;
+    if (![other isKindOfClass:[Result class]]) {
+        return NO;
+    }
+    return (self.result == other.result);
 }
 
 @end

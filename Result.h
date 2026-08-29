@@ -36,19 +36,13 @@ typedef NS_ENUM(NSInteger, ResultValue) {
 };
 
 @interface Result : NSObject <NSCopying>
-{
-    ResultValue result;
-}
+
+@property (nonatomic, readonly) ResultValue result;
 
 + (NSString *) translateResultFromString: (NSString *) result;
-+ resultWithUnplayed;
-+ resultWithWin;
-+ resultWithLoss;
-- initWithResult: (ResultValue) newResult;
-
-// Accessor methods
-//
-
-- (ResultValue) result;
++ (instancetype)resultWithUnplayed;
++ (instancetype)resultWithWin;
++ (instancetype)resultWithLoss;
+- (instancetype)initWithResult: (ResultValue) newResult;
 
 @end
