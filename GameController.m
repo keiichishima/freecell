@@ -50,7 +50,8 @@
     [super awakeFromNib];
     srandom((unsigned int)time(NULL));
 
-//    [self.history awakeFromNib];
+    if (self.history != nil)
+        [self.history awakeFromNib];
     [self updateTime: self.timer];
     [self moveMade];
     
