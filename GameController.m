@@ -36,6 +36,7 @@
 @interface GameController (PrivateMethods)
 
 - (void) GC_startGame;
+- (void) GC_stopTimer;
 
 @end
 
@@ -70,7 +71,7 @@
 
 - (BOOL) windowShouldClose: (id) sender
 {
-    if ([game inProgress] == NO)
+    if (game.inProgress == NO)
     {
         [self setGame: nil];
         return YES;
@@ -91,7 +92,7 @@
 
 - (NSApplicationTerminateReply) applicationShouldTerminate: (id) sender
 {
-    if ([game inProgress] == NO)
+    if (game.inProgress == NO)
         return NSTerminateNow;
 
     NSAlert *alert = [[NSAlert alloc] init];
@@ -203,7 +204,7 @@
     if ([window attachedSheet] != nil)
     {
         // Clear up the you-won/you-lost dialog if it's open
-        if ([game inProgress] == NO)
+        if (game.inProgress == NO)
         {
             [NSApp endSheet: [window attachedSheet]];
             [NSApp stopModal];
@@ -213,7 +214,7 @@
             return;
     }
 
-    if ([game inProgress] == YES)
+    if (game.inProgress == YES)
     {
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText: NSLocalizedString(@"newGameTitle", @"New game sheet title")];
@@ -240,7 +241,7 @@
         [window makeKeyAndOrderFront: self];
         [window makeMainWindow];
         
-        [timer invalidate];
+        [self GC_stopTimer];
         timer = [NSTimer scheduledTimerWithTimeInterval: 1 target: self
                                                selector: @selector(updateTime:)
                                                userInfo: nil
@@ -248,6 +249,12 @@
         [self updateTime: timer];
         [self moveMade];
     }
+}
+
+- (void) GC_stopTimer
+{
+    [timer invalidate];
+    timer = nil;
 }
 
 
@@ -266,7 +273,7 @@
     [formatter setDateFormat:@"HH:mm:ss"];
     [formatter setTimeZone: [NSTimeZone timeZoneForSecondsFromGMT: 0]];
     
-    if ([game inProgress])
+    if (game.inProgress)
     {
         current = [NSDate dateWithTimeIntervalSinceReferenceDate: [[NSDate date] timeIntervalSinceDate: [game startDate]]];
     }
@@ -321,7 +328,9 @@
 
 - (void) setGame: (Game *) newGame
 {
-    if ([game inProgress])
+    [self GC_stopTimer];
+
+    if (game.inProgress)
         [game gameOverWithResult: [Result resultWithLoss]];
 
     if ([[game result] isEqual: [Result resultWithWin]] || [[game result] isEqual: [Result resultWithLoss]])
@@ -337,8 +346,7 @@
 
     [timer fire];
     
-    [timer invalidate];
-    timer = nil;
+    [self GC_stopTimer];
     
     if ([result isEqual: [Result resultWithWin]])
     {

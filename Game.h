@@ -37,57 +37,44 @@
 @class GameController;
 
 @interface Game : NSObject
-{
-    NSUserDefaults 	*defaults;
-    Table 		*table;
-    GameView		*view;
-    GameController	*controller;
-    TableMove		*move;
-    TableMove		*hint;
-    NSMutableArray	*played;
-    NSMutableArray	*undone;
-    NSNumber		*gameNumber;
-    NSDate		*startDate;
-    NSDate		*endDate;
-    BOOL		inProgress;
-    Result		*result;
-}
 
-+ gameWithView: (GameView *) newView
-    controller: (GameController *) newController
-    gameNumber: (NSNumber *) newGameNumber;
-- initWithView: (GameView *) newView
-    controller: (GameController *) newController
-    gameNumber: (NSNumber *) newGameNumber;
+@property (nonatomic, weak) GameView *view;
+@property (nonatomic, weak) GameController *controller;
+
+@property (nonatomic, strong, readonly) Table *table;
+@property (nonatomic, copy) TableMove *hint;
+@property (nonatomic, copy, readonly) NSNumber *gameNumber;
+@property (nonatomic, copy) NSDate *startDate;
+@property (nonatomic, copy) NSDate *endDate;
+@property (nonatomic, strong, readonly) Result *result;
+
+@property (nonatomic, assign, getter=isInProgress, readonly) BOOL inProgress;
+@property (nonatomic, assign, readonly) BOOL canUndo;
+@property (nonatomic, assign, readonly) BOOL canRedo;
+
+@property (nonatomic, assign, readonly) NSUInteger moves;
+@property (nonatomic, assign, readonly) NSTimeInterval duration;
+@property (nonatomic, copy, readonly) NSArray *movesList;
+
++ (instancetype)gameWithView: (GameView *) newView
+                  controller: (GameController *) newController
+                  gameNumber: (NSNumber *) newGameNumber;
+- (instancetype)initWithView: (GameView *) newView
+                  controller: (GameController *) newController
+                  gameNumber: (NSNumber *) newGameNumber;
 
 // Mutators
 //
-
-- (void) setStartDate: (NSDate *) date;
-- (void) setEndDate: (NSDate *) date;
 - (void) undo;
 - (void) redo;
 - (void) clickedTableLocation: (TableLocation *) location;
 - (void) doubleClickedTableLocation: (TableLocation *) source;
 - (void) setHint;
-- (void) setHint: (TableMove *) newHint;
 - (void) gameOverWithResult: (Result *) newResult;
 
-// Accessors
+// Helpers
 //
-
-- (Table *) table;
-- (TableMove *) hint;
-- (NSNumber *) gameNumber;
-- (NSDate *) startDate;
-- (Result *) result;
-- (NSUInteger) moves;
-- (NSTimeInterval) duration;
-- (BOOL) inProgress;
-- (BOOL) canUndo;
-- (BOOL) canRedo;
 - (BOOL) isCardSelected: (Card *) card;
 - (BOOL) isTableLocationSelected: (TableLocation *) location;
-- (NSArray *) movesList;
 
 @end

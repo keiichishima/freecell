@@ -35,10 +35,19 @@
 #import "GameView.h"
 #import "GameController.h"
 
-@interface Game (PrivateMethods)
+@interface Game ()
+
+@property (nonatomic, strong) NSUserDefaults *defaults;
+@property (nonatomic, copy) TableMove *move;
+@property (nonatomic, strong) NSMutableArray *played;
+@property (nonatomic, strong) NSMutableArray *undone;
+
+@property (nonatomic, strong, readwrite) Table *table;
+@property (nonatomic, copy, readwrite) NSNumber *gameNumber;
+@property (nonatomic, strong, readwrite) Result *result;
+@property (nonatomic, assign, getter=isInProgress, readwrite) BOOL inProgress;
 
 - (void) G_deal;
-- (void) G_setMove: (TableMove *) newTableMove;
 - (void) G_attemptMove;
 - (void) G_moreMoves;
 - (void) G_autoStack;
@@ -47,41 +56,39 @@
 
 @implementation Game
 
-+ gameWithView: (GameView *) newView
-    controller: (GameController *) newController
-    gameNumber: (NSNumber *) newGameNumber
++ (instancetype)gameWithView:(GameView *)newView
+                  controller:(GameController *)newController
+                  gameNumber:(NSNumber *) newGameNumber
 {
-    return [[Game alloc] initWithView: newView
-                            controller: newController
-                            gameNumber: newGameNumber];
+    return [[self alloc] initWithView:newView
+                           controller:newController
+                           gameNumber:newGameNumber];
 }
 
-- initWithView: (GameView *) newView
-    controller: (GameController *) newController
-          gameNumber: (NSNumber *) newGameNumber
+- (instancetype)initWithView:(GameView *) newView
+                  controller:(GameController *) newController
+                  gameNumber:(NSNumber *) newGameNumber
 {
     self = [super init];
 
     if (self)
     {
-        view = newView;
-        controller = newController;
+        _view = newView;
+        _controller = newController;
+        _defaults = [NSUserDefaults standardUserDefaults];
+        _gameNumber = [newGameNumber copy];
+        _table = [[Table alloc] init];
 
-        defaults = [NSUserDefaults standardUserDefaults];
-        
-        gameNumber = [newGameNumber copy];
-        
-        table = [[Table alloc] init];
         [self G_deal];
         
-        result = [Result resultWithUnplayed];
-        played = [[NSMutableArray alloc] init];
-        undone = [[NSMutableArray alloc] init];
+        _result = [Result resultWithUnplayed];
+        _played = [[NSMutableArray alloc] init];
+        _undone = [[NSMutableArray alloc] init];
 
-        [self setStartDate: [NSDate date]];
-        inProgress = NO;
+        _startDate = [NSDate date];
+        _inProgress = NO;
 
-        [view setNeedsDisplay: YES];
+        [_view setNeedsDisplay: YES];
     }
     return self;
 }
@@ -91,12 +98,13 @@
 
 - (void) G_deal
 {
-    TableLocation *deckTableLocation = [TableLocation locationWithType: TableLocationTypeDeck number: 0];
-    NSMutableArray *deck = (NSMutableArray *) [table arrayForLocation: deckTableLocation];
+    TableLocation *deckTableLocation = [TableLocation locationWithType:TableLocationTypeDeck
+                                                                number: 0];
+    NSMutableArray *deck = (NSMutableArray *)[self.table arrayForLocation: deckTableLocation];
     NSUInteger i, n;
 	
 	// Shuffle the deck
-	vcpp_srand((unsigned int) [gameNumber doubleValue]);
+	vcpp_srand((unsigned int) [self.gameNumber doubleValue]);
 	for (i = [deck count]; i > 0; i--)
 	{
 		unsigned j = vcpp_rand() % i;
@@ -108,34 +116,31 @@
     for (i = 0; i < n; i++)
     {
         TableLocation *column = [TableLocation locationWithType: TableLocationTypeColumn number: i % TableNumberOfColumns];
-        [table move: [TableMove moveFromSource: deckTableLocation toDestination: column]];
+        [self.table move: [TableMove moveFromSource: deckTableLocation toDestination: column]];
     }
-}
-
-- (void) G_setMove: (TableMove *) newMove
-{
-    move = [newMove copy];
 }
 
 - (void) G_attemptMove
 {
-    [move setCount: 0];
+    [self.move setCount: 0];
 
-    if ([[move source] type] == TableLocationTypeColumn && [[move destination] type] == TableLocationTypeColumn)
+    if ([[self.move source] type] == TableLocationTypeColumn
+        && [[self.move destination] type] == TableLocationTypeColumn)
     {
-        NSUInteger emptyFreeCells = [table numberOfEmptyTableLocationType: TableLocationTypeFreeCell];
-        NSUInteger emptyColumns   = [table numberOfEmptyTableLocationType: TableLocationTypeColumn];
+        NSUInteger emptyFreeCells = [self.table numberOfEmptyTableLocationType:TableLocationTypeFreeCell];
+        NSUInteger emptyColumns   = [self.table numberOfEmptyTableLocationType:TableLocationTypeColumn];
         NSUInteger count;
 
         // The maximum number of cards which may be played with F empty free
         // cells is F + 1. However, this is doubled for every empty column,
         // except for the destination column.
-        if (emptyColumns > 0 && [table cardNumber: 1
-                                       atTableLocation: [move destination]] == nil)
+        if (emptyColumns > 0
+            && [self.table cardNumber:1
+                      atTableLocation:[self.move destination]] == nil)
             emptyColumns--;
 
         // If super-move is disabled, just pretend there are no empty free cells or columns.
-        if ([defaults boolForKey: @"gameSuperMove"] == NO)
+        if ([self.defaults boolForKey: @"gameSuperMove"] == NO)
             emptyFreeCells = emptyColumns = 0;
         
         // So, the maximum number of cards is (F + 1) * 2^C, and
@@ -147,55 +152,57 @@
             // Check that the `count' cards are in valid sequence; break from the
             // loop if they are not.
             for (try = count; try > 1; try--)
-                if (![[table cardNumber: try - 1 atTableLocation: [move source]] isPlayableOn:
-                    [table cardNumber: try atTableLocation: [move source]]])
+                if (![[self.table cardNumber:try - 1
+                             atTableLocation: [self.move source]] isPlayableOn:
+                    [self.table cardNumber:try atTableLocation:[self.move source]]])
                     break;
 
             // The condition `try == 1' is YES iff the card sequence is valid.
             if (try == 1 &&
-                [[table cardNumber: count atTableLocation: [move source]] isPlayableOn:
-                    [table firstCardAtLocation: [move destination]]])
+                [[self.table cardNumber:count
+                        atTableLocation: [self.move source]] isPlayableOn:
+                    [self.table firstCardAtLocation: [self.move destination]]])
             {
-                [move setCount: count];
+                [self.move setCount:count];
                 break;
             }
         }
     }
-    else if ([[move destination] type] == TableLocationTypeStack)
+    else if ([[self.move destination] type] == TableLocationTypeStack)
     {
-        if ([[table firstCardAtLocation: [move source]] isSuccessorTo:
-            [table firstCardAtLocation: [move destination]]])
-            [move setCount: 1];
+        if ([[self.table firstCardAtLocation: [self.move source]] isSuccessorTo:
+             [self.table firstCardAtLocation: [self.move destination]]])
+            [self.move setCount:1];
     }
-    else if ([[move destination] type] == TableLocationTypeColumn)
+    else if ([[self.move destination] type] == TableLocationTypeColumn)
     {
-        if ([[table firstCardAtLocation: [move source]] isPlayableOn:
-            [table firstCardAtLocation: [move destination]]])
-            [move setCount: 1];
+        if ([[self.table firstCardAtLocation: [self.move source]] isPlayableOn:
+             [self.table firstCardAtLocation: [self.move destination]]])
+            [self.move setCount: 1];
     }
-    else if ([[move destination] type] == TableLocationTypeFreeCell)
+    else if ([[self.move destination] type] == TableLocationTypeFreeCell)
     {
-        if ([[table arrayForLocation: [move destination]] count] == 0)
-            [move setCount: 1];
+        if ([[self.table arrayForLocation: [self.move destination]] count] == 0)
+            [self.move setCount: 1];
     }
 
-    if ([move count] > 0)
+    if ([self.move count] > 0)
     {
-        if (inProgress == NO)
+        if (self.inProgress == NO)
         {
-            inProgress = YES;
-            [self setStartDate: [NSDate date]];
+            self.inProgress = YES;
+            self.startDate = [NSDate date];
         }
-        [table move: move];
-        [undone removeAllObjects];
-        [played addObject: move];
-        [controller moveMade];
+        [self.table move:self.move];
+        [self.undone removeAllObjects];
+        [self.played addObject:self.move];
+        [self.controller moveMade];
     }
 
-    [self G_setMove: nil];
-    [view display];
+    self.move = nil;
+    [self.view display];
     [self G_moreMoves];
-    if ([defaults boolForKey: @"gameAutoStack"] == YES)
+    if ([self.defaults boolForKey: @"gameAutoStack"] == YES)
         [self G_autoStack];
 }
 
@@ -205,38 +212,38 @@
     Card *card;
 
     for (i = 0; i < TableNumberOfStacks; i++)
-        if ([[table cardNumber: 1
-                    atTableLocation: [TableLocation locationWithType: TableLocationTypeStack number: i]] rank] != RankKing)
+        if ([[self.table cardNumber: 1
+                    atTableLocation:[TableLocation locationWithType:TableLocationTypeStack number:i]] rank] != RankKing)
             break;
 
     if (i == TableNumberOfStacks)
     {
-        [self gameOverWithResult: [Result resultWithWin]];
-        [controller gameOver];
+        [self gameOverWithResult:[Result resultWithWin]];
+        [self.controller gameOver];
         return;
     }
 
-    if ([table numberOfEmptyTableLocationType: TableLocationTypeFreeCell] != 0)
+    if ([self.table numberOfEmptyTableLocationType:TableLocationTypeFreeCell] != 0)
         return;
 
     for (i = 0; i < TableNumberOfFreeCells; i++)
     {
         unsigned j;
 
-        card = [table firstCardAtLocation: [TableLocation locationWithType: TableLocationTypeFreeCell number: i]];
+        card = [self.table firstCardAtLocation:[TableLocation locationWithType:TableLocationTypeFreeCell number:i]];
         for (j = 0; j < TableNumberOfStacks; j++)
         {
-            Card *other = [table firstCardAtLocation: [TableLocation locationWithType: TableLocationTypeStack
-                                                                          number: j]];
-            if ([card isSuccessorTo: other])
+            Card *other = [self.table firstCardAtLocation: [TableLocation locationWithType:TableLocationTypeStack
+                                                                                    number:j]];
+            if ([card isSuccessorTo:other])
                 return;
         }
 
         for (j = 0; j < TableNumberOfColumns; j++)
         {
-            Card *other = [table firstCardAtLocation: [TableLocation locationWithType: TableLocationTypeColumn
-                                                                          number: j]];
-            if ([card isPlayableOn: other])
+            Card *other = [self.table firstCardAtLocation:[TableLocation locationWithType:TableLocationTypeColumn
+                                                                                   number:j]];
+            if ([card isPlayableOn:other])
                 return;
         }
     }
@@ -245,26 +252,26 @@
     {
         unsigned j;
 
-        card = [table firstCardAtLocation: [TableLocation locationWithType: TableLocationTypeColumn number: i]];
+        card = [self.table firstCardAtLocation:[TableLocation locationWithType:TableLocationTypeColumn number:i]];
         for (j = 0; j < TableNumberOfStacks; j++)
         {
-            Card *other = [table firstCardAtLocation: [TableLocation locationWithType: TableLocationTypeStack
-                                                                          number: j]];
-            if ([card isSuccessorTo: other])
+            Card *other = [self.table firstCardAtLocation:[TableLocation locationWithType:TableLocationTypeStack
+                                                                                   number: j]];
+            if ([card isSuccessorTo:other])
                 return;
         }
 
         for (j = 0; j < TableNumberOfColumns; j++)
         {
-            Card *other = [table firstCardAtLocation: [TableLocation locationWithType: TableLocationTypeColumn
-                                                                          number: j]];
-            if ([card isPlayableOn: other])
+            Card *other = [self.table firstCardAtLocation:[TableLocation locationWithType:TableLocationTypeColumn
+                                                                                   number:j]];
+            if ([card isPlayableOn:other])
                 return;
         }
     }
 
     [self gameOverWithResult: [Result resultWithLoss]];
-    [controller gameOver];
+    [self.controller gameOver];
 }
 
 - (void) G_autoStack
@@ -277,7 +284,7 @@
     for (NSInteger i = 0; i < TableNumberOfStacks; i++)
     {
         TableLocation *stack = [TableLocation locationWithType: TableLocationTypeStack number: i];
-        NSInteger rank = [[table firstCardAtLocation: stack] rank];
+        NSInteger rank = [[self.table firstCardAtLocation:stack] rank];
         if (rank < minimumStackedRank)
             minimumStackedRank = rank;
     }
@@ -287,12 +294,12 @@
         unsigned j;
 
         source = [TableLocation locationWithType: TableLocationTypeFreeCell number: i];
-        card = [table firstCardAtLocation: source];
+        card = [self.table firstCardAtLocation:source];
 
         for (j = 0; j < TableNumberOfStacks; j++)
         {
             destination = [TableLocation locationWithType: TableLocationTypeStack number: j];
-            other = [table firstCardAtLocation: destination];
+            other = [self.table firstCardAtLocation:destination];
             if ([card isSuccessorTo: other] && [card rank] < minimumStackedRank + 3)
                 goto makeMove;
         }
@@ -303,12 +310,12 @@
         unsigned j;
 
         source = [TableLocation locationWithType: TableLocationTypeColumn number: i];
-        card = [table firstCardAtLocation: source];
+        card = [self.table firstCardAtLocation:source];
 
         for (j = 0; j < TableNumberOfStacks; j++)
         {
             destination = [TableLocation locationWithType: TableLocationTypeStack number: j];
-            other = [table firstCardAtLocation: destination];
+            other = [self.table firstCardAtLocation:destination];
             if ([card isSuccessorTo: other] && [card rank] < minimumStackedRank + 3)
                 goto makeMove;
         }
@@ -318,50 +325,39 @@
     return;
 
 makeMove:
-    [self G_setMove: [TableMove moveFromSource: source toDestination: destination]];
+    self.move = [TableMove moveFromSource:source toDestination:destination];
     [self G_attemptMove];
 }
 
 // Mutators
 //
-
-- (void) setStartDate: (NSDate *) date
-{
-    startDate = date;
-}
-
-- (void) setEndDate: (NSDate *) date
-{
-    endDate = date;
-}
-
 - (void) undo
 {
-    if ([played count] > 0)
+    if ([self.played count] > 0)
     {
-        TableMove *undo = [TableMove reverseMove: [played lastObject]];
+        TableMove *undoMove = [TableMove reverseMove:[self.played lastObject]];
         
-        [undone addObject: undo];
-        [played removeLastObject];
-        [table move: undo];
+        [self.undone addObject:undoMove];
+        [self.played removeLastObject];
+        [self.table move: undoMove];
 
-        [controller moveMade];
-        [view setNeedsDisplay: YES];
+        [self.controller moveMade];
+        [self.view setNeedsDisplay: YES];
     }
 }
 
 - (void) redo
 {
-    if ([undone count] > 0)
+    if ([self.undone count] > 0)
     {
-        TableMove *redo = [TableMove reverseMove: [undone lastObject]];
+        TableMove *redoMove = [TableMove reverseMove:[self.undone lastObject]];
 
-        [played addObject: redo];
-        [undone removeLastObject];
-        [table move: redo];
+        [self.played addObject:redoMove];
+        [self.undone removeLastObject];
+        [self.table move:redoMove];
         
-        [controller moveMade];
-        [view setNeedsDisplay: YES];
+        [self.controller moveMade];
+        [self.view setNeedsDisplay: YES];
     }
 }
     
@@ -369,19 +365,19 @@ makeMove:
 {
     // If a move hasn't been started yet, and the location clicked can be
     // moved from (it's a free cell or a column), start the move.
-    if (move == nil)
+    if (self.move == nil)
     {
         if (([location type] == TableLocationTypeFreeCell || [location type] == TableLocationTypeColumn)
-            && [table firstCardAtLocation: location] != nil)
+            && [self.table firstCardAtLocation:location] != nil)
         {
-            [self G_setMove: [TableMove moveFromSource: location]];
-            [view setNeedsDisplay: YES];
+            self.move = [TableMove moveFromSource:location];
+            [self.view setNeedsDisplay:YES];
         }
         return;
     }
 
     // Otherwise, a move has been started, and this is the desired destination.
-    [move setDestination: location];
+    [self.move setDestination:location];
 
     [self G_attemptMove];
 }
@@ -390,15 +386,15 @@ makeMove:
 {
     unsigned i;
 
-    [self G_setMove: [TableMove moveFromSource: source]];
+    self.move = [TableMove moveFromSource:source];
 
     for (i = 0; i < TableNumberOfFreeCells; i++)
     {
-        TableLocation *freeCell = [TableLocation locationWithType: TableLocationTypeFreeCell number: i];
+        TableLocation *freeCell = [TableLocation locationWithType:TableLocationTypeFreeCell number:i];
         
-        if ([table firstCardAtLocation: freeCell] == nil)
+        if ([self.table firstCardAtLocation: freeCell] == nil)
         {
-            [move setDestination: freeCell];
+            [self.move setDestination:freeCell];
             break;
         }
     }
@@ -414,18 +410,18 @@ makeMove:
     for (NSInteger i = 0; i < TableNumberOfColumns; i++)
     {
         source = [TableLocation locationWithType: TableLocationTypeColumn number: i];
-        card = [table firstCardAtLocation: source];
+        card = [self.table firstCardAtLocation: source];
         for (NSInteger j = 0; j < TableNumberOfStacks; j++)
         {
             destination = [TableLocation locationWithType: TableLocationTypeStack number: j];
-            other = [table firstCardAtLocation: destination];
+            other = [self.table firstCardAtLocation:destination];
             if ([card isSuccessorTo: other])
                 goto foundHint;
         }
         for (NSInteger j = 0; j < TableNumberOfColumns; j++)
         {
-            destination = [TableLocation locationWithType: TableLocationTypeColumn number: j];
-            other = [table firstCardAtLocation: destination];
+            destination = [TableLocation locationWithType:TableLocationTypeColumn number:j];
+            other = [self.table firstCardAtLocation:destination];
             if ([card isPlayableOn: other])
                 goto foundHint;
         }
@@ -433,134 +429,95 @@ makeMove:
 
     for (NSInteger i = 0; i < TableNumberOfFreeCells; i++)
     {
-        source = [TableLocation locationWithType: TableLocationTypeFreeCell number: i];
-        card = [table firstCardAtLocation: source];
+        source = [TableLocation locationWithType:TableLocationTypeFreeCell number:i];
+        card = [self.table firstCardAtLocation:source];
         for (NSInteger j = 0; j < TableNumberOfStacks; j++)
         {
-            destination = [TableLocation locationWithType: TableLocationTypeStack number: j];
-            other = [table firstCardAtLocation: destination];
-            if ([card isSuccessorTo: other])
+            destination = [TableLocation locationWithType:TableLocationTypeStack number:j];
+            other = [self.table firstCardAtLocation:destination];
+            if ([card isSuccessorTo:other])
                 goto foundHint;
         }
         for (NSInteger j = 0; j < TableNumberOfColumns; j++)
         {
-            destination = [TableLocation locationWithType: TableLocationTypeColumn number: j];
-            other = [table firstCardAtLocation: destination];
-            if ([card isPlayableOn: other])
+            destination = [TableLocation locationWithType:TableLocationTypeColumn number:j];
+            other = [self.table firstCardAtLocation:destination];
+            if ([card isPlayableOn:other])
                 goto foundHint;
         }
     }
 
     for (NSInteger i = 0; i < TableNumberOfColumns; i++)
     {
-        source = [TableLocation locationWithType: TableLocationTypeColumn number: i];
-        if ([table firstCardAtLocation: source] == nil)
+        source = [TableLocation locationWithType:TableLocationTypeColumn number:i];
+        if ([self.table firstCardAtLocation:source] == nil)
             continue;
         
         for (NSInteger j = 0; j < TableNumberOfFreeCells; j++)
         {
-            destination = [TableLocation locationWithType: TableLocationTypeFreeCell number: j];
-            if ([table firstCardAtLocation: destination] == nil)
+            destination = [TableLocation locationWithType:TableLocationTypeFreeCell number:j];
+            if ([self.table firstCardAtLocation:destination] == nil)
                 goto foundHint;
         }
     }
 
     // No hint found.
-    [self setHint: nil];
+    self.hint = nil;
+    return;
 
 foundHint:
-    [self setHint: [TableMove moveFromSource: source toDestination: destination]];
-}
-
-- (void) setHint: (TableMove *) newHint
-{
-    hint = [newHint copy];
+    [self setHint:[TableMove moveFromSource:source toDestination:destination]];
 }
 
 - (void) gameOverWithResult: (Result *) newResult
 {
-    [self setEndDate: [NSDate date]];
-    result = [newResult copy];
-    inProgress = NO;
+    self.endDate = [NSDate date];
+    self.result = [newResult copy];
+    self.inProgress = NO;
 }
 
 // Accessors
 //
-
-- (Table *) table
-{
-    return table;
-}
-
-- (TableMove *) hint
-{
-    return hint;
-}
-
-- (NSNumber *) gameNumber
-{
-    return gameNumber;
-}
-
-- (NSDate *) startDate
-{
-    return startDate;
-}
-
-- (Result *) result
-{
-    return result;
-}
-
 - (NSUInteger) moves
 {
-    return [played count];
+    return [self.played count];
 }
 
 - (NSTimeInterval) duration
 {
-    return [endDate timeIntervalSinceDate: startDate];
-}
-
-- (BOOL) inProgress
-{
-    return inProgress;
+    return [self.endDate timeIntervalSinceDate:self.startDate];
 }
 
 - (BOOL) canUndo
 {
-    return (inProgress && [played count] > 0);
+    return (self.inProgress && [self.played count] > 0);
 }
 
 - (BOOL) canRedo
 {
-    return (inProgress && [undone count] > 0);
+    return (self.inProgress && [self.undone count] > 0);
 }
 
 - (BOOL) isCardSelected: (Card *) card
 {
-    return ([card isEqual: [table firstCardAtLocation: [move source]]] ||
-            [card isEqual: [table firstCardAtLocation: [hint source]]] ||
-            [card isEqual: [table firstCardAtLocation: [hint destination]]]);
+    return ([card isEqual: [self.table firstCardAtLocation:[self.move source]]] ||
+            [card isEqual: [self.table firstCardAtLocation:[self.hint source]]] ||
+            [card isEqual: [self.table firstCardAtLocation:[self.hint destination]]]);
 }
 
 - (BOOL) isTableLocationSelected: (TableLocation *) location
 {
-    return ([location isEqual: [move source]] ||
-            [location isEqual: [hint source]] ||
-            [location isEqual: [hint destination]]);
+    return ([location isEqual: [self.move source]] ||
+            [location isEqual: [self.hint source]] ||
+            [location isEqual: [self.hint destination]]);
 }
 
 - (NSArray *) movesList
 {
     NSMutableArray *moves = [NSMutableArray arrayWithCapacity: [self moves]];
-    NSEnumerator *enumerator = [played objectEnumerator];
-    TableMove *tableMove;
-
-    while (tableMove = [enumerator nextObject])
-        [moves addObject: [tableMove description]];
-
-    return [NSArray arrayWithArray: moves];
+    for (TableMove *tableMove in self.played) {
+        [moves addObject:[tableMove description]];
+    }    return [NSArray arrayWithArray: moves];
 }
 
 @end
