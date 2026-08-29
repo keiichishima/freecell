@@ -72,20 +72,20 @@
     int i;
     NSRect frame = [self frame];
 
-    [backgroundColour set];
+    [self.backgroundColour set];
     [NSBezierPath fillRect: frame];
     
-    if (game == nil || cardView == nil)
+    if (self.game == nil || self.cardView == nil)
         return;
 
     for (i = 0; i < TableNumberOfFreeCells; i++)
     {
-        TableLocation *location = [TableLocation locationWithType: TableLocationTypeFreeCell number: i];
-        NSPoint origin = NSMakePoint(edgeMargin + (cardWidth + margin) * i,
-                                     frame.size.height - edgeMargin - cardHeight);
-        Card *card = [table firstCardAtLocation: location];
-        BOOL selected = [game isTableLocationSelected: location];
-        NSImage *image = [cardView imageForCard: card selected: selected];
+        TableLocation *location = [TableLocation locationWithType:TableLocationTypeFreeCell number:i];
+        NSPoint origin = NSMakePoint(self.edgeMargin + (self.cardWidth + self.margin) * i,
+                                     frame.size.height - self.edgeMargin - self.cardHeight);
+        Card *card = [self.table firstCardAtLocation:location];
+        BOOL selected = [self.game isTableLocationSelected:location];
+        NSImage *image = [self.cardView imageForCard:card selected:selected];
         NSCompositingOperation operation;
         
         if (card == nil && !selected)
@@ -100,12 +100,12 @@
     
     for (i = 0; i < TableNumberOfStacks; i++)
     {
-        TableLocation *location = [TableLocation locationWithType: TableLocationTypeStack number: i];
-        NSPoint origin = NSMakePoint(edgeMargin + (cardWidth + margin) * (i + 4),
-                                     frame.size.height - edgeMargin - cardHeight);
-        Card *card = [table firstCardAtLocation: location];
-        BOOL selected = [game isTableLocationSelected: location];
-        NSImage *image = [cardView imageForCard: card selected: selected];
+        TableLocation *location = [TableLocation locationWithType:TableLocationTypeStack number:i];
+        NSPoint origin = NSMakePoint(self.edgeMargin + (self.cardWidth + self.margin) * (i + 4),
+                                     frame.size.height - self.edgeMargin - self.cardHeight);
+        Card *card = [self.table firstCardAtLocation:location];
+        BOOL selected = [self.game isTableLocationSelected:location];
+        NSImage *image = [self.cardView imageForCard:card selected:selected];
         NSCompositingOperation operation;
         
         if (card == nil && !selected)
@@ -120,33 +120,33 @@
 
     for (i = 0; i < TableNumberOfColumns; i++)
     {
-        TableLocation *location = [TableLocation locationWithType: TableLocationTypeColumn number: i];
-        NSArray *column = [table arrayForLocation: location];
+        TableLocation *location = [TableLocation locationWithType:TableLocationTypeColumn number:i];
+        NSArray *column = [self.table arrayForLocation:location];
         NSEnumerator *enumerator = [column objectEnumerator];
         Card *card;
         int row;
         NSUInteger count = [column count];
-        unsigned maxHeight = 19 * smallOverlap;
+        unsigned maxHeight = 19 * self.smallOverlap;
         unsigned short o;
 
-        o = (count * overlap > maxHeight)? maxHeight/count: overlap;
+        o = (count * self.overlap > maxHeight) ? maxHeight/count : self.overlap;
 
         for (row = 0; card = [enumerator nextObject]; row++)
         {
-            NSPoint origin = NSMakePoint(edgeMargin + (cardWidth + margin) * i,
-                                         frame.size.height - edgeMargin
-                                         - (cardHeight + margin) * 2 - o * row);
-            NSImage *image = [cardView imageForCard: card selected: [game isCardSelected: card]];
+            NSPoint origin = NSMakePoint(self.edgeMargin + (self.cardWidth + self.margin) * i,
+                                         frame.size.height - self.edgeMargin
+                                         - (self.cardHeight + self.margin) * 2 - o * row);
+            NSImage *image = [self.cardView imageForCard:card selected:[self.game isCardSelected:card]];
             [image compositeToPoint: origin operation: NSCompositeSourceOver];
         }
 
         // If the column is empty and selected, draw the selected image
-        if (row == 0 && [game isTableLocationSelected: [TableLocation locationWithType: TableLocationTypeColumn number: i]])
+        if (row == 0 && [self.game isTableLocationSelected:[TableLocation locationWithType:TableLocationTypeColumn number:i]])
         {
-            NSPoint origin = NSMakePoint(edgeMargin + (cardWidth + margin) * i,
-                                         frame.size.height - edgeMargin
-                                         - (cardHeight + margin) * 2);
-            NSImage *image = [cardView imageForCard: nil selected: YES];
+            NSPoint origin = NSMakePoint(self.edgeMargin + (self.cardWidth + self.margin) * i,
+                                         frame.size.height - self.edgeMargin
+                                         - (self.cardHeight + self.margin) * 2);
+            NSImage *image = [self.cardView imageForCard:nil selected:YES];
             [image compositeToPoint: origin operation: NSCompositePlusDarker fraction: 0.5];
         }
     }
@@ -158,21 +158,21 @@
     NSPoint pos = [event locationInWindow];
     NSRect frame = [self frame];
 
-    if (pos.x > edgeMargin && pos.x < frame.size.width - edgeMargin
-        && pos.y < frame.size.height - edgeMargin)
+    if (pos.x > self.edgeMargin && pos.x < frame.size.width - self.edgeMargin
+        && pos.y < frame.size.height - self.edgeMargin)
     {
-        if (pos.y >= frame.size.height - cardHeight - margin)
+        if (pos.y >= frame.size.height - self.cardHeight - self.margin)
         {
-            if (pos.x < edgeMargin + (cardWidth + margin) * (CGFloat)TableNumberOfFreeCells)
-                location = [TableLocation locationWithType: TableLocationTypeFreeCell
-                                               number: (pos.x - edgeMargin)/(cardWidth + margin)];
+            if (pos.x < self.edgeMargin + (self.cardWidth + self.margin) * (CGFloat)TableNumberOfFreeCells)
+                location = [TableLocation locationWithType:TableLocationTypeFreeCell
+                                               number:(pos.x - self.edgeMargin)/(self.cardWidth + self.margin)];
             else
-                location = [TableLocation locationWithType: TableLocationTypeStack
-                                               number: (pos.x - edgeMargin)/(cardWidth + margin) - 4];
+                location = [TableLocation locationWithType:TableLocationTypeStack
+                                                    number:(pos.x - self.edgeMargin)/(self.cardWidth + self.margin) - 4];
         }
-        else if (pos.y <= frame.size.height - cardHeight - margin * 2)
-            location = [TableLocation locationWithType: TableLocationTypeColumn
-                                           number: (pos.x - edgeMargin)/(cardWidth + margin)];
+        else if (pos.y <= frame.size.height - self.cardHeight - self.margin * 2)
+            location = [TableLocation locationWithType:TableLocationTypeColumn
+                                                number:(pos.x - self.edgeMargin)/(self.cardWidth + self.margin)];
     }
 
     if (location)
@@ -181,9 +181,9 @@
         // quad-click to be understood as two double-clicks in quick succession,
         // which makes perfect UI sense in this case.
         if (([event clickCount] % 2) == 0)
-            [game doubleClickedTableLocation: location];
+            [self.game doubleClickedTableLocation: location];
         else
-            [game clickedTableLocation: location];
+            [self.game clickedTableLocation: location];
     }
 }
 
@@ -192,9 +192,9 @@
 
 - (void) setGame: (Game *) newGame
 {
-    game = newGame;
-    table = [game table];
-    [self setNeedsDisplay: YES];
+    _game = newGame;
+    _table = [_game table];
+    self.needsDisplay = YES;
 }
 
 - (void) setController: (GameController *) newController;
@@ -205,7 +205,7 @@
     CardView *view = [CardView cardView];
 
     [view setCardSize: NSMakeSize(95 * scale, 140 * scale)];
-    controller = newController;
+    _controller = newController;
     [self setCardView: view];
 }
 
@@ -213,28 +213,28 @@
 {
     NSSize size;
 
-    cardView = newCardView;
+    _cardView = newCardView;
 
     // Calculate frame size
     
-    margin = 8;
-    edgeMargin = 2 * margin;
-    overlap = [cardView overlap];
-    smallOverlap = [cardView smallOverlap];
-    cardWidth = [cardView cardSize].width;
-    cardHeight = [cardView cardSize].height;
+    self.margin = 8;
+    self.edgeMargin = 2 * self.margin;
+    self.overlap = [_cardView overlap];
+    self.smallOverlap = [_cardView smallOverlap];
+    self.cardWidth = [_cardView cardSize].width;
+    self.cardHeight = [_cardView cardSize].height;
 
-    size = NSMakeSize(edgeMargin + (cardWidth + margin) * 8 - margin + edgeMargin,
-                            edgeMargin + (cardHeight + margin) * 2 + smallOverlap * 18 + edgeMargin);
+    size = NSMakeSize(self.edgeMargin + (self.cardWidth + self.margin) * 8 - self.margin + self.edgeMargin,
+                      self.edgeMargin + (self.cardHeight + self.margin) * 2 + self.smallOverlap * 18 + self.edgeMargin);
 
-    [controller setWindowSize: NSMakeSize(size.width, size.height + 22)];
-    [self setNeedsDisplay: YES];
+    [self.controller setWindowSize: NSMakeSize(size.width, size.height + 22)];
+    self.needsDisplay = YES;
 }
 
 - (void) setBackgroundColour: (NSColor *) colour
 {
-    backgroundColour = colour;
-    [self setNeedsDisplay: YES];
+    _backgroundColour = colour;
+    self.needsDisplay = YES;
 }
 
 @end

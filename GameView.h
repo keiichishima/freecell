@@ -35,26 +35,18 @@
 #import "Card.h"
 
 @interface GameView : NSView
-{
-    Game		*game;
-    GameController	*controller;
-    Table		*table;
-    CardView		*cardView;
-    NSColor		*backgroundColour;
-    unsigned short	cardWidth;
-    unsigned short	cardHeight;
-    unsigned short	margin;
-    unsigned short	edgeMargin;
-    unsigned short	overlap;
-    unsigned short	smallOverlap;
-}
 
-// Mutators
-//
+@property (nonatomic, strong) Game *game;
+@property (nonatomic, weak) GameController *controller;
+@property (nonatomic, strong, readonly) Table *table;
+@property (nonatomic, strong) CardView *cardView;
+@property (nonatomic, strong) NSColor *backgroundColour;
 
-- (void) setGame: (Game *) newGame;
-- (void) setController: (GameController *) newController;
-- (void) setCardView: (CardView *) newCardView;
-- (void) setBackgroundColour: (NSColor *) colour;
+@property (nonatomic, assign) unsigned short cardWidth;
+@property (nonatomic, assign) unsigned short cardHeight;
+@property (nonatomic, assign) unsigned short margin;
+@property (nonatomic, assign) unsigned short edgeMargin;
+@property (nonatomic, assign) unsigned short overlap;
+@property (nonatomic, assign) unsigned short smallOverlap;
 
 @end
