@@ -36,22 +36,22 @@
 #import "CardView.h"
 
 @interface GameController : NSObject <NSMenuItemValidation>
-{
-    IBOutlet GameView       *view;
-    IBOutlet NSWindow       *window;
-    IBOutlet NSPanel        *playNumberDialog;
-    IBOutlet NSTextField    *gameNumberField;
-    IBOutlet NSTextField    *timeElapsed;
-    IBOutlet NSTextField    *movesMade;
-    Game                    *game;
-    CardView                *cardView;
-    HistoryController       *history;
-    NSTimer                 *timer;
-}
+
+// IBOutlets
+@property (nonatomic, weak) IBOutlet GameView *view;
+@property (nonatomic, weak) IBOutlet NSWindow *window;
+@property (nonatomic, weak) IBOutlet NSPanel *playNumberDialog;
+@property (nonatomic, weak) IBOutlet NSTextField *gameNumberField;
+@property (nonatomic, weak) IBOutlet NSTextField *timeElapsed;
+@property (nonatomic, weak) IBOutlet NSTextField *movesMade;
+
+// Properties
+@property (nonatomic, strong) Game *game;
+@property (nonatomic, strong) CardView *cardView;
+@property (nonatomic, strong) IBOutlet HistoryController *history;
+@property (nonatomic, strong) NSTimer *timer;
 
 // Action methods
-//
-
 - (IBAction) newGame: (id) sender;
 - (IBAction) retryGame: (id) sender;
 - (IBAction) playGameNumber: (id) sender;
@@ -62,7 +62,6 @@
 - (IBAction) redo: (id) sender;
 
 // Timer stuff
-//
 
 - (void) updateTime: (NSTimer *) timer;
 - (void) moveMade;
@@ -71,7 +70,6 @@
 //
 
 - (void) playGameWithNumber: (NSNumber *) newGame;
-- (void) setGame: (Game *) newGame;
 - (void) setWindowSize: (NSSize) size;
 - (void) gameOver;
 

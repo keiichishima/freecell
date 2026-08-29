@@ -194,7 +194,7 @@
 {
     _game = newGame;
     _table = [_game table];
-    self.needsDisplay = YES;
+    [self setNeedsDisplay:YES];
 }
 
 - (void) setController: (GameController *) newController;
@@ -228,13 +228,13 @@
                       self.edgeMargin + (self.cardHeight + self.margin) * 2 + self.smallOverlap * 18 + self.edgeMargin);
 
     [self.controller setWindowSize: NSMakeSize(size.width, size.height + 22)];
-    self.needsDisplay = YES;
+    [self setNeedsDisplay:YES];
 }
 
 - (void) setBackgroundColour: (NSColor *) colour
 {
     _backgroundColour = colour;
-    self.needsDisplay = YES;
+    [self setNeedsDisplay:YES];
 }
 
 @end
