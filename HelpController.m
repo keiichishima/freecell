@@ -32,15 +32,15 @@
 
 - (void)awakeFromNib
 {
-    [window setDelegate:self];
+    [self.window setDelegate:self];
     
     // Allocate WKWebView
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-    CGRect frame = [[window contentView] bounds];
-    webView = [[WKWebView alloc] initWithFrame:frame configuration:config];
-    webView.navigationDelegate = self;
-    webView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-    [[window contentView] addSubview:webView];
+    CGRect frame = [[self.window contentView] bounds];
+    self.webView = [[WKWebView alloc] initWithFrame:frame configuration:config];
+    self.webView.navigationDelegate = self;
+    self.webView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    [[self.window contentView] addSubview:self.webView];
     
     [self loadHelpContent];
 }
@@ -69,12 +69,12 @@
     
     // Load HTML to WebView
     NSURLRequest *request = [NSURLRequest requestWithURL:htmlURL];
-    [webView loadRequest:request];
+    [self.webView loadRequest:request];
 }
 
 - (IBAction)openWindow:(id)sender
 {
-    [window makeKeyAndOrderFront:self];
+    [self.window makeKeyAndOrderFront:self];
 }
 
 - (BOOL)windowShouldClose:(id)sender
