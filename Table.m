@@ -4,18 +4,18 @@
 //
 //  Created by Alisdair McDiarmid on Thu Jul 03 2003.
 //  Copyright (c) 2003 Alisdair McDiarmid. All rights reserved.
-//  
+//
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are
 //  met:
-//   
+//
 //  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
-//  
+//
 //  2. Redistributions in binary form must reproduce the above copyright
 //     notice, this list of conditions and the following disclaimer in the
 //     documentation and/or other materials provided with the distribution.
-//   
+//
 //  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
 //  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
 //  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
@@ -27,7 +27,6 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 #import "Table.h"
 #import "Card.h"
 
@@ -38,32 +37,25 @@ NSInteger const TableNumberOfDecks = 1;
 
 @implementation Table
 
-- (instancetype)init
-{
-
+- (instancetype)init {
     self = [super init];
     if (self) {
         _freeCells = [NSMutableArray array];
-        _stacks    = [NSMutableArray array];
-        _columns   = [NSMutableArray array];
-        _decks     = [NSMutableArray array];
-        
-        for (NSInteger i = 0; i < TableNumberOfFreeCells; i++)
-            [_freeCells addObject: [NSMutableArray array]];
-        for (NSInteger i = 0; i < TableNumberOfStacks; i++)
-            [_stacks addObject: [NSMutableArray array]];
-        for (NSInteger i = 0; i < TableNumberOfColumns; i++)
-            [_columns addObject: [NSMutableArray array]];
-        for (NSInteger i = 0; i < TableNumberOfDecks; i++)
-            [_decks addObject: [NSMutableArray array]];
-        
-        for (NSInteger i = RankAce; i <= RankKing; i++)
-        {
+        _stacks = [NSMutableArray array];
+        _columns = [NSMutableArray array];
+        _decks = [NSMutableArray array];
+
+        for (NSInteger i = 0; i < TableNumberOfFreeCells; i++) [_freeCells addObject:[NSMutableArray array]];
+        for (NSInteger i = 0; i < TableNumberOfStacks; i++) [_stacks addObject:[NSMutableArray array]];
+        for (NSInteger i = 0; i < TableNumberOfColumns; i++) [_columns addObject:[NSMutableArray array]];
+        for (NSInteger i = 0; i < TableNumberOfDecks; i++) [_decks addObject:[NSMutableArray array]];
+
+        for (NSInteger i = RankAce; i <= RankKing; i++) {
             // Use Windows suit ordering
-            [self.decks.lastObject addObject: [Card cardWithSuit: SuitClubs rank: i]];
-            [self.decks.lastObject addObject: [Card cardWithSuit: SuitDiamonds rank: i]];
-            [self.decks.lastObject addObject: [Card cardWithSuit: SuitHearts rank: i]];
-            [self.decks.lastObject addObject: [Card cardWithSuit: SuitSpades rank: i]];
+            [self.decks.lastObject addObject:[Card cardWithSuit:SuitClubs rank:i]];
+            [self.decks.lastObject addObject:[Card cardWithSuit:SuitDiamonds rank:i]];
+            [self.decks.lastObject addObject:[Card cardWithSuit:SuitHearts rank:i]];
+            [self.decks.lastObject addObject:[Card cardWithSuit:SuitSpades rank:i]];
         }
     }
     return self;
@@ -72,71 +64,66 @@ NSInteger const TableNumberOfDecks = 1;
 // Mutators
 //
 
-- (void) move: (TableMove *) move
-{
-    NSMutableArray *source = (NSMutableArray *) [self arrayForLocation: [move source]];
-    NSMutableArray *destination = (NSMutableArray *) [self arrayForLocation: [move destination]];
+- (void)move:(TableMove *)move {
+    NSMutableArray *source = (NSMutableArray *)[self arrayForLocation:[move source]];
+    NSMutableArray *destination = (NSMutableArray *)[self arrayForLocation:[move destination]];
     unsigned long i, first, last;
 
     first = [source count] - [move count];
-    last  = [source count];
-    for (i = first; i < last; i++)
-    {
-        [destination addObject: [source objectAtIndex: first]];
-        [source removeObjectAtIndex: first];
+    last = [source count];
+    for (i = first; i < last; i++) {
+        [destination addObject:[source objectAtIndex:first]];
+        [source removeObjectAtIndex:first];
     }
 }
 
 // Accessors
 //
 
-- (NSArray *) arrayForLocation: (TableLocation *) location
-{
-    NSArray *locationType = [self arrayForLocationType: [location type]];
-    return [locationType objectAtIndex: [location number]];
+- (NSArray *)arrayForLocation:(TableLocation *)location {
+    NSArray *locationType = [self arrayForLocationType:[location type]];
+    return [locationType objectAtIndex:[location number]];
 }
 
-- (NSArray *) arrayForLocationType: (TableLocationType) locationType
-{
-    switch (locationType)
-    {
-        case TableLocationTypeNone:	    return nil;
-        case TableLocationTypeFreeCell:	return self.freeCells;
-        case TableLocationTypeStack:	return self.stacks;
-        case TableLocationTypeColumn:	return self.columns;
-        case TableLocationTypeDeck:	    return self.decks;
+- (NSArray *)arrayForLocationType:(TableLocationType)locationType {
+    switch (locationType) {
+        case TableLocationTypeNone:
+            return nil;
+        case TableLocationTypeFreeCell:
+            return self.freeCells;
+        case TableLocationTypeStack:
+            return self.stacks;
+        case TableLocationTypeColumn:
+            return self.columns;
+        case TableLocationTypeDeck:
+            return self.decks;
     }
-    
+
     return nil;
 }
 
-- (NSUInteger) numberOfEmptyTableLocationType: (TableLocationType) locationType
-{
+- (NSUInteger)numberOfEmptyTableLocationType:(TableLocationType)locationType {
     NSEnumerator *enumerator;
     NSArray *location;
     NSUInteger n = 0;
-    
-    enumerator = [[self arrayForLocationType: locationType] objectEnumerator];
+
+    enumerator = [[self arrayForLocationType:locationType] objectEnumerator];
     while (location = [enumerator nextObject])
-        if ([location count] == 0)
-            n++;
+        if ([location count] == 0) n++;
 
     return n;
 }
 
-- (Card *) cardNumber: (NSUInteger) n atTableLocation: (TableLocation *) location
-{
-    NSArray *array = [self arrayForLocation: location];
+- (Card *)cardNumber:(NSUInteger)n atTableLocation:(TableLocation *)location {
+    NSArray *array = [self arrayForLocation:location];
 
-    if (n > [array count] || n == 0)
-        return nil;
-    
-    return [array objectAtIndex: [array count] - n];
+    if (n > [array count] || n == 0) return nil;
+
+    return [array objectAtIndex:[array count] - n];
 }
 
-- (Card *) firstCardAtLocation: (TableLocation *) location
-{
-    return [self cardNumber: 1 atTableLocation: location];
+- (Card *)firstCardAtLocation:(TableLocation *)location {
+    return [self cardNumber:1 atTableLocation:location];
 }
 
 @end

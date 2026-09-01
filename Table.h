@@ -4,18 +4,18 @@
 //
 //  Created by Alisdair McDiarmid on Thu Jul 03 2003.
 //  Copyright (c) 2003 Alisdair McDiarmid. All rights reserved.
-//  
+//
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are
 //  met:
-//   
+//
 //  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
-//  
+//
 //  2. Redistributions in binary form must reproduce the above copyright
 //     notice, this list of conditions and the following disclaimer in the
 //     documentation and/or other materials provided with the distribution.
-//   
+//
 //  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
 //  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
 //  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
@@ -29,13 +29,13 @@
 
 #import <Foundation/Foundation.h>
 #import "Card.h"
-#import "TableMove.h"
 #import "TableLocation.h"
+#import "TableMove.h"
 
-//enum {
-//    NUMBER_OF_COLUMNS = 8, NUMBER_OF_STACKS = 4, NUMBER_OF_FREE_CELLS = 4,
-//    NUMBER_OF_DECKS = 1
-//};
+// enum {
+//     NUMBER_OF_COLUMNS = 8, NUMBER_OF_STACKS = 4, NUMBER_OF_FREE_CELLS = 4,
+//     NUMBER_OF_DECKS = 1
+// };
 FOUNDATION_EXPORT NSInteger const TableNumberOfColumns;
 FOUNDATION_EXPORT NSInteger const TableNumberOfStacks;
 FOUNDATION_EXPORT NSInteger const TableNumberOfFreeCells;
@@ -43,23 +43,23 @@ FOUNDATION_EXPORT NSInteger const TableNumberOfDecks;
 
 @interface Table : NSObject
 
-@property (nonatomic, strong) NSMutableArray<NSMutableArray *> *columns;
-@property (nonatomic, strong) NSMutableArray<NSMutableArray *> *stacks;
-@property (nonatomic, strong) NSMutableArray<NSMutableArray *> *freeCells;
-@property (nonatomic, strong) NSMutableArray<NSMutableArray *> *decks;
+@property(nonatomic, strong) NSMutableArray<NSMutableArray *> *columns;
+@property(nonatomic, strong) NSMutableArray<NSMutableArray *> *stacks;
+@property(nonatomic, strong) NSMutableArray<NSMutableArray *> *freeCells;
+@property(nonatomic, strong) NSMutableArray<NSMutableArray *> *decks;
 
 // Mutators
 //
 
-- (void) move: (TableMove *) move;
+- (void)move:(TableMove *)move;
 
 // Accessors
 //
 
-- (NSArray *) arrayForLocation: (TableLocation *) location;
-- (NSArray *) arrayForLocationType: (TableLocationType) locationType;
-- (NSUInteger) numberOfEmptyTableLocationType: (TableLocationType) locationType;
-- (Card *) cardNumber: (NSUInteger) n atTableLocation: (TableLocation *) location;
-- (Card *) firstCardAtLocation: (TableLocation *) location;
+- (NSArray *)arrayForLocation:(TableLocation *)location;
+- (NSArray *)arrayForLocationType:(TableLocationType)locationType;
+- (NSUInteger)numberOfEmptyTableLocationType:(TableLocationType)locationType;
+- (Card *)cardNumber:(NSUInteger)n atTableLocation:(TableLocation *)location;
+- (Card *)firstCardAtLocation:(TableLocation *)location;
 
 @end

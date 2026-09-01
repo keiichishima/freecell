@@ -28,26 +28,26 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <Cocoa/Cocoa.h>
-#import "GameView.h"
 #import "CardView.h"
+#import "GameView.h"
 
 @interface PreferencesController : NSObject
 
 // IBOutlet
-@property (nonatomic, weak) IBOutlet GameView *gameView;
-@property (nonatomic, weak) IBOutlet NSButton *autoStack;
-@property (nonatomic, weak) IBOutlet NSButton *superMove;
-@property (nonatomic, weak) IBOutlet NSSlider *cardSizeSlider;
-@property (nonatomic, weak) IBOutlet NSColorWell *backgroundColour;
-@property (nonatomic, weak) IBOutlet NSWindow *window;
+@property(nonatomic, weak) IBOutlet GameView *gameView;
+@property(nonatomic, weak) IBOutlet NSButton *autoStack;
+@property(nonatomic, weak) IBOutlet NSButton *superMove;
+@property(nonatomic, weak) IBOutlet NSSlider *cardSizeSlider;
+@property(nonatomic, weak) IBOutlet NSColorWell *backgroundColour;
+@property(nonatomic, weak) IBOutlet NSWindow *window;
 
-@property (nonatomic, strong) NSUserDefaults *defaults;
+@property(nonatomic, strong) NSUserDefaults *defaults;
 
 // Action
-- (IBAction) openWindow: (id) sender;
-- (IBAction) autoStackClicked: (id) sender;
-- (IBAction) superMoveClicked: (id) sender;
-- (IBAction) cardSizeChanged: (id) sender;
-- (IBAction) backgroundColourChosen: (id) sender;
+- (IBAction)openWindow:(id)sender;
+- (IBAction)autoStackClicked:(id)sender;
+- (IBAction)superMoveClicked:(id)sender;
+- (IBAction)cardSizeChanged:(id)sender;
+- (IBAction)backgroundColourChosen:(id)sender;
 
 @end
