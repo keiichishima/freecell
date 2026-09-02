@@ -4,18 +4,18 @@
 //
 //  Created by Alisdair McDiarmid on Fri Jul 11 2003.
 //  Copyright (c) 2003 Alisdair McDiarmid. All rights reserved.
-//  
+//
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are
 //  met:
-//   
+//
 //  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
-//  
+//
 //  2. Redistributions in binary form must reproduce the above copyright
 //     notice, this list of conditions and the following disclaimer in the
 //     documentation and/or other materials provided with the distribution.
-//   
+//
 //  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
 //  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
 //  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
@@ -27,55 +27,37 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 #import "TableMove.h"
-
 
 @implementation TableMove
 
-+ moveFromSource: (TableLocation *) newSource
-{
-    return [[TableMove alloc] initWithSource: newSource destination: [TableLocation noLocation]];
++ moveFromSource:(TableLocation *)newSource {
+    return [[TableMove alloc] initWithSource:newSource destination:[TableLocation noLocation]];
 }
 
-+ moveFromSource: (TableLocation *) newSource toDestination: (TableLocation *) newDestination
-{
-    return [[TableMove alloc] initWithSource: newSource
-                                 destination: newDestination
-                                       count: 1];
++ moveFromSource:(TableLocation *)newSource toDestination:(TableLocation *)newDestination {
+    return [[TableMove alloc] initWithSource:newSource destination:newDestination count:1];
 }
 
-+ reverseMove: (TableMove *) move
-{
-    return [[TableMove alloc] initWithSource: move->destination
-                                 destination: move->source
-                                       count: move->count];
++ reverseMove:(TableMove *)move {
+    return [[TableMove alloc] initWithSource:move->destination destination:move->source count:move->count];
 }
 
-- init
-{
-    return [self initWithSource: [TableLocation noLocation]
-                    destination: [TableLocation noLocation]
-                          count: 0];
+- init {
+    return [self initWithSource:[TableLocation noLocation] destination:[TableLocation noLocation] count:0];
 }
 
-- initWithSource: (TableLocation *) newSource destination: (TableLocation *) newDestination
-{
-    return [self initWithSource: newSource
-                    destination: newDestination
-                          count: 1];
+- initWithSource:(TableLocation *)newSource destination:(TableLocation *)newDestination {
+    return [self initWithSource:newSource destination:newDestination count:1];
 }
 
-- initWithSource: (TableLocation *) newSource destination: (TableLocation *) newDestination
-           count: (NSUInteger) newCount
-{
+- initWithSource:(TableLocation *)newSource destination:(TableLocation *)newDestination count:(NSUInteger)newCount {
     self = [super init];
 
-    if (self)
-    {
+    if (self) {
         source = [newSource copy];
         destination = [newDestination copy];
-        
+
         if ([source type] == TableLocationTypeNone || [destination type] == TableLocationTypeNone)
             count = 0;
         else
@@ -85,55 +67,44 @@
     return self;
 }
 
-- copyWithZone: (NSZone *) zone
-{
-    return [[TableMove allocWithZone: zone] initWithSource: source
-                                              destination: destination
-                                                    count: count];
+- copyWithZone:(NSZone *)zone {
+    return [[TableMove allocWithZone:zone] initWithSource:source destination:destination count:count];
 }
 
 // Overridden methods
 //
 
-- (NSString *) description
-{
-    return [NSString stringWithFormat: @"Source = %@; Destination = %@",
-        source, destination];
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Source = %@; Destination = %@", source, destination];
 }
 
 // Mutators
 //
 
-- (void) setSource: (TableLocation *) newSource
-{
+- (void)setSource:(TableLocation *)newSource {
     source = [newSource copy];
 }
 
-- (void) setDestination: (TableLocation *) newDestination
-{
+- (void)setDestination:(TableLocation *)newDestination {
     destination = [newDestination copy];
 }
 
-- (void) setCount: (NSUInteger) newCount
-{
+- (void)setCount:(NSUInteger)newCount {
     count = newCount;
 }
 
 // Accessors
 //
 
-- (TableLocation *) source
-{
+- (TableLocation *)source {
     return source;
 }
 
-- (TableLocation *) destination
-{
+- (TableLocation *)destination {
     return destination;
 }
 
-- (NSUInteger) count
-{
+- (NSUInteger)count {
     return count;
 }
 

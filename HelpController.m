@@ -30,10 +30,9 @@
 
 @implementation HelpController
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
     [self.window setDelegate:self];
-    
+
     // Allocate WKWebView
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     CGRect frame = [[self.window contentView] bounds];
@@ -41,55 +40,49 @@
     self.webView.navigationDelegate = self;
     self.webView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     [[self.window contentView] addSubview:self.webView];
-    
+
     [self loadHelpContent];
 }
 
-- (void)loadHelpContent
-{
+- (void)loadHelpContent {
     // Retrieve Freecell.help bundle
     NSURL *bundleURL = [[NSBundle mainBundle] URLForResource:@"Freecell" withExtension:@"help"];
     if (!bundleURL) {
         NSLog(@"Help bundle not found");
         return;
     }
-    
+
     NSBundle *helpBundle = [NSBundle bundleWithURL:bundleURL];
     if (!helpBundle) {
         NSLog(@"Failed to load help bundle");
         return;
     }
-    
+
     // Locate Freecell.html based on the current language
     NSURL *htmlURL = [helpBundle URLForResource:@"Freecell" withExtension:@"html"];
     if (!htmlURL) {
         NSLog(@"Help HTML not found");
         return;
     }
-    
+
     // Load HTML to WebView
     NSURLRequest *request = [NSURLRequest requestWithURL:htmlURL];
     [self.webView loadRequest:request];
 }
 
-- (IBAction)openWindow:(id)sender
-{
+- (IBAction)openWindow:(id)sender {
     [self.window makeKeyAndOrderFront:self];
 }
 
-- (BOOL)windowShouldClose:(id)sender
-{
+- (BOOL)windowShouldClose:(id)sender {
     return YES;
 }
 
 - (void)webView:(WKWebView *)webView
-decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
-decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
-{
+    decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                    decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     NSURL *url = navigationAction.request.URL;
-    if (navigationAction.navigationType == WKNavigationTypeLinkActivated &&
-        url != nil &&
-        !url.fileURL) {
+    if (navigationAction.navigationType == WKNavigationTypeLinkActivated && url != nil && !url.fileURL) {
         [[NSWorkspace sharedWorkspace] openURL:url];
         decisionHandler(WKNavigationActionPolicyCancel);
         return;

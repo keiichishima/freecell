@@ -4,18 +4,18 @@
 //
 //  Created by Alisdair McDiarmid on Thu Jul 03 2003.
 //  Copyright (c) 2003 Alisdair McDiarmid. All rights reserved.
-//  
+//
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are
 //  met:
-//   
+//
 //  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
-//  
+//
 //  2. Redistributions in binary form must reproduce the above copyright
 //     notice, this list of conditions and the following disclaimer in the
 //     documentation and/or other materials provided with the distribution.
-//   
+//
 //  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
 //  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
 //  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
@@ -28,25 +28,25 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <AppKit/AppKit.h>
+#import "Card.h"
+#import "CardView.h"
 #import "Game.h"
 #import "GameController.h"
 #import "Table.h"
-#import "CardView.h"
-#import "Card.h"
 
 @interface GameView : NSView
 
-@property (nonatomic, strong) Game *game;
-@property (nonatomic, weak) GameController *controller;
-@property (nonatomic, strong, readonly) Table *table;
-@property (nonatomic, strong) CardView *cardView;
-@property (nonatomic, strong) NSColor *backgroundColour;
+@property(nonatomic, strong) Game *game;
+@property(nonatomic, weak) GameController *controller;
+@property(nonatomic, strong, readonly) Table *table;
+@property(nonatomic, strong) CardView *cardView;
+@property(nonatomic, strong) NSColor *backgroundColour;
 
-@property (nonatomic, assign) unsigned short cardWidth;
-@property (nonatomic, assign) unsigned short cardHeight;
-@property (nonatomic, assign) unsigned short margin;
-@property (nonatomic, assign) unsigned short edgeMargin;
-@property (nonatomic, assign) unsigned short overlap;
-@property (nonatomic, assign) unsigned short smallOverlap;
+@property(nonatomic, assign) unsigned short cardWidth;
+@property(nonatomic, assign) unsigned short cardHeight;
+@property(nonatomic, assign) unsigned short margin;
+@property(nonatomic, assign) unsigned short edgeMargin;
+@property(nonatomic, assign) unsigned short overlap;
+@property(nonatomic, assign) unsigned short smallOverlap;
 
 @end

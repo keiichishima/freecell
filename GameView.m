@@ -4,18 +4,18 @@
 //
 //  Created by Alisdair McDiarmid on Thu Jul 03 2003.
 //  Copyright (c) 2003 Alisdair McDiarmid. All rights reserved.
-//  
+//
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are
 //  met:
-//   
+//
 //  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
-//  
+//
 //  2. Redistributions in binary form must reproduce the above copyright
 //     notice, this list of conditions and the following disclaimer in the
 //     documentation and/or other materials provided with the distribution.
-//   
+//
 //  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
 //  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
 //  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
@@ -28,58 +28,49 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "GameView.h"
-#import "Game.h"
 #import "Card.h"
 #import "CardView.h"
+#import "Game.h"
 #import "Table.h"
 
 @implementation GameView
 
-- (id) initWithFrame: (NSRect) frame
-{
+- (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
 
-    if (self)
-    {
+    if (self) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
         // Default colour is a nice shade of green
-        NSColor *colour = [NSColor colorWithCalibratedRed: 0.2 green: 0.4
-                                                     blue: 0.1 alpha: 1.0];
-        NSData *data = [NSArchiver archivedDataWithRootObject: colour];
+        NSColor *colour = [NSColor colorWithCalibratedRed:0.2 green:0.4 blue:0.1 alpha:1.0];
+        NSData *data = [NSArchiver archivedDataWithRootObject:colour];
 
         // Set the default
-        [defaults registerDefaults:
-            [NSDictionary dictionaryWithObjectsAndKeys:
-                data, @"backgroundColour",
-                [NSNumber numberWithDouble: 50.0], @"gameCardSize",
-                nil]];
+        [defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:data, @"backgroundColour",
+                                                                              [NSNumber numberWithDouble:50.0],
+                                                                              @"gameCardSize", nil]];
 
         // Then try to read the preference
-        data = [defaults dataForKey: @"backgroundColour"];
-        if (data)
-            colour = [NSUnarchiver unarchiveObjectWithData: data];
+        data = [defaults dataForKey:@"backgroundColour"];
+        if (data) colour = [NSUnarchiver unarchiveObjectWithData:data];
 
         // And set the coloour
-        [self setBackgroundColour: colour];
+        [self setBackgroundColour:colour];
     }
 
     return self;
 }
 
-- (void) drawRect: (NSRect) rect
-{
+- (void)drawRect:(NSRect)rect {
     int i;
     NSRect frame = [self frame];
 
     [self.backgroundColour set];
-    [NSBezierPath fillRect: frame];
-    
-    if (self.game == nil || self.cardView == nil)
-        return;
+    [NSBezierPath fillRect:frame];
 
-    for (i = 0; i < TableNumberOfFreeCells; i++)
-    {
+    if (self.game == nil || self.cardView == nil) return;
+
+    for (i = 0; i < TableNumberOfFreeCells; i++) {
         TableLocation *location = [TableLocation locationWithType:TableLocationTypeFreeCell number:i];
         NSPoint origin = NSMakePoint(self.edgeMargin + (self.cardWidth + self.margin) * i,
                                      frame.size.height - self.edgeMargin - self.cardHeight);
@@ -87,19 +78,16 @@
         BOOL selected = [self.game isTableLocationSelected:location];
         NSImage *image = [self.cardView imageForCard:card selected:selected];
         NSCompositingOperation operation;
-        
+
         if (card == nil && !selected)
             operation = NSCompositePlusLighter;
         else
             operation = NSCompositeSourceOver;
-                
-        [image compositeToPoint: origin
-                      operation: operation
-                       fraction: card == nil? 0.5 : 1.0 ];
+
+        [image compositeToPoint:origin operation:operation fraction:card == nil ? 0.5 : 1.0];
     }
-    
-    for (i = 0; i < TableNumberOfStacks; i++)
-    {
+
+    for (i = 0; i < TableNumberOfStacks; i++) {
         TableLocation *location = [TableLocation locationWithType:TableLocationTypeStack number:i];
         NSPoint origin = NSMakePoint(self.edgeMargin + (self.cardWidth + self.margin) * (i + 4),
                                      frame.size.height - self.edgeMargin - self.cardHeight);
@@ -107,19 +95,16 @@
         BOOL selected = [self.game isTableLocationSelected:location];
         NSImage *image = [self.cardView imageForCard:card selected:selected];
         NSCompositingOperation operation;
-        
+
         if (card == nil && !selected)
             operation = NSCompositePlusLighter;
         else
             operation = NSCompositeSourceOver;
-        
-        [image compositeToPoint: origin
-                      operation: operation
-                       fraction: card == nil? 0.25 : 1.0 ];
+
+        [image compositeToPoint:origin operation:operation fraction:card == nil ? 0.25 : 1.0];
     }
 
-    for (i = 0; i < TableNumberOfColumns; i++)
-    {
+    for (i = 0; i < TableNumberOfColumns; i++) {
         TableLocation *location = [TableLocation locationWithType:TableLocationTypeColumn number:i];
         NSArray *column = [self.table arrayForLocation:location];
         NSEnumerator *enumerator = [column objectEnumerator];
@@ -129,94 +114,86 @@
         unsigned maxHeight = 19 * self.smallOverlap;
         unsigned short o;
 
-        o = (count * self.overlap > maxHeight) ? maxHeight/count : self.overlap;
+        o = (count * self.overlap > maxHeight) ? maxHeight / count : self.overlap;
 
-        for (row = 0; card = [enumerator nextObject]; row++)
-        {
-            NSPoint origin = NSMakePoint(self.edgeMargin + (self.cardWidth + self.margin) * i,
-                                         frame.size.height - self.edgeMargin
-                                         - (self.cardHeight + self.margin) * 2 - o * row);
+        for (row = 0; card = [enumerator nextObject]; row++) {
+            NSPoint origin =
+                NSMakePoint(self.edgeMargin + (self.cardWidth + self.margin) * i,
+                            frame.size.height - self.edgeMargin - (self.cardHeight + self.margin) * 2 - o * row);
             NSImage *image = [self.cardView imageForCard:card selected:[self.game isCardSelected:card]];
-            [image compositeToPoint: origin operation: NSCompositeSourceOver];
+            [image compositeToPoint:origin operation:NSCompositeSourceOver];
         }
 
         // If the column is empty and selected, draw the selected image
-        if (row == 0 && [self.game isTableLocationSelected:[TableLocation locationWithType:TableLocationTypeColumn number:i]])
-        {
+        if (row == 0 && [self.game isTableLocationSelected:[TableLocation locationWithType:TableLocationTypeColumn
+                                                                                    number:i]]) {
             NSPoint origin = NSMakePoint(self.edgeMargin + (self.cardWidth + self.margin) * i,
-                                         frame.size.height - self.edgeMargin
-                                         - (self.cardHeight + self.margin) * 2);
+                                         frame.size.height - self.edgeMargin - (self.cardHeight + self.margin) * 2);
             NSImage *image = [self.cardView imageForCard:nil selected:YES];
-            [image compositeToPoint: origin operation: NSCompositePlusDarker fraction: 0.5];
+            [image compositeToPoint:origin operation:NSCompositePlusDarker fraction:0.5];
         }
     }
 }
 
-- (void) mouseDown: (NSEvent *) event
-{
+- (void)mouseDown:(NSEvent *)event {
     TableLocation *location = nil;
     NSPoint pos = [event locationInWindow];
     NSRect frame = [self frame];
 
-    if (pos.x > self.edgeMargin && pos.x < frame.size.width - self.edgeMargin
-        && pos.y < frame.size.height - self.edgeMargin)
-    {
-        if (pos.y >= frame.size.height - self.cardHeight - self.margin)
-        {
+    if (pos.x > self.edgeMargin && pos.x < frame.size.width - self.edgeMargin &&
+        pos.y < frame.size.height - self.edgeMargin) {
+        if (pos.y >= frame.size.height - self.cardHeight - self.margin) {
             if (pos.x < self.edgeMargin + (self.cardWidth + self.margin) * (CGFloat)TableNumberOfFreeCells)
                 location = [TableLocation locationWithType:TableLocationTypeFreeCell
-                                               number:(pos.x - self.edgeMargin)/(self.cardWidth + self.margin)];
+                                                    number:(pos.x - self.edgeMargin) / (self.cardWidth + self.margin)];
             else
-                location = [TableLocation locationWithType:TableLocationTypeStack
-                                                    number:(pos.x - self.edgeMargin)/(self.cardWidth + self.margin) - 4];
-        }
-        else if (pos.y <= frame.size.height - self.cardHeight - self.margin * 2)
+                location =
+                    [TableLocation locationWithType:TableLocationTypeStack
+                                             number:(pos.x - self.edgeMargin) / (self.cardWidth + self.margin) - 4];
+        } else if (pos.y <= frame.size.height - self.cardHeight - self.margin * 2)
             location = [TableLocation locationWithType:TableLocationTypeColumn
-                                                number:(pos.x - self.edgeMargin)/(self.cardWidth + self.margin)];
+                                                number:(pos.x - self.edgeMargin) / (self.cardWidth + self.margin)];
     }
 
-    if (location)
-    {
+    if (location) {
         // Take any even number of clicks as a double-click. This allows a
         // quad-click to be understood as two double-clicks in quick succession,
         // which makes perfect UI sense in this case.
         if (([event clickCount] % 2) == 0)
-            [self.game doubleClickedTableLocation: location];
+            [self.game doubleClickedTableLocation:location];
         else
-            [self.game clickedTableLocation: location];
+            [self.game clickedTableLocation:location];
     }
 }
 
 // Mutators
 //
 
-- (void) setGame: (Game *) newGame
-{
+- (void)setGame:(Game *)newGame {
     _game = newGame;
     _table = [_game table];
     [self setNeedsDisplay:YES];
 }
 
-- (void) setController: (GameController *) newController;
+- (void)setController:(GameController *)newController;
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    double sliderValue = [defaults doubleForKey: @"gameCardSize"];
+    double sliderValue = [defaults doubleForKey:@"gameCardSize"];
     double scale = 0.5 + sliderValue / 100.0;
     CardView *view = [CardView cardView];
 
-    [view setCardSize: NSMakeSize(95 * scale, 140 * scale)];
+    [view setCardSize:NSMakeSize(95 * scale, 140 * scale)];
     _controller = newController;
-    [self setCardView: view];
+    [self setCardView:view];
 }
 
-- (void) setCardView: (CardView *) newCardView
-{
+- (void)setCardView:(CardView *)newCardView {
     NSSize size;
 
     _cardView = newCardView;
 
     // Calculate frame size
-    
+
     self.margin = 8;
     self.edgeMargin = 2 * self.margin;
     self.overlap = [_cardView overlap];
@@ -227,12 +204,11 @@
     size = NSMakeSize(self.edgeMargin + (self.cardWidth + self.margin) * 8 - self.margin + self.edgeMargin,
                       self.edgeMargin + (self.cardHeight + self.margin) * 2 + self.smallOverlap * 18 + self.edgeMargin);
 
-    [self.controller setWindowSize: NSMakeSize(size.width, size.height + 22)];
+    [self.controller setWindowSize:NSMakeSize(size.width, size.height + 22)];
     [self setNeedsDisplay:YES];
 }
 
-- (void) setBackgroundColour: (NSColor *) colour
-{
+- (void)setBackgroundColour:(NSColor *)colour {
     _backgroundColour = colour;
     [self setNeedsDisplay:YES];
 }

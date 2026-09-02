@@ -4,18 +4,18 @@
 //
 //  Created by Alisdair McDiarmid on Tue Jul 29 2003.
 //  Copyright (c) 2003 Alisdair McDiarmid.
-//  
+//
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are
 //  met:
-//   
+//
 //  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
-//  
+//
 //  2. Redistributions in binary form must reproduce the above copyright
 //     notice, this list of conditions and the following disclaimer in the
 //     documentation and/or other materials provided with the distribution.
-//   
+//
 //  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
 //  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
 //  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
@@ -31,50 +31,41 @@
 
 @implementation Result
 
-+ (NSString *) translateResultFromString: (NSString *) string
-{
-    if ([string isEqual: @"Win"])
++ (NSString *)translateResultFromString:(NSString *)string {
+    if ([string isEqual:@"Win"])
         return NSLocalizedString(@"resultWin", @"Result: win");
-    else if ([string isEqual: @"Loss"])
+    else if ([string isEqual:@"Loss"])
         return NSLocalizedString(@"resultLoss", @"Result: loss");
     else
         return @"Invalid";
 }
 
-+ resultWithUnplayed
-{
-    return [[Result alloc] initWithResult: ResultValueUnplayed];
++ resultWithUnplayed {
+    return [[Result alloc] initWithResult:ResultValueUnplayed];
 }
 
-+ resultWithLoss
-{
-    return [[Result alloc] initWithResult: ResultValueLoss];
++ resultWithLoss {
+    return [[Result alloc] initWithResult:ResultValueLoss];
 }
 
-+ resultWithWin
-{
-    return [[Result alloc] initWithResult: ResultValueWin];
++ resultWithWin {
+    return [[Result alloc] initWithResult:ResultValueWin];
 }
 
-- initWithResult: (ResultValue) newResult
-{
+- initWithResult:(ResultValue)newResult {
     self = [super init];
 
-    if (self)
-        _result = newResult;
+    if (self) _result = newResult;
 
     return self;
 }
 
-- copyWithZone: (NSZone *) zone
-{
-    return [[Result allocWithZone: zone] initWithResult: self.result];
+- copyWithZone:(NSZone *)zone {
+    return [[Result allocWithZone:zone] initWithResult:self.result];
 }
 
-- (NSString *) description
-{
-    switch (self.result)
-    {
+- (NSString *)description {
+    switch (self.result) {
         default:
         case ResultValueUnplayed:
             return @"Unplayed";
@@ -85,8 +76,7 @@
     }
 }
 
-- (BOOL) isEqual: (Result *) other
-{
+- (BOOL)isEqual:(Result *)other {
     if (![other isKindOfClass:[Result class]]) {
         return NO;
     }

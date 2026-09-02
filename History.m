@@ -4,18 +4,18 @@
 //
 //  Created by Alisdair McDiarmid on Sat Jul 26 2003.
 //  Copyright (c) 2003 Alisdair McDiarmid.
-//  
+//
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are
 //  met:
-//   
+//
 //  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
-//  
+//
 //  2. Redistributions in binary form must reproduce the above copyright
 //     notice, this list of conditions and the following disclaimer in the
 //     documentation and/or other materials provided with the distribution.
-//   
+//
 //  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
 //  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
 //  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
@@ -27,22 +27,19 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include <math.h>
-#include <limits.h>
 #import "History.h"
+#include <limits.h>
+#include <math.h>
 
 @implementation History
 
-- (instancetype) initWithFile: (NSString *) newFile
-{
+- (instancetype)initWithFile:(NSString *)newFile {
     self = [super init];
 
-    if (self)
-    {
+    if (self) {
         _file = [newFile copy];
-        _records = [NSMutableArray arrayWithContentsOfFile: _file];
-        if (_records == nil)
-            _records = [NSMutableArray array];
+        _records = [NSMutableArray arrayWithContentsOfFile:_file];
+        if (_records == nil) _records = [NSMutableArray array];
     }
 
     return self;
@@ -51,136 +48,116 @@
 // Overridden methods
 //
 
-- (NSInteger) numberOfRowsInTableView: (NSTableView *) tableView
-{
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     return [self.records count];
 }
 
-- (id) tableView: (NSTableView *) tableView objectValueForTableColumn: (NSTableColumn *) column
-        row: (NSInteger) row
-{
-    id object = [[self record: row] objectForKey: [column identifier]];
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)column row:(NSInteger)row {
+    id object = [[self record:row] objectForKey:[column identifier]];
 
-    if ([[column identifier] isEqual: @"result"])
-        return [Result translateResultFromString: object];
-    else if ([[column identifier] isEqual: @"duration"])
-    {
+    if ([[column identifier] isEqual:@"result"])
+        return [Result translateResultFromString:object];
+    else if ([[column identifier] isEqual:@"duration"]) {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"HH:mm:ss"];
-        [formatter setTimeZone: [NSTimeZone timeZoneForSecondsFromGMT: 0]];
-        return [formatter stringFromDate: object];
-    }
-    else
+        [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        return [formatter stringFromDate:object];
+    } else
         return object;
 }
 
 // Mutators
 //
 
-- (void) addRecordWithGameNumber: (NSNumber *) gameNumber
-                          result: (Result *) result
-                           moves: (unsigned) moves
-                        duration: (NSTimeInterval) duration
-                            date: (NSDate *) date
-{
+- (void)addRecordWithGameNumber:(NSNumber *)gameNumber
+                         result:(Result *)result
+                          moves:(unsigned)moves
+                       duration:(NSTimeInterval)duration
+                           date:(NSDate *)date {
     NSDictionary *oldRecord;
     NSMutableDictionary *record;
 
-    while ((oldRecord = [self recordWithGameNumber: gameNumber]))
-        [self.records removeObject: oldRecord];
+    while ((oldRecord = [self recordWithGameNumber:gameNumber])) [self.records removeObject:oldRecord];
 
-    record = [NSMutableDictionary dictionaryWithCapacity: 5];
-    [record setObject: gameNumber forKey: @"gameNumber"];
-    [record setObject: [result description] forKey: @"result"];
-    [record setObject: [NSNumber numberWithUnsignedInt: moves] forKey: @"moves"];
-    [record setObject: [NSDate dateWithTimeIntervalSinceReferenceDate: duration] forKey: @"duration"];
-    [record setObject: date forKey: @"date"];
-    
-    [self.records addObject: record];
-    [self.records writeToFile: self.file atomically: YES];
+    record = [NSMutableDictionary dictionaryWithCapacity:5];
+    [record setObject:gameNumber forKey:@"gameNumber"];
+    [record setObject:[result description] forKey:@"result"];
+    [record setObject:[NSNumber numberWithUnsignedInt:moves] forKey:@"moves"];
+    [record setObject:[NSDate dateWithTimeIntervalSinceReferenceDate:duration] forKey:@"duration"];
+    [record setObject:date forKey:@"date"];
+
+    [self.records addObject:record];
+    [self.records writeToFile:self.file atomically:YES];
 }
 
-- (void) clear
-{
+- (void)clear {
     [self.records removeAllObjects];
-    [self.records writeToFile: self.file atomically: YES];
+    [self.records writeToFile:self.file atomically:YES];
 }
 
-- (void) sortByColumn: (NSString *) column withDescending: (BOOL) descending
-{
-    SEL compare = NSSelectorFromString([NSString stringWithFormat: @"%@Compare:", column]);
+- (void)sortByColumn:(NSString *)column withDescending:(BOOL)descending {
+    SEL compare = NSSelectorFromString([NSString stringWithFormat:@"%@Compare:", column]);
 
-    [self.records sortUsingSelector: compare];
-    if (descending)
-        [self.records setArray: [[self.records reverseObjectEnumerator] allObjects]];
+    [self.records sortUsingSelector:compare];
+    if (descending) [self.records setArray:[[self.records reverseObjectEnumerator] allObjects]];
 }
 
 // Accessors
 //
 
-- (unsigned) numberOfRecordsWithResult: (Result *) result
-{
+- (unsigned)numberOfRecordsWithResult:(Result *)result {
     NSEnumerator *enumerator = [self.records objectEnumerator];
     NSDictionary *record;
     unsigned n = 0;
 
     while (record = [enumerator nextObject])
-        if ([[record objectForKey: @"result"] isEqual: [result description]])
-            n++;
+        if ([[record objectForKey:@"result"] isEqual:[result description]]) n++;
 
     return n;
 }
 
-- (NSDictionary *) record: (NSUInteger) n
-{
-    if (n < [self.records count])
-        return [self.records objectAtIndex: n];
-    
+- (NSDictionary *)record:(NSUInteger)n {
+    if (n < [self.records count]) return [self.records objectAtIndex:n];
+
     return nil;
 }
 
-- (NSNumber *) gameNumberForRecord: (NSUInteger) n
-{
-    return [[self record: n] objectForKey: @"gameNumber"];
+- (NSNumber *)gameNumberForRecord:(NSUInteger)n {
+    return [[self record:n] objectForKey:@"gameNumber"];
 }
 
-- (NSDictionary *) recordWithGameNumber: (NSNumber *) gameNumber
-{
+- (NSDictionary *)recordWithGameNumber:(NSNumber *)gameNumber {
     NSDictionary *record;
     NSEnumerator *enumerator = [self.records objectEnumerator];
 
     while (record = [enumerator nextObject])
-        if ([[record objectForKey: @"gameNumber"] isEqual: gameNumber])
-            return record;
+        if ([[record objectForKey:@"gameNumber"] isEqual:gameNumber]) return record;
 
     return nil;
 }
 
-- (NSDate *) shortestDuration
-{
+- (NSDate *)shortestDuration {
     NSDictionary *record;
     NSEnumerator *enumerator = [self.records objectEnumerator];
     NSDate *shortest = [NSDate distantFuture];
-    
-    while (record = [enumerator nextObject])
-        if ([[record objectForKey: @"result"] isEqual: [[Result resultWithWin] description]])
-            shortest = [[record objectForKey: @"duration"] earlierDate: shortest];
 
-    return shortest;    
+    while (record = [enumerator nextObject])
+        if ([[record objectForKey:@"result"] isEqual:[[Result resultWithWin] description]])
+            shortest = [[record objectForKey:@"duration"] earlierDate:shortest];
+
+    return shortest;
 }
 
-- (unsigned) shortestMoves
-{
+- (unsigned)shortestMoves {
     NSDictionary *record;
     NSEnumerator *enumerator = [self.records objectEnumerator];
     unsigned shortest = UINT_MAX;
-    
+
     while (record = [enumerator nextObject])
-        if ([[record objectForKey: @"result"] isEqual: [[Result resultWithWin] description]])
-            if ([[record objectForKey: @"moves"] unsignedIntValue] < shortest)
-                shortest = [[record objectForKey: @"moves"] unsignedIntValue];
-    if (shortest == UINT_MAX)
-        shortest = 0;
+        if ([[record objectForKey:@"result"] isEqual:[[Result resultWithWin] description]])
+            if ([[record objectForKey:@"moves"] unsignedIntValue] < shortest)
+                shortest = [[record objectForKey:@"moves"] unsignedIntValue];
+    if (shortest == UINT_MAX) shortest = 0;
     return shortest;
 }
 
@@ -190,39 +167,34 @@
 
 @interface NSDictionary (History)
 
-- (NSComparisonResult) dateCompare: (NSDictionary *) other;
-- (NSComparisonResult) durationCompare: (NSDictionary *) other;
-- (NSComparisonResult) gameNumberCompare: (NSDictionary *) other;
-- (NSComparisonResult) movesCompare: (NSDictionary *) other;
-- (NSComparisonResult) resultCompare: (NSDictionary *) other;
+- (NSComparisonResult)dateCompare:(NSDictionary *)other;
+- (NSComparisonResult)durationCompare:(NSDictionary *)other;
+- (NSComparisonResult)gameNumberCompare:(NSDictionary *)other;
+- (NSComparisonResult)movesCompare:(NSDictionary *)other;
+- (NSComparisonResult)resultCompare:(NSDictionary *)other;
 
 @end
 
 @implementation NSDictionary (History)
 
-- (NSComparisonResult) dateCompare: (NSDictionary *) other
-{
-    return [(NSDate *) [self objectForKey: @"date"] compare: [other objectForKey: @"date"]];
+- (NSComparisonResult)dateCompare:(NSDictionary *)other {
+    return [(NSDate *)[self objectForKey:@"date"] compare:[other objectForKey:@"date"]];
 }
 
-- (NSComparisonResult) durationCompare: (NSDictionary *) other
-{
-    return [(NSDate *) [self objectForKey: @"duration"] compare: [other objectForKey: @"duration"]];
+- (NSComparisonResult)durationCompare:(NSDictionary *)other {
+    return [(NSDate *)[self objectForKey:@"duration"] compare:[other objectForKey:@"duration"]];
 }
 
-- (NSComparisonResult) gameNumberCompare: (NSDictionary *) other
-{
-    return [(NSNumber *) [self objectForKey: @"gameNumber"] compare: [other objectForKey: @"gameNumber"]];
+- (NSComparisonResult)gameNumberCompare:(NSDictionary *)other {
+    return [(NSNumber *)[self objectForKey:@"gameNumber"] compare:[other objectForKey:@"gameNumber"]];
 }
 
-- (NSComparisonResult) movesCompare: (NSDictionary *) other
-{
-    return [(NSNumber *) [self objectForKey: @"moves"] compare: [other objectForKey: @"moves"]];
+- (NSComparisonResult)movesCompare:(NSDictionary *)other {
+    return [(NSNumber *)[self objectForKey:@"moves"] compare:[other objectForKey:@"moves"]];
 }
 
-- (NSComparisonResult) resultCompare: (NSDictionary *) other
-{
-    return [(NSString *) [self objectForKey: @"result"] compare: [other objectForKey: @"result"]];
+- (NSComparisonResult)resultCompare:(NSDictionary *)other {
+    return [(NSString *)[self objectForKey:@"result"] compare:[other objectForKey:@"result"]];
 }
 
 @end

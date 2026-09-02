@@ -4,18 +4,18 @@
 //
 //  Created by Alisdair McDiarmid on Sat Jul 05 2003.
 //  Copyright (c) 2003 Alisdair McDiarmid. All rights reserved.
-//  
+//
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are
 //  met:
-//   
+//
 //  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
-//  
+//
 //  2. Redistributions in binary form must reproduce the above copyright
 //     notice, this list of conditions and the following disclaimer in the
 //     documentation and/or other materials provided with the distribution.
-//   
+//
 //  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
 //  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
 //  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
@@ -27,116 +27,92 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#import "Card.h"
 #include <assert.h>
 #import <stdio.h>
-#import "Card.h"
-
 
 @implementation Card
 
-+ (instancetype)cardWithSuit: (Suit) newSuit rank: (Rank) newRank
-{
-    return [[Card alloc] initWithSuit: newSuit rank: newRank];
++ (instancetype)cardWithSuit:(Suit)newSuit rank:(Rank)newRank {
+    return [[Card alloc] initWithSuit:newSuit rank:newRank];
 }
 
-- (instancetype)initWithSuit: (Suit) newSuit rank: (Rank) newRank
-{
+- (instancetype)initWithSuit:(Suit)newSuit rank:(Rank)newRank {
     self = [super init];
 
-    if (self)
-    {
+    if (self) {
         _suit = newSuit;
         _rank = newRank;
     }
-    
+
     return self;
 }
 
-- (id)copyWithZone: (NSZone *) zone
-{
+- (id)copyWithZone:(NSZone *)zone {
     return self;
 }
 
 // Overridden methods
 //
 
-
-- (NSUInteger) hash
-{
+- (NSUInteger)hash {
     // Suit ranges from 0 to 3; rank ranges from 1 (ACE) to 13 (KING).
     // This therefore returns a unique number between 0 and 51.
     return ((NSInteger)_suit * RankKing + ((NSInteger)_rank - RankAce));
 }
 
-- (BOOL) isEqual: (id) other
-{
+- (BOOL)isEqual:(id)other {
     if ([other isKindOfClass:[Card class]]) {
         Card *otherCard = (Card *)other;
-        return (self.suit == otherCard.suit
-                && self.rank == otherCard.rank);
+        return (self.suit == otherCard.suit && self.rank == otherCard.rank);
     }
     return NO;
 }
 
-- (NSString *) description
-{
-    return [NSString stringWithFormat: @"%@ of %@",
-        self.rankString, self.suitString];
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@ of %@", self.rankString, self.suitString];
 }
 
-- (NSString *) suitString
-{
-    NSString *suitToString[] = {
-        @"Clubs", @"Diamonds", @"Hearts", @"Spades" };
+- (NSString *)suitString {
+    NSString *suitToString[] = {@"Clubs", @"Diamonds", @"Hearts", @"Spades"};
 
     return suitToString[_suit];
 }
 
-- (NSString *) rankString
-{
-    NSString *rankToString[] = {
-        @"None", @"Ace", @"Two", @"Three", @"Four",
-        @"Five", @"Six", @"Seven", @"Eight", @"Nine",
-        @"Ten", @"Jack", @"Queen", @"King" };
+- (NSString *)rankString {
+    NSString *rankToString[] = {@"None",  @"Ace",   @"Two",  @"Three", @"Four", @"Five",  @"Six",
+                                @"Seven", @"Eight", @"Nine", @"Ten",   @"Jack", @"Queen", @"King"};
 
     return rankToString[_rank - 1];
 }
 
-- (BOOL) isRed
-{
+- (BOOL)isRed {
     return (_suit == SuitHearts || _suit == SuitDiamonds);
 }
 
-- (BOOL) isBlack
-{
+- (BOOL)isBlack {
     return (_suit == SuitClubs || _suit == SuitSpades);
 }
 
-- (BOOL) isSuccessorTo: (Card *) other
-{
+- (BOOL)isSuccessorTo:(Card *)other {
     // An ace is the only successor to a blank space
-    if (other == nil)
-        return (_rank == RankAce);
+    if (other == nil) return (_rank == RankAce);
 
     // If our suits match, and my rank is one more than the other card, I am
     // its successor.
     return (_suit == other.suit && _rank == other.rank + 1);
 }
 
-- (BOOL) isPlayableOn: (Card *) other
-{
+- (BOOL)isPlayableOn:(Card *)other {
     // Can play any card on a blank space
-    if (other == nil)
-        return YES;
+    if (other == nil) return YES;
 
     // Can't play a king on anything
-    if (_rank == RankKing)
-        return NO;
-    
+    if (_rank == RankKing) return NO;
+
     // If I am red and the other card is black, or vice versa, and my rank is
     // one less than the other card, I am playable on it.
-    return (((self.isRed && other.isBlack) || (self.isBlack && other.isRed))
-            && _rank + 1 == other.rank);
+    return (((self.isRed && other.isBlack) || (self.isBlack && other.isRed)) && _rank + 1 == other.rank);
 }
 
 @end

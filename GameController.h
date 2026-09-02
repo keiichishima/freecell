@@ -5,18 +5,18 @@
 //
 //  Created by Alisdair McDiarmid on Tue Jul 08 2003.
 //  Copyright (c) 2003 Alisdair McDiarmid. All rights reserved.
-//  
+//
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are
 //  met:
-//   
+//
 //  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
-//  
+//
 //  2. Redistributions in binary form must reproduce the above copyright
 //     notice, this list of conditions and the following disclaimer in the
 //     documentation and/or other materials provided with the distribution.
-//   
+//
 //  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
 //  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
 //  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
@@ -29,48 +29,48 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <Cocoa/Cocoa.h>
-#import "Result.h"
-#import "GameView.h"
-#import "Game.h"
-#import "HistoryController.h"
 #import "CardView.h"
+#import "Game.h"
+#import "GameView.h"
+#import "HistoryController.h"
+#import "Result.h"
 
 @interface GameController : NSObject <NSMenuItemValidation>
 
 // IBOutlets
-@property (nonatomic, weak) IBOutlet GameView *view;
-@property (nonatomic, weak) IBOutlet NSWindow *window;
-@property (nonatomic, weak) IBOutlet NSPanel *playNumberDialog;
-@property (nonatomic, weak) IBOutlet NSTextField *gameNumberField;
-@property (nonatomic, weak) IBOutlet NSTextField *timeElapsed;
-@property (nonatomic, weak) IBOutlet NSTextField *movesMade;
+@property(nonatomic, weak) IBOutlet GameView *view;
+@property(nonatomic, weak) IBOutlet NSWindow *window;
+@property(nonatomic, weak) IBOutlet NSPanel *playNumberDialog;
+@property(nonatomic, weak) IBOutlet NSTextField *gameNumberField;
+@property(nonatomic, weak) IBOutlet NSTextField *timeElapsed;
+@property(nonatomic, weak) IBOutlet NSTextField *movesMade;
 
 // Properties
-@property (nonatomic, strong) Game *game;
-@property (nonatomic, strong) CardView *cardView;
-@property (nonatomic, strong) IBOutlet HistoryController *history;
-@property (nonatomic, strong) NSTimer *timer;
+@property(nonatomic, strong) Game *game;
+@property(nonatomic, strong) CardView *cardView;
+@property(nonatomic, strong) IBOutlet HistoryController *history;
+@property(nonatomic, strong) NSTimer *timer;
 
 // Action methods
-- (IBAction) newGame: (id) sender;
-- (IBAction) retryGame: (id) sender;
-- (IBAction) playGameNumber: (id) sender;
-- (IBAction) openPlayNumberDialog: (id) sender;
-- (IBAction) closePlayNumberDialog: (id) sender;
-- (IBAction) showHint: (id) sender;
-- (IBAction) undo: (id) sender;
-- (IBAction) redo: (id) sender;
+- (IBAction)newGame:(id)sender;
+- (IBAction)retryGame:(id)sender;
+- (IBAction)playGameNumber:(id)sender;
+- (IBAction)openPlayNumberDialog:(id)sender;
+- (IBAction)closePlayNumberDialog:(id)sender;
+- (IBAction)showHint:(id)sender;
+- (IBAction)undo:(id)sender;
+- (IBAction)redo:(id)sender;
 
 // Timer stuff
 
-- (void) updateTime: (NSTimer *) timer;
-- (void) moveMade;
+- (void)updateTime:(NSTimer *)timer;
+- (void)moveMade;
 
 // Mutators
 //
 
-- (void) playGameWithNumber: (NSNumber *) newGame;
-- (void) setWindowSize: (NSSize) size;
-- (void) gameOver;
+- (void)playGameWithNumber:(NSNumber *)newGame;
+- (void)setWindowSize:(NSSize)size;
+- (void)gameOver;
 
 @end
