@@ -205,7 +205,6 @@
         NSNumber *gameNumber = [NSNumber numberWithDouble:[self.gameNumberField doubleValue]];
 
         self.game = [Game gameWithView:self.view controller:self gameNumber:gameNumber];
-        [self.view setGame:self.game];
 
         [self.window setTitle:[NSString stringWithFormat:NSLocalizedString(@"gameWindowTitleFormat",
                                                                            @"Format for the title of the game window"),
@@ -298,6 +297,7 @@
         [self recordGame];
 
     _game = newGame;
+    self.view.game = newGame;
 }
 
 - (void)gameOver {
