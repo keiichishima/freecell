@@ -133,7 +133,8 @@
 
 - (void)HC_setDateFormat {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm:ss"];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterMediumStyle];
     [[self.lastPlayedColumn dataCell] setFormatter:formatter];
 }
 
