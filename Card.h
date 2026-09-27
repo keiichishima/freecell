@@ -29,7 +29,10 @@
 
 #import <Foundation/Foundation.h>
 
-// Suit order is important: must match the card graphics file.
+// Suit values are used as array indexes (see Card.m - `suitString`) and are
+// used to build card image filenames (e.g. "ace_of_clubs.svg").
+// Do NOT change the order or numeric values of this enum without also
+// updating Card.m and any code that maps suits to image filenames.
 typedef NS_ENUM(NSInteger, Suit) { SuitClubs, SuitDiamonds, SuitHearts, SuitSpades };
 
 typedef NS_ENUM(NSInteger, Rank) {
