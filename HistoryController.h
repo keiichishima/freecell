@@ -38,16 +38,16 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HistoryController : NSObject
 
 // IBOutlet Properties
-@property(nonatomic, weak) IBOutlet NSTextField *gamesLost;
-@property(nonatomic, weak) IBOutlet NSTextField *gamesPlayed;
-@property(nonatomic, weak) IBOutlet NSTextField *gamesWon;
-@property(nonatomic, weak) IBOutlet NSButton *retryGame;
-@property(nonatomic, weak) IBOutlet NSTableView *tableView;
-@property(nonatomic, weak) IBOutlet NSWindow *window;
-@property(nonatomic, weak) IBOutlet NSTableColumn *lastPlayedColumn;
+@property(nonatomic, weak, nullable) IBOutlet NSTextField *gamesLost;
+@property(nonatomic, weak, nullable) IBOutlet NSTextField *gamesPlayed;
+@property(nonatomic, weak, nullable) IBOutlet NSTextField *gamesWon;
+@property(nonatomic, weak, nullable) IBOutlet NSButton *retryGame;
+@property(nonatomic, weak, nullable) IBOutlet NSTableView *tableView;
+@property(nonatomic, weak, nullable) IBOutlet NSWindow *window;
+@property(nonatomic, weak, nullable) IBOutlet NSTableColumn *lastPlayedColumn;
 
 // Object Properties
-@property(nonatomic, weak) IBOutlet GameController *gameController;
+@property(nonatomic, weak, nullable) IBOutlet GameController *gameController;
 @property(nonatomic, strong) History *history;
 @property(nonatomic, copy) NSString *sortColumn;
 @property(nonatomic, assign) BOOL sortDescending;

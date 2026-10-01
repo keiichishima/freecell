@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HelpController : NSObject <NSWindowDelegate, WKNavigationDelegate>
 
 // IBOutlet
-@property(nonatomic, weak) IBOutlet NSWindow *window;
+@property(nonatomic, weak, nullable) IBOutlet NSWindow *window;
 
 @property(nonatomic, strong, nullable) WKWebView *webView;
 

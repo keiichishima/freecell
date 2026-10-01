@@ -29,6 +29,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, TableLocationType) {
     TableLocationTypeNone,
     TableLocationTypeFreeCell,
@@ -47,3 +49,5 @@ typedef NS_ENUM(NSInteger, TableLocationType) {
 - (instancetype)initWithType:(TableLocationType)newType number:(NSUInteger)newNumber;
 
 @end
+
+NS_ASSUME_NONNULL_END

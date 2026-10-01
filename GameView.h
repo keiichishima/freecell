@@ -34,13 +34,15 @@
 #import "GameController.h"
 #import "Table.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface GameView : NSView
 
-@property(nonatomic, strong) Game *game;
-@property(nonatomic, weak) GameController *controller;
+@property(nonatomic, strong, nullable) Game *game;
+@property(nonatomic, weak, nullable) GameController *controller;
 @property(nonatomic, strong, readonly) Table *table;
-@property(nonatomic, strong) CardView *cardView;
-@property(nonatomic, strong) NSColor *backgroundColour;
+@property(nonatomic, strong, nullable) CardView *cardView;
+@property(nonatomic, strong, nullable) NSColor *backgroundColour;
 
 @property(nonatomic, assign) unsigned short cardWidth;
 @property(nonatomic, assign) unsigned short cardHeight;
@@ -50,3 +52,5 @@
 @property(nonatomic, assign) unsigned short smallOverlap;
 
 @end
+
+NS_ASSUME_NONNULL_END

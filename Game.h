@@ -33,20 +33,22 @@
 #import "Table.h"
 #import "TableLocation.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class GameView;
 @class GameController;
 
 @interface Game : NSObject
 
-@property(nonatomic, weak) GameView *view;
-@property(nonatomic, weak) GameController *controller;
+@property(nonatomic, weak, nullable) GameView *view;
+@property(nonatomic, weak, nullable) GameController *controller;
 
 @property(nonatomic, strong, readonly) Table *table;
-@property(nonatomic, copy) TableMove *hint;
+@property(nonatomic, copy, nullable) TableMove *hint;
 @property(nonatomic, copy, readonly) NSNumber *gameNumber;
-@property(nonatomic, copy) NSDate *startDate;
-@property(nonatomic, copy) NSDate *endDate;
-@property(nonatomic, strong, readonly) Result *result;
+@property(nonatomic, copy, nullable) NSDate *startDate;
+@property(nonatomic, copy, nullable) NSDate *endDate;
+@property(nonatomic, strong, readonly, nullable) Result *result;
 
 @property(nonatomic, assign, getter=isInProgress, readonly) BOOL inProgress;
 @property(nonatomic, assign, readonly) BOOL canUndo;
@@ -78,3 +80,5 @@
 - (BOOL)isTableLocationSelected:(TableLocation *)location;
 
 @end
+
+NS_ASSUME_NONNULL_END

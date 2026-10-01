@@ -34,8 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface History : NSObject <NSTableViewDataSource>
 
-@property(nonatomic, copy) NSString *file;
-@property(nonatomic, strong) NSMutableArray *records;
+@property(nonatomic, copy, nullable) NSString *file;
+@property(nonatomic, strong, nullable) NSMutableArray *records;
 
 - (instancetype)initWithFile:(NSString *)file;
 

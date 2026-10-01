@@ -32,10 +32,8 @@
 #import "TableLocation.h"
 #import "TableMove.h"
 
-// enum {
-//     NUMBER_OF_COLUMNS = 8, NUMBER_OF_STACKS = 4, NUMBER_OF_FREE_CELLS = 4,
-//     NUMBER_OF_DECKS = 1
-// };
+NS_ASSUME_NONNULL_BEGIN
+
 FOUNDATION_EXPORT NSInteger const TableNumberOfColumns;
 FOUNDATION_EXPORT NSInteger const TableNumberOfStacks;
 FOUNDATION_EXPORT NSInteger const TableNumberOfFreeCells;
@@ -63,3 +61,5 @@ FOUNDATION_EXPORT NSInteger const TableNumberOfDecks;
 - (Card *)firstCardAtLocation:(TableLocation *)location;
 
 @end
+
+NS_ASSUME_NONNULL_END

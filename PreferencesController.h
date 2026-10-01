@@ -31,15 +31,17 @@
 #import "CardView.h"
 #import "GameView.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface PreferencesController : NSObject
 
 // IBOutlet
-@property(nonatomic, weak) IBOutlet GameView *gameView;
-@property(nonatomic, weak) IBOutlet NSButton *autoStack;
-@property(nonatomic, weak) IBOutlet NSButton *superMove;
-@property(nonatomic, weak) IBOutlet NSSlider *cardSizeSlider;
-@property(nonatomic, weak) IBOutlet NSColorWell *backgroundColour;
-@property(nonatomic, weak) IBOutlet NSWindow *window;
+@property(nonatomic, weak, nullable) IBOutlet GameView *gameView;
+@property(nonatomic, weak, nullable) IBOutlet NSButton *autoStack;
+@property(nonatomic, weak, nullable) IBOutlet NSButton *superMove;
+@property(nonatomic, weak, nullable) IBOutlet NSSlider *cardSizeSlider;
+@property(nonatomic, weak, nullable) IBOutlet NSColorWell *backgroundColour;
+@property(nonatomic, weak, nullable) IBOutlet NSWindow *window;
 
 @property(nonatomic, strong) NSUserDefaults *defaults;
 
@@ -51,3 +53,5 @@
 - (IBAction)backgroundColourChosen:(id)sender;
 
 @end
+
+NS_ASSUME_NONNULL_END

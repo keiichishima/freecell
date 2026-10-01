@@ -31,27 +31,27 @@
 
 @implementation TableMove
 
-+ moveFromSource:(TableLocation *)newSource {
++ (instancetype)moveFromSource:(TableLocation *)newSource {
     return [[TableMove alloc] initWithSource:newSource destination:[TableLocation noLocation]];
 }
 
-+ moveFromSource:(TableLocation *)newSource toDestination:(TableLocation *)newDestination {
++ (instancetype)moveFromSource:(TableLocation *)newSource toDestination:(TableLocation *)newDestination {
     return [[TableMove alloc] initWithSource:newSource destination:newDestination count:1];
 }
 
-+ reverseMove:(TableMove *)move {
++ (instancetype)reverseMove:(TableMove *)move {
     return [[TableMove alloc] initWithSource:move->destination destination:move->source count:move->count];
 }
 
-- init {
+- (instancetype)init {
     return [self initWithSource:[TableLocation noLocation] destination:[TableLocation noLocation] count:0];
 }
 
-- initWithSource:(TableLocation *)newSource destination:(TableLocation *)newDestination {
+- (instancetype)initWithSource:(TableLocation *)newSource destination:(TableLocation *)newDestination {
     return [self initWithSource:newSource destination:newDestination count:1];
 }
 
-- initWithSource:(TableLocation *)newSource destination:(TableLocation *)newDestination count:(NSUInteger)newCount {
+- (instancetype)initWithSource:(TableLocation *)newSource destination:(TableLocation *)newDestination count:(NSUInteger)newCount {
     self = [super init];
 
     if (self) {
@@ -67,7 +67,7 @@
     return self;
 }
 
-- copyWithZone:(NSZone *)zone {
+- (id)copyWithZone:(NSZone *)zone {
     return [[TableMove allocWithZone:zone] initWithSource:source destination:destination count:count];
 }
 

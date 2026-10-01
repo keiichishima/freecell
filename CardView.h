@@ -30,6 +30,8 @@
 #import <Foundation/Foundation.h>
 #import "Card.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CardView : NSObject
 
 @property(nonatomic, assign) NSSize cardSize;
@@ -40,6 +42,8 @@
 - (instancetype)init;
 - (NSImage *)svgImageForCard:(Card *)card;
 - (NSString *)svgFilenameForCard:(Card *)card;
-- (NSImage *)imageForCard:(Card *)card selected:(BOOL)isSelected;
+- (NSImage *)imageForCard:(nullable Card *)card selected:(BOOL)isSelected;
 
 @end
+
+NS_ASSUME_NONNULL_END

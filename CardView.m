@@ -96,7 +96,7 @@ static const CGFloat kCornerRoundRatio = 0.1;
     return [self.svgCache objectForKey:filename];
 }
 
-- (NSImage *)imageForCard:(Card *)card selected:(BOOL)isSelected {
+- (NSImage *)imageForCard:(nullable Card *)card selected:(BOOL)isSelected {
     return [NSImage
          imageWithSize:self.cardSize
                flipped:NO

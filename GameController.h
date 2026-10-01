@@ -35,21 +35,22 @@
 #import "HistoryController.h"
 #import "Result.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface GameController : NSObject <NSMenuItemValidation>
 
 // IBOutlets
-@property(nonatomic, weak) IBOutlet GameView *view;
-@property(nonatomic, weak) IBOutlet NSWindow *window;
-@property(nonatomic, weak) IBOutlet NSPanel *playNumberDialog;
-@property(nonatomic, weak) IBOutlet NSTextField *gameNumberField;
-@property(nonatomic, weak) IBOutlet NSTextField *timeElapsed;
-@property(nonatomic, weak) IBOutlet NSTextField *movesMade;
+@property(nonatomic, weak, nullable) IBOutlet GameView *view;
+@property(nonatomic, weak, nullable) IBOutlet NSWindow *window;
+@property(nonatomic, weak, nullable) IBOutlet NSPanel *playNumberDialog;
+@property(nonatomic, weak, nullable) IBOutlet NSTextField *gameNumberField;
+@property(nonatomic, weak, nullable) IBOutlet NSTextField *timeElapsed;
+@property(nonatomic, weak, nullable) IBOutlet NSTextField *movesMade;
+@property(nonatomic, strong, nullable) IBOutlet HistoryController *history;
 
 // Properties
-@property(nonatomic, strong) Game *game;
-@property(nonatomic, strong) CardView *cardView;
-@property(nonatomic, strong) IBOutlet HistoryController *history;
-@property(nonatomic, strong) NSTimer *timer;
+@property(nonatomic, strong, nullable) Game *game;
+@property(nonatomic, strong, nullable) NSTimer *timer;
 
 // Action methods
 - (IBAction)newGame:(id)sender;
@@ -62,15 +63,14 @@
 - (IBAction)redo:(id)sender;
 
 // Timer stuff
-
 - (void)updateTime:(NSTimer *)timer;
 - (void)moveMade;
 
 // Mutators
-//
-
 - (void)playGameWithNumber:(NSNumber *)newGame;
 - (void)setWindowSize:(NSSize)size;
 - (void)gameOver;
 
 @end
+
+NS_ASSUME_NONNULL_END

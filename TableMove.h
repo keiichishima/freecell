@@ -30,30 +30,30 @@
 #import <Foundation/Foundation.h>
 #import "TableLocation.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface TableMove : NSObject <NSCopying> {
     TableLocation *source;
     TableLocation *destination;
     NSUInteger count;
 }
 
-+ moveFromSource:(TableLocation *)newSource;
-+ moveFromSource:(TableLocation *)newSource toDestination:(TableLocation *)newDestination;
-+ reverseMove:(TableMove *)move;
-- initWithSource:(TableLocation *)newSource destination:(TableLocation *)newDestination;
-- initWithSource:(TableLocation *)newSource destination:(TableLocation *)newDestination count:(NSUInteger)newCount;
++ (instancetype)moveFromSource:(TableLocation *)newSource;
++ (instancetype)moveFromSource:(TableLocation *)newSource toDestination:(TableLocation *)newDestination;
++ (instancetype)reverseMove:(TableMove *)move;
+- (instancetype)initWithSource:(TableLocation *)newSource destination:(TableLocation *)newDestination;
+- (instancetype)initWithSource:(TableLocation *)newSource destination:(TableLocation *)newDestination count:(NSUInteger)newCount;
 
 // Mutators
-//
-
 - (void)setSource:(TableLocation *)newSource;
 - (void)setDestination:(TableLocation *)newDestination;
 - (void)setCount:(NSUInteger)newCount;
 
 // Accessors
-//
-
 - (TableLocation *)source;
 - (TableLocation *)destination;
 - (NSUInteger)count;
 
 @end
+
+NS_ASSUME_NONNULL_END
