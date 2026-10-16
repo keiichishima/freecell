@@ -42,17 +42,18 @@
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
         // Default colour is a nice shade of green
-        NSColor *colour = [NSColor colorWithCalibratedRed:0.2 green:0.4 blue:0.1 alpha:1.0];
-        NSData *data = [NSArchiver archivedDataWithRootObject:colour];
+        NSColor *colour = [NSColor colorWithSRGBRed:0.2 green:0.4 blue:0.1 alpha:1.0];
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:colour requiringSecureCoding:YES error:nil];
 
         // Set the default
-        [defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:data, @"backgroundColour",
-                                                                              [NSNumber numberWithDouble:50.0],
-                                                                              @"gameCardSize", nil]];
+        [defaults registerDefaults:@{ @"backgroundColour" : data ?: [NSData data], @"gameCardSize" : @50.0 }];
 
         // Then try to read the preference
         data = [defaults dataForKey:@"backgroundColour"];
-        if (data) colour = [NSUnarchiver unarchiveObjectWithData:data];
+        if (data) {
+            NSColor *savedColour = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:data error:nil];
+            if (savedColour) colour = savedColour;
+        }
 
         // And set the coloour
         [self setBackgroundColour:colour];
@@ -80,11 +81,11 @@
         NSCompositingOperation operation;
 
         if (card == nil && !selected)
-            operation = NSCompositePlusLighter;
+            operation = NSCompositingOperationPlusLighter;
         else
-            operation = NSCompositeSourceOver;
+            operation = NSCompositingOperationSourceOver;
 
-        [image compositeToPoint:origin operation:operation fraction:card == nil ? 0.5 : 1.0];
+        [image drawAtPoint:origin fromRect:NSZeroRect operation:operation fraction:card == nil ? 0.5 : 1.0];
     }
 
     for (i = 0; i < TableNumberOfStacks; i++) {
@@ -97,18 +98,16 @@
         NSCompositingOperation operation;
 
         if (card == nil && !selected)
-            operation = NSCompositePlusLighter;
+            operation = NSCompositingOperationPlusLighter;
         else
-            operation = NSCompositeSourceOver;
+            operation = NSCompositingOperationSourceOver;
 
-        [image compositeToPoint:origin operation:operation fraction:card == nil ? 0.25 : 1.0];
+        [image drawAtPoint:origin fromRect:NSZeroRect operation:operation fraction:card == nil ? 0.25 : 1.0];
     }
 
     for (i = 0; i < TableNumberOfColumns; i++) {
         TableLocation *location = [TableLocation locationWithType:TableLocationTypeColumn number:i];
         NSArray *column = [self.table arrayForLocation:location];
-        NSEnumerator *enumerator = [column objectEnumerator];
-        Card *card;
         int row;
         NSUInteger count = [column count];
         unsigned maxHeight = 19 * self.smallOverlap;
@@ -116,12 +115,17 @@
 
         o = (count * self.overlap > maxHeight) ? maxHeight / count : self.overlap;
 
-        for (row = 0; card = [enumerator nextObject]; row++) {
+        row = 0;
+        for (Card *card in column) {
             NSPoint origin =
                 NSMakePoint(self.edgeMargin + (self.cardWidth + self.margin) * i,
                             frame.size.height - self.edgeMargin - (self.cardHeight + self.margin) * 2 - o * row);
             NSImage *image = [self.cardView imageForCard:card selected:[self.game isCardSelected:card]];
-            [image compositeToPoint:origin operation:NSCompositeSourceOver];
+            [image drawAtPoint:origin
+                       fromRect:NSZeroRect
+                      operation:NSCompositingOperationSourceOver
+                       fraction:1.0];
+            row++;
         }
 
         // If the column is empty and selected, draw the selected image
@@ -130,7 +134,10 @@
             NSPoint origin = NSMakePoint(self.edgeMargin + (self.cardWidth + self.margin) * i,
                                          frame.size.height - self.edgeMargin - (self.cardHeight + self.margin) * 2);
             NSImage *image = [self.cardView imageForCard:nil selected:YES];
-            [image compositeToPoint:origin operation:NSCompositePlusDarker fraction:0.5];
+            [image drawAtPoint:origin
+                       fromRect:NSZeroRect
+                      operation:NSCompositingOperationPlusDarker
+                       fraction:0.5];
         }
     }
 }

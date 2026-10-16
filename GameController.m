@@ -58,7 +58,7 @@
 
     [self.view setController:self];
     [self newGame:self];
-    self.timer = nil;
+    [self GC_stopTimer];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)app hasVisibleWindows:(BOOL)flag {
@@ -118,7 +118,7 @@
 //
 
 - (IBAction)newGame:(id)sender {
-    [self playGameWithNumber:[NSNumber numberWithDouble:(double)random()]];
+    [self playGameWithNumber:@((double)random())];
 }
 
 - (IBAction)retryGame:(id)sender {
@@ -139,7 +139,7 @@
     NSNumberFormatter *formatter = (NSNumberFormatter *)[self.gameNumberField formatter];
     if ([formatter isKindOfClass:[NSNumberFormatter class]]) {
         [formatter setAllowsFloats:NO];
-        [formatter setMinimum:[NSNumber numberWithInt:1]];
+        [formatter setMinimum:@1];
     }
 
     if ([self.window attachedSheet] == nil) {
@@ -202,7 +202,7 @@
                           }
                       }];
     } else {
-        NSNumber *gameNumber = [NSNumber numberWithDouble:[self.gameNumberField doubleValue]];
+        NSNumber *gameNumber = @([self.gameNumberField doubleValue]);
 
         self.game = [Game gameWithView:self.view controller:self gameNumber:gameNumber];
 
@@ -261,9 +261,9 @@
 - (void)moveMade {
     NSUInteger currentMoves = [self.game moves];
     NSUInteger shortestMoves = [self.history shortestMoves];
-    [self.movesMade setStringValue:[NSString stringWithFormat:@"%lu %@ (%@ %lu)", currentMoves,
+    [self.movesMade setStringValue:[NSString stringWithFormat:@"%lu %@ (%@ %lu)", (unsigned long)currentMoves,
                                                               NSLocalizedString(@"moves", "moves"),
-                                                              NSLocalizedString(@"bestIs", "best is"), shortestMoves]];
+                                                               NSLocalizedString(@"bestIs", "best is"), (unsigned long)shortestMoves]];
 }
 
 // Mutators

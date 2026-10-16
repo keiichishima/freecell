@@ -68,7 +68,7 @@
 - (NSString *)description {
     NSString *typeToString[] = {@"None", @"Free Cell", @"Stack", @"Column", @"Deck"};
 
-    return [NSString stringWithFormat:@"%@:%lu", typeToString[self.type], self.number];
+    return [NSString stringWithFormat:@"%@:%lu", typeToString[self.type], (unsigned long)self.number];
 }
 
 @end

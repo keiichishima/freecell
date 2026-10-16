@@ -45,15 +45,11 @@
     double cardSize;
 
     self.defaults = [NSUserDefaults standardUserDefaults];
-    [self.defaults
-        registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"gameSuperMove",
-                                                                    [NSNumber numberWithBool:YES], @"gameAutoStack",
-                                                                    [NSNumber numberWithDouble:50.0], @"gameCardSize",
-                                                                    nil]];
+    [self.defaults registerDefaults:@{ @"gameSuperMove" : @YES, @"gameAutoStack" : @YES, @"gameCardSize" : @50.0 }];
 
-    [self.autoStack setState:[self.defaults boolForKey:@"gameAutoStack"]];
+    [self.autoStack setState:[self.defaults boolForKey:@"gameAutoStack"] ? NSControlStateValueOn : NSControlStateValueOff];
 
-    [self.superMove setState:[self.defaults boolForKey:@"gameSuperMove"]];
+    [self.superMove setState:[self.defaults boolForKey:@"gameSuperMove"] ? NSControlStateValueOn : NSControlStateValueOff];
 
     cardSize = [self.defaults doubleForKey:@"gameCardSize"];
     [self.cardSizeSlider setDoubleValue:cardSize];
@@ -61,8 +57,8 @@
 
     data = [self.defaults dataForKey:@"backgroundColour"];
     if (data) {
-        NSColor *colour = [NSUnarchiver unarchiveObjectWithData:data];
-        [self.backgroundColour setColor:colour];
+        NSColor *colour = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:data error:nil];
+        if (colour) [self.backgroundColour setColor:colour];
     }
 }
 
@@ -71,25 +67,24 @@
 }
 
 - (IBAction)autoStackClicked:(id)sender {
-    NSNumber *state = [NSNumber numberWithBool:[self.autoStack state] == NSOnState];
-    [self.defaults setObject:state forKey:@"gameAutoStack"];
+    [self.defaults setBool:([self.autoStack state] == NSControlStateValueOn) forKey:@"gameAutoStack"];
 }
 
 - (IBAction)superMoveClicked:(id)sender {
-    NSNumber *state = [NSNumber numberWithBool:[self.superMove state] == NSOnState];
-    [self.defaults setObject:state forKey:@"gameSuperMove"];
+    [self.defaults setBool:([self.superMove state] == NSControlStateValueOn) forKey:@"gameSuperMove"];
 }
 
 - (IBAction)cardSizeChanged:(id)sender {
     double cardSize = [self.cardSizeSlider doubleValue];
 
-    [self.defaults setObject:[NSNumber numberWithDouble:cardSize] forKey:@"gameCardSize"];
+    [self.defaults setDouble:cardSize forKey:@"gameCardSize"];
     [self setCardSizeFromSliderValue:cardSize];
 }
 
 - (IBAction)backgroundColourChosen:(id)sender {
     NSColor *colour = [self.backgroundColour color];
-    [self.defaults setObject:[NSArchiver archivedDataWithRootObject:colour] forKey:@"backgroundColour"];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:colour requiringSecureCoding:YES error:nil];
+    if (data) [self.defaults setObject:data forKey:@"backgroundColour"];
     [self.gameView setBackgroundColour:colour];
 }
 

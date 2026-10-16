@@ -57,9 +57,7 @@
     [self.tableView setTarget:self];
     [self.tableView setDoubleAction:@selector(retryGame:)];
 
-    [defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:@"date", @"historySortColumn",
-                                                                          [NSNumber numberWithBool:YES],
-                                                                          @"historySortDescending", nil]];
+    [defaults registerDefaults:@{ @"historySortColumn" : @"date", @"historySortDescending" : @YES }];
 
     self.sortColumn = [defaults stringForKey:@"historySortColumn"];
     self.sortDescending = [defaults boolForKey:@"historySortDescending"];
@@ -91,7 +89,7 @@
     [self HC_sortTable];
 
     [defaults setObject:self.sortColumn forKey:@"historySortColumn"];
-    [defaults setObject:[NSNumber numberWithBool:self.sortDescending] forKey:@"historySortDescending"];
+    [defaults setBool:self.sortDescending forKey:@"historySortDescending"];
 }
 
 // Private methods
@@ -105,9 +103,9 @@
 
     if (won + lost == 0) wonPercent = lostPercent = 0.0;
 
-    [self.gamesPlayed setIntValue:won + lost];
-    [self.gamesWon setStringValue:[NSString stringWithFormat:@"%d (%d%%)", won, wonPercent]];
-    [self.gamesLost setStringValue:[NSString stringWithFormat:@"%d (%d%%)", lost, lostPercent]];
+    [self.gamesPlayed setIntegerValue:(NSInteger)(won + lost)];
+    [self.gamesWon setStringValue:[NSString stringWithFormat:@"%u (%u%%)", won, wonPercent]];
+    [self.gamesLost setStringValue:[NSString stringWithFormat:@"%u (%u%%)", lost, lostPercent]];
 
     [self.tableView noteNumberOfRowsChanged];
     [self.tableView setNeedsDisplay:YES];

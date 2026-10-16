@@ -125,7 +125,7 @@ static const CGFloat kCornerRoundRatio = 0.1;
 
             // 3. draw overlay image when selected
             if (isSelected) {
-                [[NSColor colorWithDeviceRed:0.5 green:0.5 blue:0.5 alpha:0.3] set];
+                [[NSColor colorWithSRGBRed:0.5 green:0.5 blue:0.5 alpha:0.3] set];
                 NSBezierPath *overlayPath = [NSBezierPath bezierPathWithRoundedRect:dstRect xRadius:8 yRadius:8];
                 [overlayPath fill];
             }
