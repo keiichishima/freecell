@@ -31,6 +31,20 @@
 
 @implementation PreferencesController
 
+- (NSSize)windowSizeForSliderValue:(double)sliderValue {
+    double scale = 0.5 + sliderValue / 100.0;
+    CardView *view = [CardView cardView];
+    view.cardSize = NSMakeSize(95 * scale, 140 * scale);
+    return [GameView windowSizeForCardView:view];
+}
+
+- (void)setCardSizeSliderValue:(double)sliderValue {
+    sliderValue = MAX(self.cardSizeSlider.minValue, MIN(self.cardSizeSlider.maxValue, sliderValue));
+    [self.cardSizeSlider setDoubleValue:sliderValue];
+    [self.defaults setDouble:sliderValue forKey:@"gameCardSize"];
+    [self setCardSizeFromSliderValue:sliderValue];
+}
+
 - (void)setCardSizeFromSliderValue:(double)sliderValue {
     double scale = 0.5 + sliderValue / 100.0;
     CardView *view = [CardView cardView];
@@ -51,9 +65,23 @@
 
     [self.superMove setState:[self.defaults boolForKey:@"gameSuperMove"] ? NSControlStateValueOn : NSControlStateValueOff];
 
+    NSWindow *gameWindow = self.gameView.window;
+    NSSize maxSize = gameWindow.maxSize;
+    double minimum = self.cardSizeSlider.minValue;
+    double maximum = self.cardSizeSlider.maxValue;
+    for (int i = 0; i < 40; i++) {
+        double value = (minimum + maximum) / 2.0;
+        NSSize size = [self windowSizeForSliderValue:value];
+        if (size.width <= maxSize.width && size.height <= maxSize.height)
+            minimum = value;
+        else
+            maximum = value;
+    }
+    self.cardSizeSlider.maxValue = minimum;
+    gameWindow.minSize = [self windowSizeForSliderValue:self.cardSizeSlider.minValue];
+
     cardSize = [self.defaults doubleForKey:@"gameCardSize"];
-    [self.cardSizeSlider setDoubleValue:cardSize];
-    [self setCardSizeFromSliderValue:cardSize];
+    [self setCardSizeSliderValue:cardSize];
 
     data = [self.defaults dataForKey:@"backgroundColour"];
     if (data) {
@@ -75,10 +103,7 @@
 }
 
 - (IBAction)cardSizeChanged:(id)sender {
-    double cardSize = [self.cardSizeSlider doubleValue];
-
-    [self.defaults setDouble:cardSize forKey:@"gameCardSize"];
-    [self setCardSizeFromSliderValue:cardSize];
+    [self setCardSizeSliderValue:self.cardSizeSlider.doubleValue];
 }
 
 - (IBAction)backgroundColourChosen:(id)sender {

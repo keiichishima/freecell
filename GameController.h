@@ -37,6 +37,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class PreferencesController;
+
 @interface GameController : NSObject <NSMenuItemValidation>
 
 // IBOutlets
@@ -47,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, weak, nullable) IBOutlet NSTextField *timeElapsed;
 @property(nonatomic, weak, nullable) IBOutlet NSTextField *movesMade;
 @property(nonatomic, strong, nullable) IBOutlet HistoryController *history;
+@property(nonatomic, weak, nullable) IBOutlet PreferencesController *preferences;
 
 // Properties
 @property(nonatomic, strong, nullable) Game *game;

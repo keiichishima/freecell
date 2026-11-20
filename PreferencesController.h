@@ -52,6 +52,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)cardSizeChanged:(id)sender;
 - (IBAction)backgroundColourChosen:(id)sender;
 
+- (NSSize)windowSizeForSliderValue:(double)sliderValue;
+- (void)setCardSizeSliderValue:(double)sliderValue;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -51,6 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign) unsigned short overlap;
 @property(nonatomic, assign) unsigned short smallOverlap;
 
++ (NSSize)windowSizeForCardView:(CardView *)cardView;
+
 @end
 
 NS_ASSUME_NONNULL_END
