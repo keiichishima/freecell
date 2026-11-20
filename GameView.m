@@ -194,9 +194,20 @@
     [self setCardView:view];
 }
 
-- (void)setCardView:(CardView *)newCardView {
-    NSSize size;
++ (NSSize)windowSizeForCardView:(CardView *)cardView {
+    unsigned short cardWidth = cardView.cardSize.width;
+    unsigned short cardHeight = cardView.cardSize.height;
+    unsigned short smallOverlap = cardView.smallOverlap;
+    return NSMakeSize(16 + (cardWidth + 8) * 8 - 8 + 16,
+                      16 + (cardHeight + 8) * 2 + smallOverlap * 18 + 16 + 22);
+}
 
+- (void)setCardView:(CardView *)newCardView {
+    [self setCardViewWithoutResizingWindow:newCardView];
+    [self.controller setWindowSize:[GameView windowSizeForCardView:newCardView]];
+}
+
+- (void)setCardViewWithoutResizingWindow:(CardView *)newCardView {
     _cardView = newCardView;
 
     // Calculate frame size
@@ -208,10 +219,6 @@
     self.cardWidth = [_cardView cardSize].width;
     self.cardHeight = [_cardView cardSize].height;
 
-    size = NSMakeSize(self.edgeMargin + (self.cardWidth + self.margin) * 8 - self.margin + self.edgeMargin,
-                      self.edgeMargin + (self.cardHeight + self.margin) * 2 + self.smallOverlap * 18 + self.edgeMargin);
-
-    [self.controller setWindowSize:NSMakeSize(size.width, size.height + 22)];
     [self setNeedsDisplay:YES];
 }
 

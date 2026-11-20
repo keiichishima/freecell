@@ -29,6 +29,8 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "GameController.h"
+#import "PreferencesController.h"
+#include <math.h>
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
@@ -38,6 +40,14 @@
 - (void)GC_startGame;
 - (void)GC_stopTimer;
 
+@end
+
+@interface GameController ()
+@property(nonatomic) NSSize liveResizeStartSize;
+@property(nonatomic) double liveResizeStartValue;
+@property(nonatomic) double liveResizeValue;
+@property(nonatomic) BOOL resizing;
+@property(nonatomic) BOOL settingWindowSize;
 @end
 
 @implementation GameController
@@ -112,6 +122,39 @@
 
 - (void)windowWillClose:(NSNotification *)notification {
     if ([[notification object] isEqual:self.window]) [self setGame:nil];
+}
+
+- (void)windowWillStartLiveResize:(NSNotification *)notification {
+    self.resizing = YES;
+    self.liveResizeStartSize = self.window.frame.size;
+    self.liveResizeStartValue = self.preferences.cardSizeSlider.doubleValue;
+    self.liveResizeValue = self.liveResizeStartValue;
+}
+
+- (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize {
+    if (!self.resizing) return frameSize;
+
+    double widthChange = (frameSize.width - self.liveResizeStartSize.width) / 760.0;
+    double heightChange = (frameSize.height - self.liveResizeStartSize.height) / (280.0 + 18.0 * 140.0 / 4.75);
+    NSSize currentSize = sender.frame.size;
+    double widthDelta = (frameSize.width - currentSize.width) / 760.0;
+    double heightDelta = (frameSize.height - currentSize.height) / (280.0 + 18.0 * 140.0 / 4.75);
+    double change = fabs(widthDelta) >= fabs(heightDelta) ? widthChange : heightChange;
+    NSSlider *slider = self.preferences.cardSizeSlider;
+    self.liveResizeValue = MAX(slider.minValue, MIN(slider.maxValue, self.liveResizeStartValue + change * 100.0));
+    [self.preferences previewCardSizeSliderValue:self.liveResizeValue];
+    return [self.preferences windowSizeForSliderValue:self.liveResizeValue];
+}
+
+- (void)windowDidEndLiveResize:(NSNotification *)notification {
+    self.resizing = NO;
+    [self.preferences setCardSizeSliderValue:self.liveResizeValue];
+}
+
+- (void)windowDidResize:(NSNotification *)notification {
+    if (self.resizing || self.settingWindowSize || self.preferences.defaults == nil) return;
+    double value = ((self.window.frame.size.width - 88.0) / 760.0 - 0.5) * 100.0;
+    [self.preferences setCardSizeSliderValue:value];
 }
 
 // Action methods
@@ -277,7 +320,9 @@
 - (void)setWindowSize:(NSSize)size {
     NSRect frame = [self.window frame];
     frame.size = size;
+    self.settingWindowSize = YES;
     [self.window setFrame:frame display:YES];
+    self.settingWindowSize = NO;
 }
 
 - (void)recordGame {
