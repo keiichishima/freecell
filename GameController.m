@@ -47,6 +47,7 @@
 @property(nonatomic) double liveResizeStartValue;
 @property(nonatomic) double liveResizeValue;
 @property(nonatomic) BOOL resizing;
+@property(nonatomic) BOOL settingWindowSize;
 @end
 
 @implementation GameController
@@ -141,12 +142,19 @@
     double change = fabs(widthDelta) >= fabs(heightDelta) ? widthChange : heightChange;
     NSSlider *slider = self.preferences.cardSizeSlider;
     self.liveResizeValue = MAX(slider.minValue, MIN(slider.maxValue, self.liveResizeStartValue + change * 100.0));
+    [self.preferences previewCardSizeSliderValue:self.liveResizeValue];
     return [self.preferences windowSizeForSliderValue:self.liveResizeValue];
 }
 
 - (void)windowDidEndLiveResize:(NSNotification *)notification {
     self.resizing = NO;
     [self.preferences setCardSizeSliderValue:self.liveResizeValue];
+}
+
+- (void)windowDidResize:(NSNotification *)notification {
+    if (self.resizing || self.settingWindowSize || self.preferences.defaults == nil) return;
+    double value = ((self.window.frame.size.width - 88.0) / 760.0 - 0.5) * 100.0;
+    [self.preferences setCardSizeSliderValue:value];
 }
 
 // Action methods
@@ -312,7 +320,9 @@
 - (void)setWindowSize:(NSSize)size {
     NSRect frame = [self.window frame];
     frame.size = size;
+    self.settingWindowSize = YES;
     [self.window setFrame:frame display:YES];
+    self.settingWindowSize = NO;
 }
 
 - (void)recordGame {

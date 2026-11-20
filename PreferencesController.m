@@ -54,6 +54,13 @@
     [self.gameView setCardView:view];
 }
 
+- (void)previewCardSizeSliderValue:(double)sliderValue {
+    double scale = 0.5 + sliderValue / 100.0;
+    CardView *view = [CardView cardView];
+    view.cardSize = NSMakeSize(95 * scale, 140 * scale);
+    [self.gameView setCardViewWithoutResizingWindow:view];
+}
+
 - (void)awakeFromNib {
     NSData *data;
     double cardSize;

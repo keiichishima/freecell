@@ -203,6 +203,11 @@
 }
 
 - (void)setCardView:(CardView *)newCardView {
+    [self setCardViewWithoutResizingWindow:newCardView];
+    [self.controller setWindowSize:[GameView windowSizeForCardView:newCardView]];
+}
+
+- (void)setCardViewWithoutResizingWindow:(CardView *)newCardView {
     _cardView = newCardView;
 
     // Calculate frame size
@@ -214,7 +219,6 @@
     self.cardWidth = [_cardView cardSize].width;
     self.cardHeight = [_cardView cardSize].height;
 
-    [self.controller setWindowSize:[GameView windowSizeForCardView:newCardView]];
     [self setNeedsDisplay:YES];
 }
 

@@ -54,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSSize)windowSizeForSliderValue:(double)sliderValue;
 - (void)setCardSizeSliderValue:(double)sliderValue;
+- (void)previewCardSizeSliderValue:(double)sliderValue;
 
 @end
 
